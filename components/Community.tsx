@@ -6,12 +6,6 @@ import { useTranslations } from "next-intl";
 export function Community() {
     const t = useTranslations("Community");
 
-    const stats = [
-        { label: t("stars"), value: "1.2k+" },
-        { label: t("contributors"), value: "45+" },
-        { label: "Community Hub", value: "Discord" },
-    ];
-
     return (
         <section id="community" className="py-24 relative bg-slate-50 dark:bg-transparent transition-colors duration-500 overflow-hidden">
             {/* Animated Grid Background */}
@@ -68,19 +62,6 @@ export function Community() {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        {stats.map((stat, idx) => (
-                            <motion.div
-                                key={stat.label}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                                className="p-8 rounded-3xl bg-white dark:bg-[#09090b]/80 border border-slate-200 dark:border-white/5 shadow-sm hover:shadow-md dark:shadow-none transition-shadow text-center"
-                            >
-                                <div className="text-3xl font-black text-slate-900 dark:text-white mb-2">{stat.value}</div>
-                                <div className="text-sm font-medium text-slate-500 dark:text-slate-500 uppercase tracking-widest">{stat.label}</div>
-                            </motion.div>
-                        ))}
                         {/* Interactive Contribution Card */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
