@@ -78,7 +78,7 @@
         },
         "feature6": {
             "title": "Streaming & Auto-Detection",
-            "description": "Watch agents code in real-time with --stream. Automatically detects available models from Anthropic, OpenAI, Gemini, and Ollama."
+            "description": "Watch agents code in real-time with --stream. Automatically detects available models from Anthropic, OpenAI, Gemini, Groq, OpenRouter, and Ollama."
         }
     },
     "Install": {
@@ -116,7 +116,7 @@
         "headline": "Compatible with the best models",
         "anthropic": {
             "title": "Anthropic (Claude)",
-            "description": "Ideal for complex architectures. Optimized for claude-sonnet-3.5 and above."
+            "description": "Ideal for complex architectures. Optimized for claude-sonnet-4 and above."
         },
         "openai": {
             "title": "OpenAI (GPT-4o)",
@@ -124,11 +124,19 @@
         },
         "gemini": {
             "title": "Google Gemini",
-            "description": "Leverage its massive context window to analyze entire repositories in a second."
+            "description": "Leverage its massive context window to analyze entire repositories in a single pass."
         },
         "ollama": {
             "title": "Ollama (Local Models)",
-            "description": "Total privacy and zero cost. Run Llama 3 or DeepSeek directly on your machine."
+            "description": "Total privacy and zero cost. Run Llama 3, DeepSeek, or any local model directly on your machine."
+        },
+        "groq": {
+            "title": "Groq",
+            "description": "Blazing-fast inference for rapid iteration. Great for free-tier testing with llama-3.3-70b."
+        },
+        "openrouter": {
+            "title": "OpenRouter",
+            "description": "Access 100+ models through a single API key. Includes free-tier models — no credit card needed."
         }
     },
     "Community": {

@@ -57,7 +57,7 @@ export function Providers() {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
                 >
                     {/* Anthropic Card */}
                     <motion.div
@@ -65,50 +65,27 @@ export function Providers() {
                         className="relative group p-8 rounded-[2.5rem] bg-slate-50 dark:bg-[#030014] border border-slate-200 dark:border-white/10 hover:border-brand-primary/30 transition-all duration-500 overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-br from-brand-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
                         <div className="relative z-10">
                             <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-6 border border-slate-200 dark:border-white/5 shadow-sm">
                                 <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-orange-400 to-orange-600">A</span>
                             </div>
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">{t("anthropic.title")}</h3>
-                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                                {t("anthropic.description")}
-                            </p>
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{t("anthropic.title")}</h3>
+                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">{t("anthropic.description")}</p>
                         </div>
                     </motion.div>
 
-                    {/* Ollama Card */}
-                    <motion.div
-                        variants={cardVariants}
-                        className="relative group p-8 rounded-[2.5rem] bg-slate-50 dark:bg-[#030014] border border-slate-200 dark:border-white/10 hover:border-brand-secondary/30 transition-all duration-500 overflow-hidden"
-                    >
-                        <div className="absolute inset-0 bg-gradient-to-br from-brand-secondary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                        <div className="relative z-10">
-                            <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-6 border border-slate-200 dark:border-white/5 shadow-sm">
-                                <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-blue-400 to-cyan-400">O</span>
-                            </div>
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">{t("ollama.title")}</h3>
-                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                                {t("ollama.description")}
-                            </p>
-                        </div>
-                    </motion.div>
                     {/* OpenAI Card */}
                     <motion.div
                         variants={cardVariants}
                         className="relative group p-8 rounded-[2.5rem] bg-slate-50 dark:bg-[#030014] border border-slate-200 dark:border-white/10 hover:border-emerald-500/30 transition-all duration-500 overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
                         <div className="relative z-10">
                             <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-6 border border-slate-200 dark:border-white/5 shadow-sm">
                                 <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-emerald-400 to-emerald-600">O</span>
                             </div>
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">{t("openai.title")}</h3>
-                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                                {t("openai.description")}
-                            </p>
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{t("openai.title")}</h3>
+                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">{t("openai.description")}</p>
                         </div>
                     </motion.div>
 
@@ -118,28 +95,60 @@ export function Providers() {
                         className="relative group p-8 rounded-[2.5rem] bg-slate-50 dark:bg-[#030014] border border-slate-200 dark:border-white/10 hover:border-purple-500/30 transition-all duration-500 overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
                         <div className="relative z-10">
                             <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-6 border border-slate-200 dark:border-white/5 shadow-sm">
                                 <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-purple-400 to-fuchsia-500">G</span>
                             </div>
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">{t("gemini.title")}</h3>
-                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                                {t("gemini.description")}
-                            </p>
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{t("gemini.title")}</h3>
+                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">{t("gemini.description")}</p>
+                        </div>
+                    </motion.div>
+
+                    {/* Groq Card */}
+                    <motion.div
+                        variants={cardVariants}
+                        className="relative group p-8 rounded-[2.5rem] bg-slate-50 dark:bg-[#030014] border border-slate-200 dark:border-white/10 hover:border-red-500/30 transition-all duration-500 overflow-hidden"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="relative z-10">
+                            <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-6 border border-slate-200 dark:border-white/5 shadow-sm">
+                                <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-red-400 to-orange-500">G</span>
+                            </div>
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{t("groq.title")}</h3>
+                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">{t("groq.description")}</p>
+                        </div>
+                    </motion.div>
+
+                    {/* OpenRouter Card */}
+                    <motion.div
+                        variants={cardVariants}
+                        className="relative group p-8 rounded-[2.5rem] bg-slate-50 dark:bg-[#030014] border border-slate-200 dark:border-white/10 hover:border-sky-500/30 transition-all duration-500 overflow-hidden"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="relative z-10">
+                            <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-6 border border-slate-200 dark:border-white/5 shadow-sm">
+                                <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-sky-400 to-blue-500">R</span>
+                            </div>
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{t("openrouter.title")}</h3>
+                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">{t("openrouter.description")}</p>
+                        </div>
+                    </motion.div>
+
+                    {/* Ollama Card */}
+                    <motion.div
+                        variants={cardVariants}
+                        className="relative group p-8 rounded-[2.5rem] bg-slate-50 dark:bg-[#030014] border border-slate-200 dark:border-white/10 hover:border-brand-secondary/30 transition-all duration-500 overflow-hidden"
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-br from-brand-secondary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="relative z-10">
+                            <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-6 border border-slate-200 dark:border-white/5 shadow-sm">
+                                <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-blue-400 to-cyan-400">O</span>
+                            </div>
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{t("ollama.title")}</h3>
+                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">{t("ollama.description")}</p>
                         </div>
                     </motion.div>
                 </motion.div>
-
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.8 }}
-                    className="text-center mt-12 text-slate-500 dark:text-slate-500 text-sm font-medium"
-                >
-                    + More providers like Mistral coming soon
-                </motion.p>
             </div>
         </section>
     );
