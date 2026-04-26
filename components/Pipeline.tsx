@@ -68,15 +68,13 @@ export function Pipeline() {
                 {/* Steps grid */}
                 <div
                     style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(4, 1fr)",
                         gap: 1,
                         background: "var(--ds-line)",
                         border: "1px solid var(--ds-line)",
                         borderRadius: 12,
                         overflow: "hidden",
                     }}
-                    className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
                 >
                     {steps.map((s, i) => (
                         <motion.div
@@ -128,11 +126,11 @@ export function Pipeline() {
 
                             {/* arrow connector */}
                             {i < 3 && (
-                                <div style={{
+                                <div className="hidden lg:flex" style={{
                                     position: "absolute", right: -10, top: "50%", transform: "translateY(-50%)",
                                     width: 20, height: 20, borderRadius: "50%",
                                     background: "var(--ds-bg)", border: "1px solid var(--ds-line)",
-                                    display: "flex", alignItems: "center", justifyContent: "center",
+                                    alignItems: "center", justifyContent: "center",
                                     zIndex: 2, color: "var(--accent)",
                                 }}>
                                     <svg width="8" height="8" viewBox="0 0 8 8">
