@@ -7,6 +7,7 @@ import { getMessages } from 'next-intl/server';
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { getNpmVersion } from "@/lib/github";
 import Script from "next/script";
 
 const geistSans = localFont({
@@ -61,11 +62,13 @@ export default async function RootLayout({
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
+  const cliVersion = await getNpmVersion("@aiagentflow/cli");
 
   return (
     <html lang={locale} suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased min-h-screen bg-white dark:bg-brand-bg text-slate-900 dark:text-slate-100 selection:bg-brand-secondary/30 transition-colors duration-500`}
+        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased min-h-screen`}
+        style={{ background: "var(--ds-bg)", color: "var(--ds-fg)" }}
       >
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-SDL9BLML9T" />
         <Script id="google-analytics">
@@ -85,8 +88,8 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-1 mt-16">{children}</main>
+              <Header version={cliVersion} />
+              <main className="flex-1">{children}</main>
               <Footer />
             </div>
           </ThemeProvider>
