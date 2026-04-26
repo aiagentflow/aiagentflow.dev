@@ -1,5 +1,5 @@
-import { redirect } from "@/i18n/navigation";
+import { redirect } from "next/navigation";
 
-export default function DocsIndex({ params: { locale } }: { params: { locale: string } }) {
-    redirect({ href: "/docs/getting-started", locale });
+export default function DocsIndex() {
+    redirect("https://www.npmjs.com/package/@aiagentflow/cli");
 }
