@@ -1,130 +1,181 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
-const providers = [
-    { name: "OpenAI", models: "GPT-4o, GPT-4 Turbo", color: "from-emerald-400 to-teal-500" },
-    { name: "Anthropic", models: "Claude 3.5 Sonnet, Opus", color: "from-amber-400 to-orange-500" },
-    { name: "Google", models: "Gemini 1.5 Pro, Flash", color: "from-blue-400 to-indigo-500" },
-    { name: "Ollama (Local)", models: "Llama 3, Mistral", color: "from-slate-400 to-slate-600" },
-];
+const cmds: Record<string, string> = {
+    npm:  "npm i -g @aiagentflow/cli",
+    pnpm: "pnpm add -g @aiagentflow/cli",
+    bun:  "bun add -g @aiagentflow/cli",
+    brew: "brew install aiagentflow/tap/aiagentflow",
+};
 
 export function InstallGuide() {
-    const t = useTranslations("Install");
+    const [tab, setTab] = useState("npm");
     const [copied, setCopied] = useState(false);
 
-    const npmCommand = "npm install @aiagentflow/cli";
-
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(npmCommand);
+    const copy = () => {
+        navigator.clipboard?.writeText(cmds[tab]);
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        setTimeout(() => setCopied(false), 1200);
     };
 
     return (
-        <section id="install" className="py-24 relative overflow-hidden bg-slate-50 dark:bg-[#030014] transition-colors duration-500 border-t border-slate-200 dark:border-white/5">
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <section
+            id="install"
+            style={{
+                padding: "clamp(72px, 10vw, 140px) 0",
+                background: "var(--ds-bg-1)",
+                borderTop: "1px solid var(--ds-line)",
+            }}
+        >
+            <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
+                {/* Header — centered */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                    className="text-center mb-12"
+                    style={{ maxWidth: 720, margin: "0 auto 48px" }}
+                >
+                    <span className="eyebrow" style={{ justifyContent: "center" }}>Get started</span>
+                    <h2 style={{
+                        fontFamily: "var(--font-geist-sans), -apple-system, sans-serif",
+                        fontSize: "clamp(28px, 3.5vw, 48px)",
+                        lineHeight: 1.05,
+                        letterSpacing: "-0.028em",
+                        fontWeight: 500,
+                        margin: "14px 0 16px",
+                        color: "var(--ds-fg)",
+                    }}>
+                        Install once.{" "}
+                        <span style={{ color: "var(--ds-fg-3)" }}>Run anywhere.</span>
+                    </h2>
+                    <p style={{ fontSize: "clamp(15px, 1.1vw, 17px)", lineHeight: 1.55, color: "var(--ds-fg-2)" }}>
+                        Zero dependencies. Auto-detects models from your environment. First run wizard takes 90 seconds.
+                    </p>
+                </motion.div>
 
-                    {/* Left Column: Install Instructions */}
-                    <div>
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5 }}
-                            className="inline-flex items-center space-x-2 bg-brand-primary/10 border border-brand-primary/20 text-brand-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-6 tracking-wide"
-                        >
-                            {t("badge")}
-                        </motion.div>
-                        <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 tracking-tight leading-tight"
-                        >
-                            {t("headlinePrefix")}<br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary">
-                                {t("headlineSuffix")}
-                            </span>
-                        </motion.h2>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                            className="text-lg text-slate-600 dark:text-slate-400 mb-8"
-                        >
-                            {t("description")}
-                        </motion.p>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
-                            className="relative group min-w-0 w-full"
-                        >
-                            <div className="absolute -inset-1 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                            <div className="relative flex items-center justify-between bg-white dark:bg-[#09090b] border border-slate-200 dark:border-white/10 rounded-xl p-3 sm:p-4 overflow-hidden w-full">
-                                <div className="overflow-x-auto flex-1 font-mono text-slate-800 dark:text-slate-300 py-1 no-scrollbar text-sm md:text-base">
-                                    <span className="text-brand-primary select-none">$ </span>
-                                    <span className="whitespace-nowrap">{npmCommand}</span>
-                                </div>
-                                <button
-                                    onClick={copyToClipboard}
-                                    className="ml-2 sm:ml-4 p-2 shrink-0 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-600 dark:text-slate-400 hover:text-brand-primary transition-all focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 dark:focus:ring-offset-[#09090b]"
-                                    aria-label="Copy command"
-                                >
-                                    {copied ? (
-                                        <svg className="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    ) : (
-                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                        </svg>
-                                    )}
-                                </button>
-                            </div>
-                        </motion.div>
-                    </div>
-
-                    {/* Right Column: Model Providers Grid */}
+                <div style={{ maxWidth: 760, margin: "0 auto" }}>
+                    {/* pkg manager tabs */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                        className="grid sm:grid-cols-2 gap-4"
+                        transition={{ duration: 0.4 }}
                     >
-                        {providers.map((provider, index) => (
-                            <motion.div
-                                key={provider.name}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: 0.1 * index }}
-                                className="bg-white dark:bg-[#09090b] border border-slate-200 dark:border-white/5 rounded-2xl p-6 hover:border-brand-primary/30 transition-colors group"
+                        <div style={{
+                            display: "inline-flex", padding: 4, gap: 2,
+                            background: "var(--ds-bg-2)", border: "1px solid var(--ds-line)",
+                            borderRadius: 10, marginBottom: 16,
+                        }}>
+                            {Object.keys(cmds).map(k => (
+                                <button
+                                    key={k}
+                                    onClick={() => setTab(k)}
+                                    className="font-mono-var"
+                                    style={{
+                                        padding: "6px 14px", borderRadius: 6,
+                                        fontSize: 12,
+                                        color: tab === k ? "var(--ds-fg)" : "var(--ds-fg-3)",
+                                        background: tab === k ? "var(--ds-bg)" : "transparent",
+                                        fontWeight: tab === k ? 500 : 400,
+                                        transition: "all .15s",
+                                        border: "none",
+                                        cursor: "pointer",
+                                    }}
+                                >
+                                    {k}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* command box */}
+                        <div style={{
+                            background: "var(--ds-code-bg)", border: "1px solid var(--ds-line-hi)",
+                            borderRadius: 12, padding: "20px 24px",
+                            display: "flex", alignItems: "center", gap: 14,
+                            fontFamily: "var(--font-geist-mono), ui-monospace, monospace",
+                            fontSize: 15,
+                        }}>
+                            <span style={{ color: "var(--ds-fg-3)" }}>$</span>
+                            <span style={{ flex: 1, color: "var(--ds-fg)" }}>{cmds[tab]}</span>
+                            <button
+                                onClick={copy}
+                                className="ds-kbd"
+                                style={{ cursor: "pointer", transition: "border-color .15s" }}
+                                onMouseEnter={e => ((e.currentTarget as HTMLElement).style.borderColor = "var(--ds-line-hi)")}
+                                onMouseLeave={e => ((e.currentTarget as HTMLElement).style.borderColor = "var(--ds-line)")}
                             >
-                                <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${provider.color} p-[1px] mb-4 opacity-80 group-hover:opacity-100 transition-opacity`}>
-                                    <div className="w-full h-full bg-white dark:bg-[#09090b] rounded-[7px] flex items-center justify-center">
-                                        <div className={`w-3 h-3 rounded-full bg-gradient-to-br ${provider.color}`} />
-                                    </div>
-                                </div>
-                                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
-                                    {provider.name}
-                                </h3>
-                                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
-                                    {provider.models}
-                                </p>
-                            </motion.div>
+                                {copied ? (
+                                    <span style={{ color: "var(--ok)" }}>copied</span>
+                                ) : "copy"}
+                            </button>
+                        </div>
+                    </motion.div>
+
+                    {/* 3-step guide */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: 0.1 }}
+                        style={{
+                            marginTop: 32,
+                            display: "grid",
+                            gridTemplateColumns: "repeat(3, 1fr)",
+                            gap: 1,
+                            background: "var(--ds-line)",
+                            border: "1px solid var(--ds-line)",
+                            borderRadius: 12,
+                            overflow: "hidden",
+                        }}
+                        className="grid-cols-1 sm:grid-cols-3"
+                    >
+                        {[
+                            { n: "01", title: "Install", body: "One-line install via your favorite package manager." },
+                            { n: "02", title: "Auto-detect", body: "aiagentflow init scans for ANTHROPIC_API_KEY, OPENAI_API_KEY, ollama, etc." },
+                            { n: "03", title: "Run", body: 'aiagentflow run "your task"' },
+                        ].map(s => (
+                            <div key={s.n} style={{ background: "var(--ds-bg)", padding: "24px 20px" }}>
+                                <div className="font-mono-var" style={{ fontSize: 11, color: "var(--ds-fg-3)", marginBottom: 12, letterSpacing: "0.06em" }}>{s.n}</div>
+                                <div style={{ fontSize: 15, fontWeight: 500, color: "var(--ds-fg)", marginBottom: 6 }}>{s.title}</div>
+                                <div className="font-mono-var" style={{ fontSize: 12, color: "var(--ds-fg-2)", lineHeight: 1.55 }}>{s.body}</div>
+                            </div>
                         ))}
                     </motion.div>
 
+                    <div style={{ marginTop: 24, textAlign: "center", display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+                        <a
+                            href="https://github.com/aiagentflow/aiagentflow"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-all duration-150"
+                            style={{
+                                border: "1px solid var(--ds-line-hi)", color: "var(--ds-fg)",
+                                background: "transparent",
+                            }}
+                            onMouseEnter={e => ((e.currentTarget as HTMLElement).style.background = "var(--ds-bg-2)")}
+                            onMouseLeave={e => ((e.currentTarget as HTMLElement).style.background = "transparent")}
+                        >
+                            Read the docs →
+                        </a>
+                        <a
+                            href="https://github.com/aiagentflow/aiagentflow"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-all duration-150"
+                            style={{
+                                border: "1px solid var(--ds-line-hi)", color: "var(--ds-fg)",
+                                background: "transparent",
+                            }}
+                            onMouseEnter={e => ((e.currentTarget as HTMLElement).style.background = "var(--ds-bg-2)")}
+                            onMouseLeave={e => ((e.currentTarget as HTMLElement).style.background = "transparent")}
+                        >
+                            View on GitHub
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
