@@ -226,13 +226,14 @@ function StreamingTerminal() {
                 className="font-mono-var"
                 style={{
                     padding: "16px 18px",
-                    fontSize: 12, lineHeight: 1.65,
+                    fontSize: "clamp(10px, 2.5vw, 12px)", lineHeight: 1.65,
                     minHeight: 240, maxHeight: 240, overflow: "hidden",
+                    overflowX: "hidden",
                     display: "flex", flexDirection: "column",
                 }}
             >
                 {lines.slice(0, shown).map((l, i) => (
-                    <div key={i} style={{ color: palette[l.t], whiteSpace: "pre" }}>
+                    <div key={i} style={{ color: palette[l.t], whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                         {l.s || " "}
                     </div>
                 ))}
