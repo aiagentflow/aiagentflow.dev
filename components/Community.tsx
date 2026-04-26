@@ -1,97 +1,128 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
 
-export function Community() {
-	const t = useTranslations("Community");
+export function Community({ stars = "38", contributors = "0", prs = "0", goodFirstIssues = "0" }: { stars?: string; contributors?: string; prs?: string; goodFirstIssues?: string }) {
+    return (
+        <section
+            id="community"
+            style={{
+                padding: "clamp(72px, 10vw, 140px) 0",
+                background: "var(--ds-bg)",
+                borderTop: "1px solid var(--ds-line)",
+                position: "relative", overflow: "hidden",
+            }}
+        >
+            <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                    style={{
+                        position: "relative",
+                        borderRadius: 18,
+                        padding: "clamp(32px, 5vw, 80px)",
+                        background: "linear-gradient(135deg, var(--ds-bg-1), var(--ds-bg-2))",
+                        border: "1px solid var(--ds-line)",
+                        overflow: "hidden",
+                    }}
+                >
+                    {/* decorative DAG */}
+                    <svg
+                        viewBox="0 0 600 200"
+                        style={{ position: "absolute", right: -80, top: -40, width: 640, opacity: 0.15, color: "var(--accent)", pointerEvents: "none" }}
+                        aria-hidden="true"
+                    >
+                        <g stroke="currentColor" strokeWidth="1" fill="none">
+                            {Array.from({ length: 30 }).map((_, i) => (
+                                <circle key={i} cx={(i * 31) % 600} cy={(i * 47) % 200} r="2.5" fill="currentColor" />
+                            ))}
+                            <path d="M40 40 L120 80 L60 130 L180 100 L240 60 L320 120 L400 80 L480 140 L560 90" />
+                            <path d="M80 160 L160 110 L260 150 L360 100 L460 60" />
+                        </g>
+                    </svg>
 
-	return (
-		<section
-			id="community"
-			className="py-24 relative bg-slate-50 dark:bg-transparent transition-colors duration-500 overflow-hidden"
-		>
-			{/* Animated Grid Background */}
-			<div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+                    <div style={{ position: "relative", maxWidth: 720 }}>
+                        <span className="eyebrow">Open source</span>
+                        <h2 style={{
+                            fontFamily: "var(--font-geist-sans), -apple-system, sans-serif",
+                            fontSize: "clamp(28px, 3.5vw, 48px)",
+                            lineHeight: 1.05,
+                            letterSpacing: "-0.028em",
+                            fontWeight: 500,
+                            margin: "14px 0 16px",
+                            color: "var(--ds-fg)",
+                        }}>
+                            From the community,{" "}
+                            <span style={{ color: "var(--ds-fg-3)" }}>for the community.</span>
+                        </h2>
+                        <p style={{ fontSize: "clamp(15px, 1.1vw, 17px)", lineHeight: 1.55, color: "var(--ds-fg-2)", marginBottom: 32 }}>
+                            MIT licensed. {stars} stars. {contributors} contributors. We review PRs within 48 hours and ship a release every two weeks. The roadmap lives in the open.
+                        </p>
 
-			<div className="max-w-7xl mx-auto px-6 relative z-10">
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-					<div>
-						<motion.div
-							initial={{ opacity: 0, x: -20 }}
-							whileInView={{ opacity: 1, x: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.5 }}
-							className="inline-flex items-center space-x-2 bg-brand-secondary/10 border border-brand-secondary/20 text-brand-secondary px-4 py-1.5 rounded-full text-sm font-semibold mb-6 tracking-wide"
-						>
-							{t("badge")}
-						</motion.div>
-						<motion.h2
-							initial={{ opacity: 0, y: 20 }}
-							whileInView={{ opacity: 1, y: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.5, delay: 0.1 }}
-							className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-6 tracking-tight"
-						>
-							{t("headline")}
-						</motion.h2>
-						<motion.p
-							initial={{ opacity: 0, y: 20 }}
-							whileInView={{ opacity: 1, y: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.5, delay: 0.2 }}
-							className="text-lg text-slate-600 dark:text-slate-400 mb-10 leading-relaxed"
-						>
-							{t("description")}
-						</motion.p>
+                        <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 32 }}>
+                            <a
+                                href="https://github.com/aiagentflow/aiagentflow"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 hover:-translate-y-px"
+                                style={{ background: "var(--ds-fg)", color: "var(--ds-bg)", border: "1px solid var(--ds-fg)" }}
+                            >
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                                    <path d="M7 0a7 7 0 0 0-2.2 13.6c.35.07.48-.15.48-.34v-1.2c-1.95.42-2.36-.94-2.36-.94-.32-.81-.78-1.03-.78-1.03-.64-.43.05-.43.05-.43.7.05 1.07.72 1.07.72.62 1.07 1.64.76 2.04.58.06-.45.24-.76.44-.94-1.55-.18-3.18-.78-3.18-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.92.72.56-.16 1.16-.23 1.75-.23.6 0 1.2.07 1.75.23 1.34-.91 1.92-.72 1.92-.72.38.97.14 1.69.07 1.87.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.45.25.22.48.65.48 1.31v1.94c0 .19.13.42.49.34A7 7 0 0 0 7 0Z" />
+                                </svg>
+                                Star on GitHub · {stars}
+                            </a>
+                            <a
+                                href="https://github.com/aiagentflow/aiagentflow"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium transition-all duration-150"
+                                style={{
+                                    background: "transparent", color: "var(--ds-fg)",
+                                    border: "1px solid var(--ds-line-hi)",
+                                }}
+                                onMouseEnter={e => ((e.currentTarget as HTMLElement).style.background = "var(--ds-bg-2)")}
+                                onMouseLeave={e => ((e.currentTarget as HTMLElement).style.background = "transparent")}
+                            >
+                                Good first issues · {goodFirstIssues}
+                            </a>
+                        </div>
 
-						<motion.div
-							initial={{ opacity: 0, y: 20 }}
-							whileInView={{ opacity: 1, y: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.5, delay: 0.3 }}
-							className="flex flex-wrap gap-4"
-						>
-							<a
-								href="https://github.com/aiagentflow/aiagentflow"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="px-8 py-3 rounded-full bg-slate-950 dark:bg-white text-white dark:text-slate-950 font-bold hover:scale-105 transition-transform flex items-center gap-2"
-							>
-								<svg
-									className="w-5 h-5"
-									fill="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-								</svg>
-								{t("button")}
-							</a>
-						</motion.div>
-					</div>
-
-					<div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-						{/* Interactive Contribution Card */}
-						<motion.div
-							initial={{ opacity: 0, scale: 0.9 }}
-							whileInView={{ opacity: 1, scale: 1 }}
-							viewport={{ once: true }}
-							transition={{ duration: 0.5, delay: 0.3 }}
-							className="p-8 rounded-3xl bg-brand-primary text-white text-center sm:col-span-2 group cursor-pointer relative overflow-hidden"
-						>
-							<div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-							<div className="relative z-10">
-								<div className="text-xl font-bold mb-1">
-									Make your first contribution
-								</div>
-								<div className="text-white/80 text-sm italic">
-									Documentation | Bug Fixes | Feature Requests
-								</div>
-							</div>
-						</motion.div>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
+                        {/* stats grid */}
+                        <div style={{
+                            display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 1,
+                            background: "var(--ds-line)", border: "1px solid var(--ds-line)",
+                            borderRadius: 8, overflow: "hidden",
+                        }}
+                            className="grid-cols-2 sm:grid-cols-4"
+                        >
+                            {[
+                                { v: stars,        k: "GitHub stars" },
+                                { v: contributors, k: "contributors" },
+                                { v: prs,          k: "merged PRs" },
+                                { v: "14d",   k: "release cadence" },
+                            ].map(s => (
+                                <div key={s.k} style={{ background: "var(--ds-bg-1)", padding: "16px 20px" }}>
+                                    <div
+                                        className="font-mono-var"
+                                        style={{ fontSize: 22, color: "var(--ds-fg)", fontWeight: 500, letterSpacing: "-0.01em" }}
+                                    >
+                                        {s.v}
+                                    </div>
+                                    <div
+                                        className="font-mono-var"
+                                        style={{ fontSize: 10, color: "var(--ds-fg-3)", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 2 }}
+                                    >
+                                        {s.k}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </motion.div>
+            </div>
+        </section>
+    );
 }

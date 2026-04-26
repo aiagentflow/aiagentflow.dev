@@ -1,63 +1,159 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { Logo } from "./Logo";
-import { useTranslations } from "next-intl";
+
+function BrandGlyph({ size = 24 }: { size?: number }) {
+    return (
+        <svg width={size} height={size} viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <defs>
+                <linearGradient id="fg-glyph" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stopColor="var(--accent-hi)" />
+                    <stop offset="1" stopColor="var(--accent-lo)" />
+                </linearGradient>
+            </defs>
+            <rect x="0.5" y="0.5" width="25" height="25" rx="6" stroke="url(#fg-glyph)" strokeWidth="1" />
+            <circle cx="7" cy="7" r="2" fill="var(--accent)" />
+            <circle cx="19" cy="7" r="2" fill="var(--accent)" />
+            <circle cx="7" cy="19" r="2" fill="var(--accent)" />
+            <circle cx="19" cy="19" r="2" fill="var(--accent)" />
+            <path d="M7 7 L19 7 L7 19 L19 19" stroke="var(--accent)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.85" />
+            <path d="M7 7 L19 19" stroke="var(--accent)" strokeWidth="1" strokeLinecap="round" opacity="0.5" />
+        </svg>
+    );
+}
+
+const cols = [
+    {
+        title: "Product",
+        links: [
+            { label: "Documentation", href: "https://www.npmjs.com/package/@aiagentflow/cli" },
+            { label: "Comparisons", href: "/use-cases/aiagentflow-vs-langchain", internal: true },
+            { label: "Changelog", href: "https://github.com/aiagentflow/aiagentflow/releases" },
+            { label: "Roadmap", href: "https://github.com/aiagentflow/aiagentflow/issues" },
+        ],
+    },
+    {
+        title: "Resources",
+        links: [
+            { label: "Blog", href: "/blog", internal: true },
+            { label: "Examples", href: "https://github.com/aiagentflow/aiagentflow/tree/main/examples" },
+            { label: "API reference", href: "https://github.com/aiagentflow/aiagentflow#readme" },
+            { label: "Cookbook", href: "https://github.com/aiagentflow/aiagentflow" },
+        ],
+    },
+    {
+        title: "Community",
+        links: [
+            { label: "GitHub", href: "https://github.com/aiagentflow/aiagentflow" },
+            { label: "Contribute", href: "https://github.com/aiagentflow/aiagentflow/blob/main/CONTRIBUTING.md" },
+            { label: "Good first issues", href: "https://github.com/aiagentflow/aiagentflow/labels/good%20first%20issue" },
+        ],
+    },
+    {
+        title: "Legal",
+        links: [
+            { label: "License (MIT)", href: "https://opensource.org/licenses/MIT" },
+            { label: "Privacy", href: "/privacy", internal: true },
+            { label: "Terms", href: "/terms", internal: true },
+        ],
+    },
+];
 
 export function Footer() {
-    const t = useTranslations("Footer");
-
     return (
-        <footer className="bg-slate-50 dark:bg-[#020617] border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
-            <div className="max-w-7xl mx-auto px-6 py-12 md:py-16">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
-
-                    <div className="md:col-span-2">
-                        <Link href="/" className="flex items-center gap-2 mb-4 group inline-flex">
-                            <Logo className="w-6 h-6 grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all" />
-                            <span className="font-bold text-lg tracking-tight text-slate-900 dark:text-white">
-                                AI Agent Flow
-                            </span>
+        <footer style={{ borderTop: "1px solid var(--ds-line)", background: "var(--ds-bg-1)", paddingTop: 64, paddingBottom: 32 }}>
+            <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
+                <div
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)]"
+                    style={{ gap: "clamp(32px, 4vw, 48px)", marginBottom: 64 }}
+                >
+                    {/* Brand column */}
+                    <div>
+                        <Link
+                            href="/"
+                            className="inline-flex items-center gap-2 mb-4 group"
+                            style={{
+                                fontFamily: "var(--font-geist-mono), ui-monospace, monospace",
+                                fontSize: 13, fontWeight: 600, letterSpacing: "-0.01em",
+                                color: "var(--ds-fg)",
+                                textDecoration: "none",
+                            }}
+                        >
+                            <BrandGlyph size={24} />
+                            <span>aiagentflow</span>
                         </Link>
-                        <p className="text-slate-500 dark:text-slate-400 mb-6 max-w-sm">
-                            {t("description")}
+                        <p style={{ marginTop: 16, color: "var(--ds-fg-2)", fontSize: 13, lineHeight: 1.55, maxWidth: "34ch" }}>
+                            Open-source multi-agent orchestration for software engineering. Local-first, model-agnostic, MIT-licensed.
                         </p>
-                        <div className="flex items-center gap-4">
-                            {/* Social Icons Placeholder */}
-                            <a href="https://github.com/aiagentflow/aiagentflow" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
-                                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                        <div style={{ marginTop: 20, display: "flex", gap: 8 }}>
+                            <a
+                                href="https://github.com/aiagentflow/aiagentflow"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="ds-kbd"
+                                aria-label="GitHub"
+                                onMouseEnter={e => ((e.currentTarget as HTMLElement).style.borderColor = "var(--ds-line-hi)")}
+                                onMouseLeave={e => ((e.currentTarget as HTMLElement).style.borderColor = "var(--ds-line)")}
+                            >
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+                                    <path d="M7 0a7 7 0 0 0-2.2 13.6c.35.07.48-.15.48-.34v-1.2c-1.95.42-2.36-.94-2.36-.94-.32-.81-.78-1.03-.78-1.03-.64-.43.05-.43.05-.43.7.05 1.07.72 1.07.72.62 1.07 1.64.76 2.04.58.06-.45.24-.76.44-.94-1.55-.18-3.18-.78-3.18-3.46 0-.76.27-1.39.72-1.88-.07-.18-.31-.9.07-1.87 0 0 .59-.19 1.92.72.56-.16 1.16-.23 1.75-.23.6 0 1.2.07 1.75.23 1.34-.91 1.92-.72 1.92-.72.38.97.14 1.69.07 1.87.45.49.72 1.12.72 1.88 0 2.69-1.64 3.28-3.2 3.45.25.22.48.65.48 1.31v1.94c0 .19.13.42.49.34A7 7 0 0 0 7 0Z" />
                                 </svg>
                             </a>
                         </div>
                     </div>
 
-                    <div>
-                        <h3 className="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">{t("resources")}</h3>
-                        <ul className="space-y-3">
-                            <li><Link href="/blog" className="text-slate-500 dark:text-slate-400 hover:text-brand-primary dark:hover:text-brand-secondary transition-colors">{t("blog")}</Link></li>
-                            <li><Link href="/docs/getting-started" className="text-slate-500 dark:text-slate-400 hover:text-brand-primary dark:hover:text-brand-secondary transition-colors">{t("docs")}</Link></li>
-                            <li><Link href="/use-cases/aiagentflow-vs-langchain" className="text-slate-500 dark:text-slate-400 hover:text-brand-primary dark:hover:text-brand-secondary transition-colors">Alternatives</Link></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 className="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">{t("legal")}</h3>
-                        <ul className="space-y-3">
-                            <li><Link href="/privacy" className="text-slate-500 dark:text-slate-400 hover:text-brand-primary dark:hover:text-brand-secondary transition-colors">{t("privacy")}</Link></li>
-                            <li><Link href="/terms" className="text-slate-500 dark:text-slate-400 hover:text-brand-primary dark:hover:text-brand-secondary transition-colors">{t("terms")}</Link></li>
-                            <li><a href="https://opensource.org/licenses/MIT" target="_blank" rel="noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-brand-primary dark:hover:text-brand-secondary transition-colors">{t("license")}</a></li>
-                        </ul>
-                    </div>
-
+                    {/* Link columns */}
+                    {cols.map(col => (
+                        <div key={col.title}>
+                            <span className="eyebrow" style={{ marginBottom: 14, display: "block" }}>{col.title}</span>
+                            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+                                {col.links.map(l => (
+                                    <li key={l.label}>
+                                        {l.internal ? (
+                                            <Link
+                                                href={l.href}
+                                                style={{ fontSize: 13, color: "var(--ds-fg-2)", textDecoration: "none", transition: "color .15s" }}
+                                                onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.color = "var(--ds-fg)")}
+                                                onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.color = "var(--ds-fg-2)")}
+                                            >
+                                                {l.label}
+                                            </Link>
+                                        ) : (
+                                            <a
+                                                href={l.href}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                style={{ fontSize: 13, color: "var(--ds-fg-2)", textDecoration: "none", transition: "color .15s" }}
+                                                onMouseEnter={e => (e.currentTarget.style.color = "var(--ds-fg)")}
+                                                onMouseLeave={e => (e.currentTarget.style.color = "var(--ds-fg-2)")}
+                                            >
+                                                {l.label}
+                                            </a>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
                 </div>
 
-                <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-sm text-slate-500 dark:text-slate-400">
-                        &copy; {new Date().getFullYear()} {t("allRightsReserved")}
-                    </p>
-                    <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-
+                <div style={{
+                    paddingTop: 24, borderTop: "1px solid var(--ds-line)",
+                    display: "flex", justifyContent: "space-between", alignItems: "center",
+                    flexWrap: "wrap", gap: 12,
+                }}>
+                    <div
+                        className="font-mono-var"
+                        style={{ fontSize: 11, color: "var(--ds-fg-3)" }}
+                    >
+                        © {new Date().getFullYear()} aiagentflow contributors · MIT License
+                    </div>
+                    <div
+                        className="font-mono-var"
+                        style={{ fontSize: 11, color: "var(--ds-fg-3)", display: "flex", alignItems: "center", gap: 8 }}
+                    >
+                        <span style={{ display: "inline-block", width: 6, height: 6, borderRadius: "50%", background: "var(--ok)", boxShadow: "0 0 8px var(--ok)" }} />
+                        All systems operational
                     </div>
                 </div>
             </div>

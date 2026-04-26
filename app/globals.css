@@ -4,19 +4,51 @@
 
 @layer base {
     :root {
-        --brand-primary: 139 92 246;
-        /* violet-500 */
-        --brand-secondary: 217 70 239;
-        /* fuchsia-500 */
-        --brand-tertiary: 99 102 241;
-        /* indigo-500 */
-        --brand-bg: 3 0 20;
-        /* #030014 */
+        /* Brand tokens — violet accent */
+        --brand-primary: 124 92 255;    /* #7c5cff */
+        --brand-secondary: 154 130 255; /* #9a82ff */
+        --brand-tertiary: 93 62 255;    /* #5d3eff */
+        --brand-bg: 8 8 11;             /* #08080b */
+
+        /* Design system tokens — light mode */
+        --accent: #7c5cff;
+        --accent-hi: #9a82ff;
+        --accent-lo: #5d3eff;
+        --accent-glow: rgba(124, 92, 255, 0.35);
+        --ok: #4ade80;
+        --warn: #fbbf24;
+        --err: #f87171;
+        --info: #60a5fa;
+        --ds-bg: #fafaf9;
+        --ds-bg-1: #ffffff;
+        --ds-bg-2: #f4f4f3;
+        --ds-bg-3: #ebebe9;
+        --ds-line: rgba(0, 0, 0, 0.08);
+        --ds-line-hi: rgba(0, 0, 0, 0.16);
+        --ds-fg: #0a0a0a;
+        --ds-fg-1: #18181b;
+        --ds-fg-2: #3f3f46;
+        --ds-fg-3: #71717a;
+        --ds-fg-4: #a1a1aa;
+        --ds-grid: rgba(0, 0, 0, 0.04);
+        --ds-code-bg: #f4f4f3;
     }
 
-    .light {
-        --brand-bg: 252 251 247;
-        /* Warm White #FCFBF7 */
+    .dark {
+        --brand-bg: 8 8 11;
+        --ds-bg: #08080b;
+        --ds-bg-1: #0d0d12;
+        --ds-bg-2: #14141b;
+        --ds-bg-3: #1c1c25;
+        --ds-line: rgba(255, 255, 255, 0.08);
+        --ds-line-hi: rgba(255, 255, 255, 0.14);
+        --ds-fg: #f4f4f5;
+        --ds-fg-1: #d4d4d8;
+        --ds-fg-2: #a1a1aa;
+        --ds-fg-3: #71717a;
+        --ds-fg-4: #52525b;
+        --ds-grid: rgba(255, 255, 255, 0.04);
+        --ds-code-bg: #0a0a0d;
     }
 }
 
@@ -28,6 +60,95 @@
     .font-serif {
         font-family: var(--font-serif), serif;
     }
+}
+
+/* ── Keyframes ─────────────────────────────────────────────── */
+@keyframes shimmer {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+}
+@keyframes cursor-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+@keyframes dash-flow {
+    to { stroke-dashoffset: -20; }
+}
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+/* No scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Design system utility classes ─────────────────────────── */
+.eyebrow {
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ds-fg-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.eyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent-glow);
+    flex-shrink: 0;
+}
+
+.ds-card {
+    position: relative;
+    background: var(--ds-bg-1);
+    border: 1px solid var(--ds-line);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.2s ease;
+}
+.ds-card:hover { border-color: var(--ds-line-hi); }
+
+.ds-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    padding: 4px 8px;
+    border: 1px solid var(--ds-line);
+    border-radius: 999px;
+    color: var(--ds-fg-2);
+    background: var(--ds-bg-1);
+}
+
+.ds-kbd {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    font-size: 12px;
+    padding: 4px 8px;
+    background: var(--ds-bg-2);
+    border: 1px solid var(--ds-line);
+    border-radius: 4px;
+    color: var(--ds-fg-1);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
 @layer components {
