@@ -1,6 +1,7 @@
 "use client";
 
 import { Link, usePathname } from "@/i18n/navigation";
+import Image from "next/image";
 import { ThemeToggle } from "./ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -27,16 +28,25 @@ function BrandGlyph({ size = 26 }: { size?: number }) {
     );
 }
 
-export function Header({ version = "v1.0.2" }: { version?: string }) {
+export function Header({ version = "v1.0.2", stars = "38" }: { version?: string; stars?: string }) {
     const t = useTranslations("Header");
     const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [productHuntDismissed, setProductHuntDismissed] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    useEffect(() => {
+        try {
+            setProductHuntDismissed(window.localStorage.getItem("producthunt-banner-dismissed") === "1");
+        } catch {
+            setProductHuntDismissed(false);
+        }
     }, []);
 
     const navItems = [
@@ -51,6 +61,16 @@ export function Header({ version = "v1.0.2" }: { version?: string }) {
         if (href.startsWith("/use-cases")) return pathname.startsWith("/use-cases");
         if (href.includes("github.com/aiagentflow") && pathname.startsWith("/docs")) return true;
         return false;
+    };
+
+    const dismissProductHuntBanner = () => {
+        setProductHuntDismissed(true);
+
+        try {
+            window.localStorage.setItem("producthunt-banner-dismissed", "1");
+        } catch {
+            // Ignore storage failures and just dismiss for the current session.
+        }
     };
 
     return (
@@ -71,6 +91,70 @@ export function Header({ version = "v1.0.2" }: { version?: string }) {
                 transition: "background 0.3s ease, border-color 0.3s ease",
             }}
         >
+            <AnimatePresence initial={false}>
+                {!productHuntDismissed && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.22, ease: "easeInOut" }}
+                        className="overflow-hidden border-b"
+                        style={{
+                            borderColor: "var(--ds-line)",
+                            background: "linear-gradient(180deg, color-mix(in oklab, var(--ds-bg-1), white 10%) 0%, var(--ds-bg-1) 100%)",
+                        }}
+                    >
+                        <div className="max-w-[1280px] mx-auto px-3 sm:px-6 py-2.5 flex items-center justify-between gap-2 sm:gap-4">
+                            <div className="min-w-0 flex-1 flex items-center justify-between gap-3 sm:gap-5">
+                                <div className="min-w-0">
+                                    <p
+                                        className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em]"
+                                        style={{ color: "var(--ds-fg-3)" }}
+                                    >
+                                        Officially launched
+                                    </p>
+                                    <p
+                                        className="mt-1 text-[12px] sm:text-[13px] leading-[1.25]"
+                                        style={{ color: "var(--ds-fg-1)" }}
+                                    >
+                                        AI Agent Flow is now officially launched on Product Hunt.
+                                    </p>
+                                </div>
+
+                                <a
+                                    href="https://www.producthunt.com/products/aiagentflow-cli?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-aiagentflow-cli"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="shrink-0"
+                                >
+                                    <Image
+                                        alt="aiagentflow CLI - A local-first AI engineering team in your terminal. | Product Hunt"
+                                        width="250"
+                                        height="54"
+                                        src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1136583&theme=light&t=1777790882589"
+                                        className="block h-auto w-[150px] sm:w-[250px] max-w-full"
+                                        unoptimized
+                                    />
+                                </a>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={dismissProductHuntBanner}
+                                className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-full border transition-colors"
+                                style={{
+                                    borderColor: "var(--ds-line)",
+                                    color: "var(--ds-fg-2)",
+                                    background: "var(--ds-bg-1)",
+                                }}
+                                aria-label="Dismiss Product Hunt banner"
+                            >
+                                <X className="w-4 h-4" />
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-[60px] flex items-center justify-between gap-4 sm:gap-6">
 
                 {/* Mobile menu toggle */}
@@ -155,7 +239,7 @@ export function Header({ version = "v1.0.2" }: { version?: string }) {
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
                             <path d="M6 1 L7.4 4.2 L11 4.6 L8.3 7 L9.1 10.6 L6 8.8 L2.9 10.6 L3.7 7 L1 4.6 L4.6 4.2 Z" />
                         </svg>
-                        38
+                        {stars}
                     </a>
                     <ThemeToggle />
                     <a
