@@ -1,4 +1,24 @@
 import { useTranslations } from 'next-intl';
+import type { Metadata } from 'next';
+import { canonicalPath, languageAlternates, siteName, siteUrl } from '@/lib/seo';
+
+interface TermsOfServiceProps {
+    params: { locale: string };
+}
+
+export async function generateMetadata({ params }: TermsOfServiceProps): Promise<Metadata> {
+    const path = '/terms';
+
+    return {
+        metadataBase: new URL(siteUrl),
+        title: `Terms | ${siteName}`,
+        description: 'Terms of service for AI Agent Flow, the open-source multi-agent orchestration CLI.',
+        alternates: {
+            canonical: canonicalPath(params.locale, path),
+            languages: languageAlternates(path),
+        },
+    };
+}
 
 export default function TermsOfService() {
     const t = useTranslations('Footer');

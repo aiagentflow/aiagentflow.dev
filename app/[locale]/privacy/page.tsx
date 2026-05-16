@@ -1,4 +1,24 @@
 import { useTranslations } from 'next-intl';
+import type { Metadata } from 'next';
+import { canonicalPath, languageAlternates, siteName, siteUrl } from '@/lib/seo';
+
+interface PrivacyPolicyProps {
+    params: { locale: string };
+}
+
+export async function generateMetadata({ params }: PrivacyPolicyProps): Promise<Metadata> {
+    const path = '/privacy';
+
+    return {
+        metadataBase: new URL(siteUrl),
+        title: `Privacy | ${siteName}`,
+        description: 'Privacy policy for the AI Agent Flow website and local-first CLI.',
+        alternates: {
+            canonical: canonicalPath(params.locale, path),
+            languages: languageAlternates(path),
+        },
+    };
+}
 
 export default function PrivacyPolicy() {
     const t = useTranslations('Footer');

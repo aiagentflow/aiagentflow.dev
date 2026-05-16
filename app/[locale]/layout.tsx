@@ -9,6 +9,15 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { getGitHubStats, getNpmVersion } from "@/lib/github";
 import Script from "next/script";
+import {
+  languageAlternates,
+  organizationJsonLd,
+  projectDescription,
+  siteName,
+  siteUrl,
+  softwareApplicationJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -28,8 +37,9 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "AI Agent Flow — Multi-Agent AI Workflow Orchestrator",
-  description: "Open-source CLI tool that orchestrates multi-agent AI workflows for software development. Architect, code, review, test, and ship — automatically.",
+  metadataBase: new URL(siteUrl),
+  title: "AI Agent Flow | Multi-Agent AI Workflow Orchestrator",
+  description: projectDescription,
   keywords: [
     "ai agents", "multi-agent orchestration", "software development automation", "ai coding assistant",
     "local-first ai", "cli ai tool", "automated code review", "ai testing", "llm workflow", "open source ai agent",
@@ -37,18 +47,22 @@ export const metadata: Metadata = {
     "self hosting ai workflow", "aiagent flow", "ai task flow configuration", "automated ai engineering", "local ai orchestration"
   ],
   openGraph: {
-    title: "AI Agent Flow — Your AI Engineering Team",
-    description: "Orchestrate specialized AI agents in a structured workflow. No cloud lock-in. Your code stays on your machine.",
-    url: "https://aiagentflow.dev",
-    siteName: "AI Agent Flow",
-    images: [{ url: "https://aiagentflow.dev/og-image.png", width: 1200, height: 630 }],
+    title: "AI Agent Flow | Your AI Engineering Team",
+    description: projectDescription,
+    url: siteUrl,
+    siteName,
+    images: [{ url: "https://aiagentflow.dev/opengraph-image", width: 1200, height: 630 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Agent Flow — Multi-Agent AI Workflow Orchestrator",
-    description: "Open-source CLI tool that orchestrates multi-agent AI workflows for software development.",
-    images: ["https://aiagentflow.dev/og-image.png"],
+    title: "AI Agent Flow | Multi-Agent AI Workflow Orchestrator",
+    description: projectDescription,
+    images: ["https://aiagentflow.dev/opengraph-image"],
+  },
+  alternates: {
+    canonical: "/",
+    languages: languageAlternates("/"),
   },
 };
 
@@ -83,6 +97,17 @@ export default async function RootLayout({
             gtag('config', 'G-SDL9BLML9T');
           `}
         </Script>
+        <Script
+          id="site-json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              organizationJsonLd(),
+              websiteJsonLd(),
+              softwareApplicationJsonLd(),
+            ]),
+          }}
+        />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider
             attribute="class"

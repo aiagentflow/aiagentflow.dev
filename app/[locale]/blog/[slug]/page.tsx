@@ -6,6 +6,14 @@ import { Link } from "@/i18n/navigation";
 import { TableOfContents } from "@/components/TableOfContents";
 import Image from "next/image";
 import { Clock, ChevronLeft, ChevronRight, Twitter, Facebook, Copy } from "lucide-react";
+import {
+    absoluteUrl,
+    breadcrumbJsonLd,
+    canonicalPath,
+    languageAlternates,
+    projectName,
+    siteUrl,
+} from "@/lib/seo";
 
 interface PostPageProps {
     params: { slug: string; locale: string };
@@ -18,15 +26,25 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
         return { title: 'Post Not Found' };
     }
 
+    const path = `/blog/${post.metadata.slug}`;
+    const canonical = canonicalPath(params.locale, path);
+
     return {
-        title: `${post.metadata.title} — AI Agent Flow Blog`,
+        metadataBase: new URL(siteUrl),
+        title: `${post.metadata.title} | AI Agent Flow Blog`,
         description: post.metadata.description,
         keywords: post.metadata.keywords,
+        alternates: {
+            canonical,
+            languages: languageAlternates(path),
+        },
         openGraph: {
             title: post.metadata.title,
             description: post.metadata.description,
+            url: absoluteUrl(canonical),
             type: "article",
             publishedTime: post.metadata.date,
+            modifiedTime: post.metadata.date,
             authors: post.metadata.author ? [post.metadata.author] : [],
             images: post.metadata.image ? [{ url: post.metadata.image }] : undefined,
         },
@@ -54,9 +72,42 @@ export default function BlogPost({ params }: PostPageProps) {
     const currentIndex = allPosts.findIndex(p => p.metadata.slug === params.slug);
     const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
     const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+    const canonical = absoluteUrl(canonicalPath(params.locale, `/blog/${post.metadata.slug}`));
+    const image = post.metadata.image ? absoluteUrl(post.metadata.image) : undefined;
+    const jsonLd = [
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.metadata.title,
+            description: post.metadata.description,
+            image,
+            datePublished: post.metadata.date,
+            dateModified: post.metadata.date,
+            author: {
+                "@type": "Organization",
+                name: post.metadata.author || projectName,
+                url: siteUrl,
+            },
+            publisher: {
+                "@type": "Organization",
+                name: projectName,
+                url: siteUrl,
+            },
+            mainEntityOfPage: canonical,
+        },
+        breadcrumbJsonLd([
+            { name: "Home", url: siteUrl },
+            { name: "Blog", url: absoluteUrl("/blog") },
+            { name: post.metadata.title, url: canonical },
+        ]),
+    ];
 
     return (
         <div className="min-h-screen bg-brand-bg relative transition-colors duration-500">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             {/* Massive Hero Section */}
             <div className="relative h-[60vh] md:h-[70vh] min-h-[500px] w-full overflow-hidden">
                 <Image

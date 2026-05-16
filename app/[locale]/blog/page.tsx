@@ -1,5 +1,32 @@
 import { getAllPosts } from "@/lib/content";
 import { BlogGrid } from "@/components/BlogGrid";
+import type { Metadata } from "next";
+import { absoluteUrl, canonicalPath, languageAlternates, projectDescription, siteName } from "@/lib/seo";
+
+interface BlogIndexProps {
+    params: { locale: string };
+}
+
+export async function generateMetadata({ params }: BlogIndexProps): Promise<Metadata> {
+    const path = "/blog";
+    const canonical = canonicalPath(params.locale, path);
+
+    return {
+        metadataBase: new URL(absoluteUrl("/")),
+        title: `Blog | ${siteName}`,
+        description: "Articles about local AI workflows, multi-agent software engineering, and AI coding automation.",
+        alternates: {
+            canonical,
+            languages: languageAlternates(path),
+        },
+        openGraph: {
+            title: `Blog | ${siteName}`,
+            description: projectDescription,
+            url: absoluteUrl(canonical),
+            type: "website",
+        },
+    };
+}
 
 export default function BlogIndex() {
     const allPosts = getAllPosts("blog");
