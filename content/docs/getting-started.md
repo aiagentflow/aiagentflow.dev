@@ -6,10 +6,10 @@ date: "2026-02-28"
 
 
 
-AI Agent Flow (`v1.0.0`) is a local-first, multi-agent orchestration framework designed for software engineering. This guide will help you install the CLI and run your first autonomous task.
+AI Agent Flow (`v1.0.2`) is a local-first, multi-agent orchestration framework designed for software engineering. This guide will help you install the CLI and run your first autonomous task.
 
 <div class="doc-callout doc-callout-tip">
-    <strong>Pro Tip:</strong> For the best results, use <strong>Claude 3.5 Sonnet</strong> or <strong>GPT-4o</strong>. These models have superior reasoning capabilities for architecture and complex code generation.
+    <strong>Pro Tip:</strong> For the best results, use <strong>Claude Sonnet 4</strong> or <strong>GPT-4o</strong>. These models have superior reasoning capabilities for architecture and complex code generation.
 </div>
 
 ## Prerequisites

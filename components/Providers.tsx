@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const models = [
     { id: "anthropic", name: "Anthropic", model: "claude-sonnet-4", tag: "Recommended", tagColor: "var(--ok)", body: "Best-in-class at architectural reasoning and large diffs. Pairs with the Architect role.", glyph: "A" },
     { id: "openai", name: "OpenAI", model: "gpt-4o, o1", tag: "Fast", body: "Speed and tool-use. We default to OpenAI for the Coder + Fixer roles in mixed-model setups.", glyph: "O" },
-    { id: "gemini", name: "Google", model: "gemini-2.5-pro", tag: "2M context", body: "Use the massive context window to feed entire monorepos to the Architect in one pass.", glyph: "G" },
+    { id: "gemini", name: "Google", model: "gemini-2.0-flash", tag: "2M context", body: "Use the massive context window to feed entire monorepos to the Architect in one pass.", glyph: "G" },
     { id: "groq", name: "Groq", model: "llama-3.3-70b", tag: "Free tier", body: "Sub-second inference. Great for rapid iteration loops and the Tester role.", glyph: "g" },
     { id: "openrouter", name: "OpenRouter", model: "100+ models", tag: "Free models", body: "One API key, every model. Mix-and-match per-agent without juggling credentials.", glyph: "R" },
     { id: "ollama", name: "Ollama", model: "llama3, deepseek, …", tag: "Local", tagColor: "var(--accent-hi)", body: "Total privacy, zero cost. Run any GGUF model on your hardware — laptop or H100.", glyph: "◐" },
