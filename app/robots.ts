@@ -8,5 +8,6 @@ export default function robots(): MetadataRoute.Robots {
             disallow: ['/_next/', '/api/'],
         },
         sitemap: 'https://aiagentflow.dev/sitemap.xml',
+        host: 'https://aiagentflow.dev',
     };
 }

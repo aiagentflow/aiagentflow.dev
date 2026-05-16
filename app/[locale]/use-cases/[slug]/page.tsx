@@ -6,6 +6,14 @@ import { TableOfContents } from "@/components/TableOfContents";
 import { CallToAction } from "@/components/CallToAction";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+    absoluteUrl,
+    breadcrumbJsonLd,
+    canonicalPath,
+    languageAlternates,
+    projectName,
+    siteUrl,
+} from "@/lib/seo";
 
 interface PseoPageProps {
     params: { slug: string; locale: string };
@@ -18,13 +26,22 @@ export async function generateMetadata({ params }: PseoPageProps): Promise<Metad
         return { title: 'Not Found' };
     }
 
+    const path = `/use-cases/${post.metadata.slug}`;
+    const canonical = canonicalPath(params.locale, path);
+
     return {
-        title: `${post.metadata.title} — AI Agent Flow`,
+        metadataBase: new URL(siteUrl),
+        title: `${post.metadata.title} | AI Agent Flow`,
         description: post.metadata.description,
         keywords: post.metadata.keywords,
+        alternates: {
+            canonical,
+            languages: languageAlternates(path),
+        },
         openGraph: {
             title: post.metadata.title,
             description: post.metadata.description,
+            url: absoluteUrl(canonical),
             type: "article",
         },
         twitter: {
@@ -47,9 +64,40 @@ export default function PseoPage({ params }: PseoPageProps) {
     const currentIndex = allPosts.findIndex(p => p.metadata.slug === params.slug);
     const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
     const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+    const canonical = absoluteUrl(canonicalPath(params.locale, `/use-cases/${post.metadata.slug}`));
+    const jsonLd = [
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: post.metadata.title,
+            description: post.metadata.description,
+            datePublished: post.metadata.date,
+            dateModified: post.metadata.date,
+            author: {
+                "@type": "Organization",
+                name: projectName,
+                url: siteUrl,
+            },
+            publisher: {
+                "@type": "Organization",
+                name: projectName,
+                url: siteUrl,
+            },
+            mainEntityOfPage: canonical,
+        },
+        breadcrumbJsonLd([
+            { name: "Home", url: siteUrl },
+            { name: "Use Cases", url: absoluteUrl("/use-cases/aiagentflow-vs-langchain") },
+            { name: post.metadata.title, url: canonical },
+        ]),
+    ];
 
     return (
         <div className="min-h-screen bg-brand-bg relative overflow-hidden transition-colors duration-500">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             {/* Premium Dynamic Grid & Glow Background */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(var(--brand-primary),0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(var(--brand-primary),0.05)_1px,transparent_1px)] bg-[size:6rem_6rem] opacity-20 pointer-events-none" />
             <div className="absolute top-0 left-[-10%] w-[40%] h-[600px] bg-brand-primary/5 blur-[150px] rounded-full pointer-events-none opacity-30" />

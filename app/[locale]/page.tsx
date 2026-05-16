@@ -9,6 +9,32 @@ import { Testimonials } from "@/components/Testimonials";
 import { InstallGuide } from "@/components/InstallGuide";
 import { Community } from "@/components/Community";
 import { getGitHubStats, getNpmVersion } from "@/lib/github";
+import type { Metadata } from "next";
+import { absoluteUrl, canonicalPath, languageAlternates, projectDescription, siteName } from "@/lib/seo";
+
+interface HomeProps {
+    params: { locale: string };
+}
+
+export async function generateMetadata({ params }: HomeProps): Promise<Metadata> {
+    const canonical = canonicalPath(params.locale, "/");
+
+    return {
+        metadataBase: new URL(absoluteUrl("/")),
+        title: `${siteName} | Multi-Agent AI Workflow Orchestrator`,
+        description: projectDescription,
+        alternates: {
+            canonical,
+            languages: languageAlternates("/"),
+        },
+        openGraph: {
+            title: `${siteName} | Your AI Engineering Team`,
+            description: projectDescription,
+            url: absoluteUrl(canonical),
+            type: "website",
+        },
+    };
+}
 
 export default async function Home() {
     const [{ stars, contributors, prs, goodFirstIssues }, version] = await Promise.all([
@@ -16,26 +42,8 @@ export default async function Home() {
         getNpmVersion("@aiagentflow/cli"),
     ]);
 
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "AI Agent Flow",
-        "operatingSystem": "Any with Node.js",
-        "applicationCategory": "DeveloperApplication",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD",
-        },
-        "description": "Open-source multi-agent AI orchestration framework for software development."
-    };
-
     return (
         <main style={{ background: "var(--ds-bg)" }}>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
             <Hero stars={stars} version={version} />
             <Pipeline />
             <Features />
