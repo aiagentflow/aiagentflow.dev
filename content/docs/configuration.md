@@ -75,6 +75,6 @@ For maximum privacy, run AI Agent Flow entirely offline using local models via O
 
 ## Assigning Models Per Agent
 
-During `aiagentflow init` you can assign different providers and models to each of the six agent roles (Architect, Coder, Reviewer, Tester, Fixer, Judge). This lets you use a powerful model for the Architect while using a faster/cheaper one for repetitive tasks like the Fixer.
+During `aiagentflow init` you can assign different providers and models to each of the seven agent roles (Architect, Coder, Reviewer, Security, Tester, Fixer, Judge). This lets you use a powerful model for the Architect while using a faster/cheaper one for repetitive tasks like the Fixer.
 
 The configuration is saved to `.aiagentflow/config.json` in your project root.

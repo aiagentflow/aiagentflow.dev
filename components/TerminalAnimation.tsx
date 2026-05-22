@@ -21,8 +21,10 @@ export default function TerminalAnimation() {
         { text: t("step11"), delay: 7100 },
         { text: t("step12"), delay: 8500 },
         { text: t("step13"), delay: 8800 },
-        { text: t("step14"), delay: 11000 },
-        { text: t("step15"), delay: 12000 },
+        { text: t("step14"), delay: 10000 },
+        { text: t("step15"), delay: 10300 },
+        { text: t("step16"), delay: 12500 },
+        { text: t("step17"), delay: 13500 },
     ], [t]);
 
     const [displayedSteps, setDisplayedSteps] = useState<number>(0);

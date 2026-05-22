@@ -1,6 +1,6 @@
 ---
 title: "Agent Roles"
-description: "Understanding all six agents: Architect, Coder, Reviewer, Tester, Fixer, and Judge."
+description: "Understanding all seven agents: Architect, Coder, Reviewer, Security, Tester, Fixer, and Judge."
 date: "2026-04-13"
 ---
 
@@ -34,6 +34,18 @@ The Reviewer acts as a second pair of eyes after code is generated. It looks for
 - Missing edge case handling
 
 If the Reviewer rejects the code, the Fixer agent is invoked automatically.
+
+## 🔒 The Security Agent
+
+The Security Agent runs after the Reviewer approves the code and before tests are written. It scans the generated output for:
+- **Injection flaws** — SQL, command, LDAP, XSS, and template injection
+- **Secret exposure** — hardcoded credentials, API keys, or PII in logs
+- **Broken access control** — insecure direct object references, missing authorization checks
+- **Cryptographic weaknesses** — weak algorithms, predictable tokens, hardcoded salts
+- **Dangerous function calls** — `eval`, `exec`, shell passthrough, unsafe file operations
+- **Security misconfiguration** — open CORS, debug flags, default credentials
+
+If the Security Agent returns `FAIL`, the Fixer agent is invoked with the findings as context — the same fix loop used for review rejections.
 
 ## 🧪 The Tester
 

@@ -25,9 +25,11 @@
         "step10": "[INFO]  Wrote 4 files",
         "step11": "[INFO]  🔍 Reviewer starting...",
         "step12": "✔ 🔍 Reviewer complete (987 tokens)",
-        "step13": "[INFO]  🧪 Tester starting...",
-        "step14": "✔ 🧪 Tester complete (2,103 tokens)",
-        "step15": "Task completed successfully!"
+        "step13": "[INFO]  🔒 Security starting...",
+        "step14": "✔ 🔒 Security complete (543 tokens)",
+        "step15": "[INFO]  🧪 Tester starting...",
+        "step16": "✔ 🧪 Tester complete (2,103 tokens)",
+        "step17": "Task completed successfully!"
     },
     "Pipeline": {
         "badge": "How it works",
@@ -43,12 +45,12 @@
             "description": "The Coder Agent executes the plan, writing clean, maintainable code across your entire stack."
         },
         "step3": {
-            "title": "Automated Review",
-            "description": "The Reviewer Agent audits the code for bugs, security vulnerabilities, and style guide adherence."
+            "title": "Review & Security",
+            "description": "The Reviewer Agent audits the code for bugs and style issues. The Security Agent then scans for OWASP top-10 vulnerabilities, secret exposure, and injection flaws."
         },
         "step4": {
             "title": "Test & Validate",
-            "description": "The Tester Agent writes unit tests while the Fixer Agent automatically resolves any review comments or failing tests. Finally, the Judge ensures all requirements are met."
+            "description": "The Tester Agent writes unit tests while the Fixer Agent automatically resolves any review, security, or test failures. Finally, the Judge ensures all requirements are met."
         }
     },
     "Features": {
@@ -69,8 +71,8 @@
             "description": "By injecting your existing architecture docs, API specs, and PRDs as direct context, we eliminate hallucinations and align the output to your specific coding standards."
         },
         "feature4": {
-            "title": "Self-Healing",
-            "description": "Built-in Fixer, Judge, and Tester agents automatically detect, retry, and resolve errors before you even see them."
+            "title": "Security-First",
+            "description": "A dedicated Security Agent runs OWASP top-10 checks, secret detection, and injection analysis on every code change — before tests run."
         },
         "feature5": {
             "title": "Extensible",

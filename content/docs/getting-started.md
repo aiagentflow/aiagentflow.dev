@@ -6,7 +6,7 @@ date: "2026-02-28"
 
 
 
-AI Agent Flow (`v1.0.2`) is a local-first, multi-agent orchestration framework designed for software engineering. This guide will help you install the CLI and run your first autonomous task.
+AI Agent Flow (`v1.1.0`) is a local-first, multi-agent orchestration framework designed for software engineering. This guide will help you install the CLI and run your first autonomous task.
 
 <div class="doc-callout doc-callout-tip">
     <strong>Pro Tip:</strong> For the best results, use <strong>Claude Sonnet 4</strong> or <strong>GPT-4o</strong>. These models have superior reasoning capabilities for architecture and complex code generation.
@@ -47,10 +47,33 @@ aiagentflow run "Add a unit test for the authentication middleware"
 ```
 
 The CLI will:
-1.  **Analyze**: Look at your codebase and the request.
-2.  **Plan**: The Architect agent will draft an implementation plan.
-3.  **Code**: The Coder agent will write the test file.
-4.  **Verify**: The Reviewer and Judge agents will ensure the code meets the requirements.
+1.  **Analyze**: The Architect agent analyzes your codebase and drafts an implementation plan.
+2.  **Code**: The Coder agent writes the changes across one or more files.
+3.  **Review**: The Reviewer agent checks for bugs, style issues, and anti-patterns.
+4.  **Security**: The Security agent scans for vulnerabilities (OWASP top-10, secret exposure, injection flaws).
+5.  **Test**: The Tester agent writes and runs tests. The Fixer agent resolves any failures.
+6.  **Approve**: The Judge agent makes the final call.
+
+## Other Useful Commands
+
+Talk to a single agent without running the full pipeline:
+
+```bash
+aiagentflow chat reviewer --file src/auth.ts "review this for security issues"
+```
+
+Generate a structured report from any past workflow session:
+
+```bash
+aiagentflow export --format md --output report.md
+```
+
+Generate a task list from a spec or PRD file:
+
+```bash
+aiagentflow plan docs/spec.md --numbered -o tasks.txt
+aiagentflow run --batch tasks.txt --auto
+```
 
 ## Next Steps
 
