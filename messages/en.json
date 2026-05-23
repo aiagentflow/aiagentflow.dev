@@ -75,12 +75,12 @@
             "description": "A dedicated Security Agent runs OWASP top-10 checks, secret detection, and injection analysis on every code change — before tests run."
         },
         "feature5": {
-            "title": "Worktree Isolation",
-            "description": "Run tasks in isolated git worktrees so agents never touch your working directory. Review the diff, then merge, keep, or discard — your call."
+            "title": "MCP Tool Integration",
+            "description": "Agents call real tools — read files, query databases, post to Slack — via MCP servers. Wire any MCP-compatible server into the pipeline with a single config block."
         },
         "feature6": {
-            "title": "Parallel & Extensible",
-            "description": "Fan out a batch of tasks across N parallel worktrees with --parallel. Pause for plan review with --review-plan. Supports Anthropic, OpenAI, Gemini, Groq, OpenRouter, and Ollama."
+            "title": "Parallel, Extensible & GitHub-Native",
+            "description": "Fan out batch tasks with --parallel, address PR review comments with --pr, implement issues with --issue, extend via plugins, and visualize runs live in the TUI dashboard."
         }
     },
     "Install": {

@@ -6,7 +6,7 @@ date: "2026-02-28"
 
 
 
-AI Agent Flow (`v1.2.0`) is a local-first, multi-agent orchestration framework designed for software engineering. This guide will help you install the CLI and run your first autonomous task.
+AI Agent Flow (`v1.3.0`) is a local-first, multi-agent orchestration framework designed for software engineering. This guide will help you install the CLI and run your first autonomous task.
 
 <div class="doc-callout doc-callout-tip">
     <strong>Pro Tip:</strong> For the best results, use <strong>Claude Sonnet 4</strong> or <strong>GPT-4o</strong>. These models have superior reasoning capabilities for architecture and complex code generation.
@@ -85,6 +85,46 @@ aiagentflow run --batch tasks.txt --parallel 4 --auto
 aiagentflow run --batch tasks.txt --parallel 2 --max-tokens 500000 --max-cost 2.00
 ```
 
+**Address GitHub PR review comments automatically:**
+
+```bash
+aiagentflow run --pr 42 --isolate
+```
+
+Fetches the PR's review comments and change requests, then runs the full agent pipeline to resolve them. Requires the [GitHub CLI](https://cli.github.com) (`gh auth login`).
+
+**Implement a GitHub issue end-to-end:**
+
+```bash
+aiagentflow run --issue 7 --isolate --auto
+```
+
+Fetches the issue body and labels as the task. After the Judge approves, a pull request is opened automatically.
+
+**Inspect and test MCP server configuration:**
+
+```bash
+aiagentflow mcp list              # show configured servers and their tools
+aiagentflow mcp test filesystem   # start a server and verify it exposes its tools
+```
+
+**Manage plugins (custom agents and providers):**
+
+```bash
+aiagentflow plugin list                         # show installed plugins
+aiagentflow plugin install @my-org/aiagentflow-linter  # install from npm
+aiagentflow plugin install ./local-plugin       # symlink a local plugin
+aiagentflow plugin remove my-plugin             # uninstall
+```
+
+**Launch the terminal UI dashboard:**
+
+```bash
+aiagentflow ui
+```
+
+Shows a live auto-refreshing list of active worktree runs with status icons, token counts, and costs. Press `q` to quit.
+
 **Talk to a single agent without running the full pipeline:**
 
 ```bash
@@ -106,4 +146,4 @@ aiagentflow run --batch tasks.txt --auto
 
 ## Next Steps
 
-Check out our [Configuration Guide](/docs/configuration) to learn how to set up your preferred AI providers.
+Check out our [Configuration Guide](/docs/configuration) to learn how to set up your preferred AI providers and MCP servers.

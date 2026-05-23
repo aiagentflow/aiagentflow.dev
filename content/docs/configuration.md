@@ -110,3 +110,53 @@ These fields live under `workflow` in `.aiagentflow/config.json` and can also be
 ```
 
 `approvalGates` is a list of agent roles where the workflow pauses for human review before continuing. Setting `["architect"]` is equivalent to always passing `--review-plan`. Valid roles: `architect`, `coder`, `reviewer`, `security`, `tester`, `fixer`, `judge`.
+
+## MCP Servers
+
+Agents can call external tools — read files, query databases, post to Slack, etc. — via MCP (Model Context Protocol) servers. Add a `mcpServers` map to `.aiagentflow/config.json`:
+
+```json
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/tmp"],
+      "allowedRoles": ["coder", "tester"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": { "GITHUB_TOKEN": "ghp_..." }
+    }
+  }
+}
+```
+
+| Field | Type | Description |
+|---|---|---|
+| `command` | `string` | Executable to run the server (e.g. `npx`, `python`, `node`) |
+| `args` | `string[]` | Arguments passed to the command |
+| `env` | `Record<string, string>` | Extra environment variables for the server process |
+| `allowedRoles` | `string[]` | Agent roles that may call this server's tools. Omit to allow all roles. |
+
+Use `aiagentflow mcp list` to see configured servers and `aiagentflow mcp test <name>` to verify a server starts and lists its tools correctly.
+
+<div class="doc-callout doc-callout-tip">
+    <strong>Finding MCP servers:</strong> Browse the <a href="https://github.com/modelcontextprotocol/servers">official MCP servers repo</a> for filesystem, GitHub, Postgres, Slack, and many more.
+</div>
+
+## Plugins
+
+Custom agents and providers can be added via the plugin system. Plugins live in `.aiagentflow/plugins/` and are managed with `aiagentflow plugin install/list/remove`.
+
+```bash
+# Install from npm
+aiagentflow plugin install @my-org/aiagentflow-linter
+
+# Symlink a local plugin (for development)
+aiagentflow plugin install ./plugins/my-custom-agent
+```
+
+Each plugin exports a `manifest` object declaring its name, version, and what it contributes (`agent`, `provider`, or `both`). Plugin-contributed agent roles appear in the workflow after their designated built-in anchor (e.g. `after: "tester"`).
+
+Plugin names must not clash with built-in roles (`architect`, `coder`, `reviewer`, `security`, `tester`, `fixer`, `judge`) or built-in providers (`anthropic`, `openai`, `gemini`, `groq`, `ollama`, `openrouter`).
