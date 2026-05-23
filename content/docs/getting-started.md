@@ -6,7 +6,7 @@ date: "2026-02-28"
 
 
 
-AI Agent Flow (`v1.1.0`) is a local-first, multi-agent orchestration framework designed for software engineering. This guide will help you install the CLI and run your first autonomous task.
+AI Agent Flow (`v1.2.0`) is a local-first, multi-agent orchestration framework designed for software engineering. This guide will help you install the CLI and run your first autonomous task.
 
 <div class="doc-callout doc-callout-tip">
     <strong>Pro Tip:</strong> For the best results, use <strong>Claude Sonnet 4</strong> or <strong>GPT-4o</strong>. These models have superior reasoning capabilities for architecture and complex code generation.
@@ -56,19 +56,48 @@ The CLI will:
 
 ## Other Useful Commands
 
-Talk to a single agent without running the full pipeline:
+**Run in an isolated git worktree** — agents work on a fresh branch, leaving your working directory untouched:
+
+```bash
+aiagentflow run --isolate "Refactor the payment module"
+```
+
+After the workflow finishes you'll be prompted to merge, keep, or discard the branch. Use these commands to manage active worktree runs:
+
+```bash
+aiagentflow runs                          # list active runs
+aiagentflow discard --merge <branch>      # merge and clean up
+aiagentflow gc                            # prune runs older than 7 days
+```
+
+**Review the Architect's plan before coding starts:**
+
+```bash
+aiagentflow run --review-plan "Add OAuth2 support"
+```
+
+The workflow pauses after planning so you can approve, edit in `$EDITOR`, ask for a regeneration, or abort.
+
+**Run batch tasks in parallel:**
+
+```bash
+aiagentflow run --batch tasks.txt --parallel 4 --auto
+aiagentflow run --batch tasks.txt --parallel 2 --max-tokens 500000 --max-cost 2.00
+```
+
+**Talk to a single agent without running the full pipeline:**
 
 ```bash
 aiagentflow chat reviewer --file src/auth.ts "review this for security issues"
 ```
 
-Generate a structured report from any past workflow session:
+**Generate a structured report from any past workflow session:**
 
 ```bash
 aiagentflow export --format md --output report.md
 ```
 
-Generate a task list from a spec or PRD file:
+**Generate a task list from a spec or PRD file:**
 
 ```bash
 aiagentflow plan docs/spec.md --numbered -o tasks.txt

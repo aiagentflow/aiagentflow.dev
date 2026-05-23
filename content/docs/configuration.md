@@ -78,3 +78,35 @@ For maximum privacy, run AI Agent Flow entirely offline using local models via O
 During `aiagentflow init` you can assign different providers and models to each of the seven agent roles (Architect, Coder, Reviewer, Security, Tester, Fixer, Judge). This lets you use a powerful model for the Architect while using a faster/cheaper one for repetitive tasks like the Fixer.
 
 The configuration is saved to `.aiagentflow/config.json` in your project root.
+
+## Workflow Settings
+
+These fields live under `workflow` in `.aiagentflow/config.json` and can also be overridden per-run with CLI flags.
+
+### Worktree Isolation
+
+```json
+{
+  "workflow": {
+    "isolation": "inplace",
+    "autoMerge": "never"
+  }
+}
+```
+
+| Field | Values | Default | Description |
+|---|---|---|---|
+| `isolation` | `"worktree"` / `"inplace"` | `"inplace"` | Run tasks in an isolated git worktree (`--isolate`) or directly in your working directory |
+| `autoMerge` | `"never"` / `"on-judge-pass"` / `"always"` | `"never"` | When to auto-merge the worktree branch back into the source branch |
+
+### Approval Gates
+
+```json
+{
+  "workflow": {
+    "approvalGates": ["architect"]
+  }
+}
+```
+
+`approvalGates` is a list of agent roles where the workflow pauses for human review before continuing. Setting `["architect"]` is equivalent to always passing `--review-plan`. Valid roles: `architect`, `coder`, `reviewer`, `security`, `tester`, `fixer`, `judge`.
