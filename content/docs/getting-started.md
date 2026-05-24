@@ -6,7 +6,7 @@ date: "2026-02-28"
 
 
 
-AI Agent Flow (`v1.3.1`) is a local-first, multi-agent orchestration framework designed for software engineering. This guide will help you install the CLI and run your first autonomous task.
+AI Agent Flow (`v1.4.0`) is a local-first, multi-agent orchestration framework designed for software engineering. This guide will help you install the CLI and run your first autonomous task.
 
 <div class="doc-callout doc-callout-tip">
     <strong>Pro Tip:</strong> For the best results, use <strong>Claude Sonnet 4</strong> or <strong>GPT-4o</strong>. These models have superior reasoning capabilities for architecture and complex code generation.
@@ -143,6 +143,18 @@ aiagentflow export --format md --output report.md
 aiagentflow plan docs/spec.md --numbered -o tasks.txt
 aiagentflow run --batch tasks.txt --auto
 ```
+
+**Manage agent memory — knowledge that persists across runs:**
+
+```bash
+aiagentflow memory list                   # show all stored memories by type
+aiagentflow memory show <name>            # print one memory's full body
+aiagentflow memory rm <name>             # delete a memory
+aiagentflow memory edit <name>           # open in $EDITOR
+aiagentflow memory clear --type gotcha   # bulk-delete by type
+```
+
+Agents automatically write to the memory store during workflow runs (conventions, decisions, gotchas, architecture notes) and read from it on every subsequent run — so each run starts smarter than the last.
 
 ## Next Steps
 
