@@ -1,3 +1,5 @@
+"use client";
+
 const installCommand = "npm install -g aiscribe";
 const usageExample = `$ aiscribe log
 
