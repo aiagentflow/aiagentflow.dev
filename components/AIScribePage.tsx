@@ -1,6 +1,6 @@
 "use client";
 
-const installCommand = "npm install -g aiscribe@1.0.0";
+const installCommand = "npm install -g aiscribe";
 
 function Section({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <section className={`max-w-[960px] mx-auto px-4 sm:px-6 py-20 sm:py-28 ${className}`}>{children}</section>;
