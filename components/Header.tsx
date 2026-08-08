@@ -51,6 +51,7 @@ export function Header({ version = "v1.0.2", stars = "38" }: { version?: string;
 
     const navItems = [
         { id: "docs", label: t("docs"), href: "https://www.npmjs.com/package/@aiagentflow/cli", external: true },
+        { id: "aiscribe", label: "AIScribe", href: "/aiscribe" },
         { id: "comparisons", label: t("comparisons"), href: "/use-cases/aiagentflow-vs-langchain" },
         { id: "blog", label: t("blog"), href: "/blog" },
         { id: "github", label: t("github"), href: "https://github.com/aiagentflow/aiagentflow", external: true },
