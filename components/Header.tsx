@@ -49,6 +49,9 @@ export function Header({ version = "v1.0.2", stars = "38" }: { version?: string;
         }
     }, []);
 
+    // Hide main header on product pages that have their own nav
+    if (pathname.startsWith("/aiscribe")) return null;
+
     const navItems = [
         { id: "docs", label: t("docs"), href: "https://www.npmjs.com/package/@aiagentflow/cli", external: true },
         { id: "aiscribe", label: "AIScribe", href: "/aiscribe" },
