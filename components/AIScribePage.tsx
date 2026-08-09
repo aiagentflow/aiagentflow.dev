@@ -267,7 +267,7 @@ export function AIScribePage() {
               </a>
             </div>
             <p className="text-[12px]" style={{ color: "#484f58" }}>
-              © {new Date().getFullYear()} aiagentflow — Built for AI-native developers
+              © {new Date().getFullYear()} aiagentflow. Built for AI-native developers
             </p>
           </div>
         </div>
