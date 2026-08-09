@@ -25,7 +25,7 @@ export function AIScribePage() {
             onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.06)")}
             onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
             aria-label="GitHub">
-            <svg width="22" height="22" viewBox="0 0 16 16" fill="#8b949e"><path d="M8 0a8 8 0 00-2.5 15.6c.4.07.55-.17.55-.38v-1.34c-2.24.48-2.7-1.08-2.7-1.08-.37-.93-.9-1.18-.9-1.18-.73-.5.06-.49.06-.49.8.06 1.23.82 1.23.82a1.75 1.75 0 002.4.67c.3-.47.7-.82 1.27-1.02-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 011.03-2.69 3.6 3.6 0 01.1-2.66s.84-.27 2.75 1.03a9.5 9.5 0 015 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 01.1 2.66 3.87 3.87 0 011.03 2.69c0 3.85-2.34 4.7-4.58 4.95.47.4.89 1.2.89 2.42v3.58c0 .27.18.46.55.38A8 8 0 008 0z"/></svg>
+            <svg width="24" height="24" viewBox="0 0 16 16" fill="#f0f6fc"><path d="M8 0a8 8 0 00-2.5 15.6c.4.07.55-.17.55-.38v-1.34c-2.24.48-2.7-1.08-2.7-1.08-.37-.93-.9-1.18-.9-1.18-.73-.5.06-.49.06-.49.8.06 1.23.82 1.23.82a1.75 1.75 0 002.4.67c.3-.47.7-.82 1.27-1.02-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 011.03-2.69 3.6 3.6 0 01.1-2.66s.84-.27 2.75 1.03a9.5 9.5 0 015 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 01.1 2.66 3.87 3.87 0 011.03 2.69c0 3.85-2.34 4.7-4.58 4.95.47.4.89 1.2.89 2.42v3.58c0 .27.18.46.55.38A8 8 0 008 0z"/></svg>
           </a>
           <a href="/aiscribe" className="flex items-center gap-2.5 mx-auto sm:mx-0">
             <Image src="/aiscribe/logo.png" alt="AIScribe" width={30} height={30} className="rounded-md" />
@@ -37,7 +37,7 @@ export function AIScribePage() {
               style={{ color: "#8b949e" }}
               onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.color = "#c9d1d9"; }}
               onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#8b949e"; }}>
-              <svg width="18" height="18" viewBox="0 0 16 16" fill="#8b949e"><path d="M8 0a8 8 0 00-2.5 15.6c.4.07.55-.17.55-.38v-1.34c-2.24.48-2.7-1.08-2.7-1.08-.37-.93-.9-1.18-.9-1.18-.73-.5.06-.49.06-.49.8.06 1.23.82 1.23.82a1.75 1.75 0 002.4.67c.3-.47.7-.82 1.27-1.02-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 011.03-2.69 3.6 3.6 0 01.1-2.66s.84-.27 2.75 1.03a9.5 9.5 0 015 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 01.1 2.66 3.87 3.87 0 011.03 2.69c0 3.85-2.34 4.7-4.58 4.95.47.4.89 1.2.89 2.42v3.58c0 .27.18.46.55.38A8 8 0 008 0z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 16 16" fill="#f0f6fc"><path d="M8 0a8 8 0 00-2.5 15.6c.4.07.55-.17.55-.38v-1.34c-2.24.48-2.7-1.08-2.7-1.08-.37-.93-.9-1.18-.9-1.18-.73-.5.06-.49.06-.49.8.06 1.23.82 1.23.82a1.75 1.75 0 002.4.67c.3-.47.7-.82 1.27-1.02-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 011.03-2.69 3.6 3.6 0 01.1-2.66s.84-.27 2.75 1.03a9.5 9.5 0 015 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 01.1 2.66 3.87 3.87 0 011.03 2.69c0 3.85-2.34 4.7-4.58 4.95.47.4.89 1.2.89 2.42v3.58c0 .27.18.46.55.38A8 8 0 008 0z"/></svg>
               GitHub
             </a>
             <a href="https://www.npmjs.com/package/aiscribe" target="_blank" rel="noopener"
@@ -45,7 +45,7 @@ export function AIScribePage() {
               style={{ color: "#8b949e" }}
               onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.color = "#c9d1d9"; }}
               onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#8b949e"; }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="#8b949e"><path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#CB3837"><path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"/></svg>
               npm
             </a>
             <span className="mx-1 w-px h-5" style={{ background: "rgba(255,255,255,0.1)" }} />
@@ -61,7 +61,7 @@ export function AIScribePage() {
             onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.06)")}
             onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
             aria-label="npm">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="#8b949e"><path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#CB3837"><path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"/></svg>
           </a>
         </div>
       </div>
@@ -79,7 +79,7 @@ export function AIScribePage() {
             </span>
           </h1>
           <p className="text-[17px] sm:text-[19px] leading-relaxed max-w-[520px]" style={{ color: "#8b949e" }}>
-            One command after every AI coding session. Your conversation, file changes, and decisions recorded forever.
+            One command journals your AI coding session. Captures git diffs, full conversations, and exports everything as training data for your own models.
           </p>
           <div className="flex items-center gap-3 flex-wrap justify-center mt-2">
             <button onClick={() => navigator.clipboard.writeText(installCommand)}
@@ -121,9 +121,9 @@ export function AIScribePage() {
         <Container>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
             {[
-              { icon: "💬", title: "Full Conversation", desc: "Captures every prompt and response from your AI coding sessions. Not just git diffs." },
+              { icon: "💬", title: "Full Conversation", desc: "Captures every prompt and response from your AI coding sessions. Export them as training data." },
               { icon: "🔍", title: "Search by Meaning", desc: "Vector embeddings let you find sessions by describing what happened, not keywords." },
-              { icon: "📖", title: "Session Book", desc: "Web UI at localhost:3848. Browse, read, and search every session like a journal." },
+              { icon: "🔄", title: "Train Your Own Model", desc: "Export sessions in AI format. Fine-tune a local LLM on your coding style and decisions." },
             ].map(({ icon, title, desc }) => (
               <div key={title} className="flex flex-col items-center gap-3">
                 <div className="text-3xl">{icon}</div>
@@ -259,10 +259,10 @@ export function AIScribePage() {
           <div className="border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
             <div className="flex items-center gap-4">
               <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener" className="hover:opacity-80 transition-opacity">
-                <svg width="22" height="22" viewBox="0 0 16 16" fill="#8b949e"><path d="M8 0a8 8 0 00-2.5 15.6c.4.07.55-.17.55-.38v-1.34c-2.24.48-2.7-1.08-2.7-1.08-.37-.93-.9-1.18-.9-1.18-.73-.5.06-.49.06-.49.8.06 1.23.82 1.23.82a1.75 1.75 0 002.4.67c.3-.47.7-.82 1.27-1.02-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 011.03-2.69 3.6 3.6 0 01.1-2.66s.84-.27 2.75 1.03a9.5 9.5 0 015 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 01.1 2.66 3.87 3.87 0 011.03 2.69c0 3.85-2.34 4.7-4.58 4.95.47.4.89 1.2.89 2.42v3.58c0 .27.18.46.55.38A8 8 0 008 0z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 16 16" fill="#f0f6fc"><path d="M8 0a8 8 0 00-2.5 15.6c.4.07.55-.17.55-.38v-1.34c-2.24.48-2.7-1.08-2.7-1.08-.37-.93-.9-1.18-.9-1.18-.73-.5.06-.49.06-.49.8.06 1.23.82 1.23.82a1.75 1.75 0 002.4.67c.3-.47.7-.82 1.27-1.02-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 011.03-2.69 3.6 3.6 0 01.1-2.66s.84-.27 2.75 1.03a9.5 9.5 0 015 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 01.1 2.66 3.87 3.87 0 011.03 2.69c0 3.85-2.34 4.7-4.58 4.95.47.4.89 1.2.89 2.42v3.58c0 .27.18.46.55.38A8 8 0 008 0z"/></svg>
               </a>
               <a href="https://www.npmjs.com/package/aiscribe" target="_blank" rel="noopener" className="hover:opacity-80 transition-opacity">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="#8b949e"><path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"/></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#CB3837"><path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"/></svg>
               </a>
             </div>
             <p className="text-[12px]" style={{ color: "#484f58" }}>
