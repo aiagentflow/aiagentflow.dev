@@ -1,54 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-
 const installCommand = "npm install -g aiscribe";
 
 function Section({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <section className={`max-w-[960px] mx-auto px-4 sm:px-6 py-16 sm:py-24 ${className}`}>{children}</section>;
-}
-
-// Animated typing effect for terminal demo
-function TypingDemo() {
-  const lines = [
-    { text: "$ aiscribe log -c -n \"stripe-refunds\"", delay: 0, color: "#8b949e" },
-    { text: "", delay: 400, color: "" },
-    { text: "  Tool: pi", delay: 600, color: "#58a6ff" },
-    { text: "  Prompts: 24   Files: 47   Changes: +892/-156", delay: 300, color: "#8b949e" },
-    { text: "", delay: 200, color: "" },
-    { text: "  Session recorded!", delay: 400, color: "#3fb950" },
-    { text: "  .aiscribe/sessions/2026-08-08-stripe-refunds.md", delay: 200, color: "#8b949e" },
-    { text: "", delay: 400, color: "" },
-    { text: "$ aiscribe server", delay: 600, color: "#8b949e" },
-    { text: "  AIScribe server: http://localhost:3848", delay: 300, color: "#58a6ff" },
-    { text: "  Sessions loaded: 47", delay: 200, color: "#8b949e" },
-  ];
-
-  const [visible, setVisible] = useState(0);
-  const [started, setStarted] = useState(false);
-
-  useEffect(() => {
-    if (started) return;
-    setStarted(true);
-    let cumulative = 0;
-    const timers: NodeJS.Timeout[] = [];
-    lines.forEach((line, i) => {
-      cumulative += line.delay;
-      timers.push(setTimeout(() => setVisible(i + 1), cumulative));
-    });
-    return () => timers.forEach(clearTimeout);
-  }, []);
-
-  return (
-    <pre className="p-5 text-[12px] sm:text-[13px] leading-[1.7] overflow-x-auto" style={{ fontFamily: "var(--font-geist-mono)", color: "#c9d1d9" }}>
-      {lines.slice(0, visible).map((line, i) => (
-        <div key={i} style={{ color: line.color || "#c9d1d9" }}>
-          {line.text || "\u00A0"}
-        </div>
-      ))}
-      {visible < lines.length && <span className="inline-block w-2 h-4 ml-0.5 -mb-0.5 animate-pulse" style={{ background: "#58a6ff" }} />}
-    </pre>
-  );
 }
 
 export function AIScribePage() {
@@ -111,17 +66,24 @@ export function AIScribePage() {
         </div>
       </Section>
 
-      {/* Terminal Demo */}
+      {/* Terminal Demos */}
       <Section className="!pt-0">
-        <div className="max-w-[560px] mx-auto">
-          <div className="rounded-xl overflow-hidden border shadow-2xl" style={{ borderColor: "var(--ds-line)", background: "#0d1117", boxShadow: "0 0 0 1px rgba(255,255,255,.03), 0 24px 64px rgba(0,0,0,.4)" }}>
-            <div className="flex items-center gap-2 px-4 py-3 border-b" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
-              <span className="w-3 h-3 rounded-full" style={{ background: "#ff5f57" }}/>
-              <span className="w-3 h-3 rounded-full" style={{ background: "#febc2e" }}/>
-              <span className="w-3 h-3 rounded-full" style={{ background: "#28c840" }}/>
-              <span className="ml-2 text-[10px] font-medium" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-geist-mono)" }}>Terminal — aiscribe</span>
-            </div>
-            <TypingDemo />
+        <div className="max-w-[960px] mx-auto">
+          <h2 className="text-[22px] sm:text-[26px] font-bold tracking-[-0.02em] mb-6 text-center" style={{ fontFamily: "var(--font-geist-sans)" }}>See it in action</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              { src: "/aiscribe/demos/demo-log.gif", title: "aiscribe log", desc: "Journal a session" },
+              { src: "/aiscribe/demos/demo-search.gif", title: "aiscribe search", desc: "Find by meaning" },
+              { src: "/aiscribe/demos/demo-analytics.gif", title: "aiscribe hotspots", desc: "Codebase analytics" },
+            ].map(({ src, title, desc }) => (
+              <div key={title} className="rounded-xl overflow-hidden border" style={{ borderColor: "var(--ds-line)", background: "#0d1117" }}>
+                <img src={src} alt={title} className="w-full" />
+                <div className="px-4 py-3 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                  <code className="text-[13px] font-semibold" style={{ color: "#58a6ff", fontFamily: "var(--font-geist-mono)" }}>{title}</code>
+                  <p className="text-[11px] mt-0.5" style={{ color: "var(--ds-fg-3)" }}>{desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </Section>
