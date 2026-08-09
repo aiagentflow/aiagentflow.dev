@@ -168,9 +168,70 @@ export function AIScribePage() {
       </Section>
 
       {/* Footer */}
-      <div className="border-t text-center py-8" style={{ borderColor: "var(--ds-line)" }}>
-        <p className="text-[12px]" style={{ color: "var(--ds-fg-3)" }}>Part of <a href="/" className="hover:underline" style={{ color: "var(--ds-fg-2)" }}>aiagentflow</a> · MIT Licensed</p>
-      </div>
+      <footer className="border-t" style={{ borderColor: "var(--ds-line)", background: "#0d1117" }}>
+        <div className="max-w-[960px] mx-auto px-4 sm:px-6 py-12">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-10">
+            {/* Brand */}
+            <div className="col-span-2 sm:col-span-1">
+              <div className="flex items-center gap-2.5 mb-3">
+                <img src="/aiscribe/logo.png" alt="AIScribe" width="28" height="28" className="rounded-md" />
+                <span className="font-bold text-[15px]" style={{ color: "var(--ds-fg)" }}>AIScribe</span>
+              </div>
+              <p className="text-[12px] leading-relaxed" style={{ color: "var(--ds-fg-3)" }}>
+                Your AI's scribe. Every session, recorded and backed up.
+              </p>
+            </div>
+
+            {/* Product */}
+            <div>
+              <h4 className="text-[11px] font-semibold uppercase tracking-[0.08em] mb-3" style={{ color: "var(--ds-fg-2)" }}>Product</h4>
+              <div className="flex flex-col gap-2">
+                <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener" className="text-[13px] hover:underline" style={{ color: "var(--ds-fg-3)" }}>GitHub</a>
+                <a href="https://www.npmjs.com/package/aiscribe" target="_blank" rel="noopener" className="text-[13px] hover:underline" style={{ color: "var(--ds-fg-3)" }}>npm</a>
+                <a href="https://github.com/aiagentflow/aiscribe/blob/main/docs/CLI.md" target="_blank" rel="noopener" className="text-[13px] hover:underline" style={{ color: "var(--ds-fg-3)" }}>Docs</a>
+                <a href="https://github.com/aiagentflow/aiscribe/blob/main/LICENSE" target="_blank" rel="noopener" className="text-[13px] hover:underline" style={{ color: "var(--ds-fg-3)" }}>MIT License</a>
+              </div>
+            </div>
+
+            {/* Commands */}
+            <div>
+              <h4 className="text-[11px] font-semibold uppercase tracking-[0.08em] mb-3" style={{ color: "var(--ds-fg-2)" }}>Commands</h4>
+              <div className="flex flex-col gap-2">
+                <code className="text-[12px]" style={{ color: "#ff6354", fontFamily: "var(--font-geist-mono)" }}>aiscribe log</code>
+                <code className="text-[12px]" style={{ color: "#ff6354", fontFamily: "var(--font-geist-mono)" }}>aiscribe search</code>
+                <code className="text-[12px]" style={{ color: "#ff6354", fontFamily: "var(--font-geist-mono)" }}>aiscribe watch</code>
+                <code className="text-[12px]" style={{ color: "#ff6354", fontFamily: "var(--font-geist-mono)" }}>aiscribe server</code>
+              </div>
+            </div>
+
+            {/* More */}
+            <div>
+              <h4 className="text-[11px] font-semibold uppercase tracking-[0.08em] mb-3" style={{ color: "var(--ds-fg-2)" }}>More</h4>
+              <div className="flex flex-col gap-2">
+                <a href="/" className="text-[13px] hover:underline" style={{ color: "var(--ds-fg-3)" }}>aiagentflow</a>
+                <a href="/blog" className="text-[13px] hover:underline" style={{ color: "var(--ds-fg-3)" }}>Blog</a>
+                <a href="/docs" className="text-[13px] hover:underline" style={{ color: "var(--ds-fg-3)" }}>Docs</a>
+                <a href="/privacy" className="text-[13px] hover:underline" style={{ color: "var(--ds-fg-3)" }}>Privacy</a>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+            <div className="flex items-center gap-4">
+              <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener" className="hover:opacity-80 transition-opacity" style={{ color: "var(--ds-fg-3)" }}>
+                <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 00-2.5 15.6c.4.07.55-.17.55-.38v-1.34c-2.24.48-2.7-1.08-2.7-1.08-.37-.93-.9-1.18-.9-1.18-.73-.5.06-.49.06-.49.8.06 1.23.82 1.23.82a1.75 1.75 0 002.4.67c.3-.47.7-.82 1.27-1.02-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 011.03-2.69 3.6 3.6 0 01.1-2.66s.84-.27 2.75 1.03a9.5 9.5 0 015 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 01.1 2.66 3.87 3.87 0 011.03 2.69c0 3.85-2.34 4.7-4.58 4.95.47.4.89 1.2.89 2.42v3.58c0 .27.18.46.55.38A8 8 0 008 0z"/></svg>
+              </a>
+              <a href="https://www.npmjs.com/package/aiscribe" target="_blank" rel="noopener" className="hover:opacity-80 transition-opacity" style={{ color: "var(--ds-fg-3)" }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"/></svg>
+              </a>
+            </div>
+            <p className="text-[12px]" style={{ color: "var(--ds-fg-3)" }}>
+              © {new Date().getFullYear()} aiagentflow — Built for AI-native developers
+            </p>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
