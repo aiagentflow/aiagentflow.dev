@@ -33,6 +33,11 @@ export function GET() {
                 description: "Overview of AI Agent Flow and its local-first multi-agent workflow.",
             },
             {
+                title: "AiScribe - AI Coding Session Journal",
+                url: absoluteUrl("/aiscribe"),
+                description: "Open source CLI tool to journal AI coding sessions. Export as training data to fine-tune your own LLM.",
+            },
+            {
                 title: "GitHub repository",
                 url: githubUrl,
                 description: "Source code, issues, releases, and contribution workflow.",
