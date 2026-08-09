@@ -12,18 +12,60 @@ export function AIScribePage() {
   return (
     <main style={{ background: "var(--ds-bg)" }}>
       {/* Product nav */}
-      <div className="border-b sticky top-0 z-50" style={{ borderColor: "var(--ds-line)", background: "rgba(13,17,23,0.92)", backdropFilter: "blur(12px)" }}>
+      <div className="border-b sticky top-0 z-50" style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(13,17,23,0.94)", backdropFilter: "blur(16px)" }}>
         <div className="max-w-[960px] mx-auto px-4 sm:px-6 h-[56px] flex items-center justify-between">
-          <a href="/aiscribe" className="flex items-center gap-2.5">
-            <Image src="/aiscribe/logo.png" alt="AIScribe" width={28} height={28} className="rounded-md" />
-            <span className="font-bold text-[15px] tracking-[-0.01em]" style={{ fontFamily: "var(--font-geist-sans)", color: "var(--ds-fg)" }}>AIScribe</span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ background: "rgba(255,99,84,0.13)", color: "#ff8a7a", border: "1px solid rgba(255,99,84,0.27)" }}>v1.0</span>
+          {/* Mobile: GitHub icon left */}
+          <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener"
+            className="sm:hidden flex items-center justify-center w-9 h-9 rounded-lg transition-colors"
+            style={{ color: "var(--ds-fg-2)" }}
+            onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.05)")}
+            onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+            aria-label="GitHub">
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 00-2.5 15.6c.4.07.55-.17.55-.38v-1.34c-2.24.48-2.7-1.08-2.7-1.08-.37-.93-.9-1.18-.9-1.18-.73-.5.06-.49.06-.49.8.06 1.23.82 1.23.82a1.75 1.75 0 002.4.67c.3-.47.7-.82 1.27-1.02-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 011.03-2.69 3.6 3.6 0 01.1-2.66s.84-.27 2.75 1.03a9.5 9.5 0 015 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 01.1 2.66 3.87 3.87 0 011.03 2.69c0 3.85-2.34 4.7-4.58 4.95.47.4.89 1.2.89 2.42v3.58c0 .27.18.46.55.38A8 8 0 008 0z"/></svg>
           </a>
-          <div className="flex items-center gap-4">
-            <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener" className="text-[13px] hover:underline" style={{ color: "var(--ds-fg-2)" }}>GitHub</a>
-            <a href="https://www.npmjs.com/package/aiscribe" target="_blank" rel="noopener" className="text-[13px] hover:underline" style={{ color: "var(--ds-fg-2)" }}>npm</a>
-            <a href="/" className="text-[12px]" style={{ color: "var(--ds-fg-3)" }}>aiagentflow.dev →</a>
+
+          {/* Center: Logo (mobile) / Logo + brand (desktop) */}
+          <a href="/aiscribe" className="flex items-center gap-2.5 mx-auto sm:mx-0">
+            <Image src="/aiscribe/logo.png" alt="AIScribe" width={30} height={30} className="rounded-md" />
+            <span className="hidden sm:inline font-bold text-[16px] tracking-[-0.01em]" style={{ fontFamily: "var(--font-geist-sans)", color: "var(--ds-fg)" }}>AiScribe</span>
+          </a>
+
+          {/* Desktop: right side links */}
+          <div className="hidden sm:flex items-center gap-1">
+            <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium transition-colors"
+              style={{ color: "var(--ds-fg-2)" }}
+              onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.color = "var(--ds-fg)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--ds-fg-2)"; }}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 00-2.5 15.6c.4.07.55-.17.55-.38v-1.34c-2.24.48-2.7-1.08-2.7-1.08-.37-.93-.9-1.18-.9-1.18-.73-.5.06-.49.06-.49.8.06 1.23.82 1.23.82a1.75 1.75 0 002.4.67c.3-.47.7-.82 1.27-1.02-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 011.03-2.69 3.6 3.6 0 01.1-2.66s.84-.27 2.75 1.03a9.5 9.5 0 015 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 01.1 2.66 3.87 3.87 0 011.03 2.69c0 3.85-2.34 4.7-4.58 4.95.47.4.89 1.2.89 2.42v3.58c0 .27.18.46.55.38A8 8 0 008 0z"/></svg>
+              GitHub
+            </a>
+            <a href="https://www.npmjs.com/package/aiscribe" target="_blank" rel="noopener"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium transition-colors"
+              style={{ color: "var(--ds-fg-2)" }}
+              onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.color = "var(--ds-fg)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--ds-fg-2)"; }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"/></svg>
+              npm
+            </a>
+            <span className="mx-1 w-px h-5" style={{ background: "rgba(255,255,255,0.1)" }} />
+            <a href="/" className="text-[12px] px-2 py-1.5 rounded-lg transition-colors"
+              style={{ color: "var(--ds-fg-3)" }}
+              onMouseEnter={e => { e.currentTarget.style.color = "var(--ds-fg-2)"; }}
+              onMouseLeave={e => { e.currentTarget.style.color = "var(--ds-fg-3)"; }}>
+              aiagentflow.dev
+            </a>
           </div>
+
+          {/* Mobile: npm icon right */}
+          <a href="https://www.npmjs.com/package/aiscribe" target="_blank" rel="noopener"
+            className="sm:hidden flex items-center justify-center w-9 h-9 rounded-lg transition-colors"
+            style={{ color: "var(--ds-fg-2)" }}
+            onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.05)")}
+            onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+            aria-label="npm">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M0 7.334v8h6.666v1.332H12v-1.332h12v-8H0zm6.666 6.664H5.334v-4H3.999v4H1.335V8.667h5.331v5.331zm4 0v1.336H8.001V8.667h5.334v5.332h-2.669v-.001zm12.001 0h-1.33v-4h-1.336v4h-1.335v-4h-1.33v4h-2.671V8.667h8.002v5.331z"/></svg>
+          </a>
         </div>
       </div>
 
