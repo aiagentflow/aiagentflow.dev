@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 const installCommand = "npm install -g aiscribe";
 
 function Section({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -13,7 +15,7 @@ export function AIScribePage() {
       <div className="border-b sticky top-0 z-50" style={{ borderColor: "var(--ds-line)", background: "rgba(13,17,23,0.92)", backdropFilter: "blur(12px)" }}>
         <div className="max-w-[960px] mx-auto px-4 sm:px-6 h-[56px] flex items-center justify-between">
           <a href="/aiscribe" className="flex items-center gap-2.5">
-            <img src="/aiscribe/logo.png" alt="AIScribe" width="28" height="28" className="rounded-md" />
+            <Image src="/aiscribe/logo.png" alt="AIScribe" width={28} height={28} className="rounded-md" />
             <span className="font-bold text-[15px] tracking-[-0.01em]" style={{ fontFamily: "var(--font-geist-sans)", color: "var(--ds-fg)" }}>AIScribe</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ background: "rgba(255,99,84,0.13)", color: "#ff8a7a", border: "1px solid rgba(255,99,84,0.27)" }}>v1.0</span>
           </a>
@@ -67,6 +69,7 @@ export function AIScribePage() {
               { src: "/aiscribe/demos/demo-analytics.gif", title: "aiscribe hotspots", desc: "Codebase analytics" },
             ].map(({ src, title, desc }) => (
               <div key={title} className="rounded-xl overflow-hidden border" style={{ borderColor: "var(--ds-line)", background: "#0d1117" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={src} alt={title} className="w-full" />
                 <div className="px-4 py-3 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
                   <code className="text-[13px] font-semibold" style={{ color: "#ff6354", fontFamily: "var(--font-geist-mono)" }}>{title}</code>
@@ -174,11 +177,11 @@ export function AIScribePage() {
             {/* Brand */}
             <div className="col-span-2 sm:col-span-1">
               <div className="flex items-center gap-2.5 mb-3">
-                <img src="/aiscribe/logo.png" alt="AIScribe" width="28" height="28" className="rounded-md" />
+                <Image src="/aiscribe/logo.png" alt="AIScribe" width={28} height={28} className="rounded-md" />
                 <span className="font-bold text-[15px]" style={{ color: "var(--ds-fg)" }}>AIScribe</span>
               </div>
               <p className="text-[12px] leading-relaxed" style={{ color: "var(--ds-fg-3)" }}>
-                Your AI's scribe. Every session, recorded and backed up.
+                Your AI&apos;s scribe. Every session, recorded and backed up.
               </p>
             </div>
 
