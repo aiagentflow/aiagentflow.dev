@@ -28,7 +28,7 @@ export function AIScribePage() {
             <svg width="24" height="24" viewBox="0 0 16 16" fill="#f0f6fc"><path d="M8 0a8 8 0 00-2.5 15.6c.4.07.55-.17.55-.38v-1.34c-2.24.48-2.7-1.08-2.7-1.08-.37-.93-.9-1.18-.9-1.18-.73-.5.06-.49.06-.49.8.06 1.23.82 1.23.82a1.75 1.75 0 002.4.67c.3-.47.7-.82 1.27-1.02-2.23-.25-4.57-1.11-4.57-4.95a3.88 3.88 0 011.03-2.69 3.6 3.6 0 01.1-2.66s.84-.27 2.75 1.03a9.5 9.5 0 015 0c1.91-1.3 2.75-1.03 2.75-1.03a3.6 3.6 0 01.1 2.66 3.87 3.87 0 011.03 2.69c0 3.85-2.34 4.7-4.58 4.95.47.4.89 1.2.89 2.42v3.58c0 .27.18.46.55.38A8 8 0 008 0z"/></svg>
           </a>
           <a href="/aiscribe" className="flex items-center gap-2.5 mx-auto sm:mx-0">
-            <Image src="/aiscribe/logo.png" alt="AIScribe" width={30} height={30} className="rounded-md" />
+            <Image src="/aiscribe/logo.png" alt="AIScribe" width={38} height={38} className="rounded-lg ring-1 ring-white/10" />
             <span className="hidden sm:inline font-bold text-[16px] tracking-[-0.01em]" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>AiScribe</span>
           </a>
           <div className="hidden sm:flex items-center gap-1">
@@ -69,6 +69,7 @@ export function AIScribePage() {
       {/* Hero */}
       <Section className="!pb-8">
         <div className="max-w-[680px] mx-auto text-center flex flex-col items-center gap-6 px-4">
+          <Image src="/aiscribe/logo.png" alt="AiScribe" width={96} height={96} className="rounded-2xl ring-1 ring-white/10 shadow-2xl shadow-black/50" />
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.15em]" style={{ background: "rgba(255,255,255,0.04)", color: "#8b949e", border: "1px solid rgba(255,255,255,0.06)" }}>
             Part of aiagentflow
           </div>
@@ -221,7 +222,7 @@ export function AIScribePage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-10">
             <div className="col-span-2 sm:col-span-1">
               <div className="flex items-center gap-2.5 mb-3">
-                <Image src="/aiscribe/logo.png" alt="AIScribe" width={28} height={28} className="rounded-md" />
+                <Image src="/aiscribe/logo.png" alt="AIScribe" width={40} height={40} className="rounded-lg" />
                 <span className="font-bold text-[15px]" style={{ color: "#f0f6fc" }}>AIScribe</span>
               </div>
               <p className="text-[12px] leading-relaxed" style={{ color: "#484f58" }}>
