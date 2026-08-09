@@ -174,7 +174,6 @@ export function AIScribePage() {
       <footer className="border-t" style={{ borderColor: "var(--ds-line)", background: "#0d1117" }}>
         <div className="max-w-[960px] mx-auto px-4 sm:px-6 py-12">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-10">
-            {/* Brand */}
             <div className="col-span-2 sm:col-span-1">
               <div className="flex items-center gap-2.5 mb-3">
                 <Image src="/aiscribe/logo.png" alt="AIScribe" width={28} height={28} className="rounded-md" />
@@ -184,8 +183,6 @@ export function AIScribePage() {
                 Your AI&apos;s scribe. Every session, recorded and backed up.
               </p>
             </div>
-
-            {/* Product */}
             <div>
               <h4 className="text-[11px] font-semibold uppercase tracking-[0.08em] mb-3" style={{ color: "var(--ds-fg-2)" }}>Product</h4>
               <div className="flex flex-col gap-2">
@@ -195,8 +192,6 @@ export function AIScribePage() {
                 <a href="https://github.com/aiagentflow/aiscribe/blob/main/LICENSE" target="_blank" rel="noopener" className="text-[13px] hover:underline" style={{ color: "var(--ds-fg-3)" }}>MIT License</a>
               </div>
             </div>
-
-            {/* Commands */}
             <div>
               <h4 className="text-[11px] font-semibold uppercase tracking-[0.08em] mb-3" style={{ color: "var(--ds-fg-2)" }}>Commands</h4>
               <div className="flex flex-col gap-2">
@@ -206,8 +201,6 @@ export function AIScribePage() {
                 <code className="text-[12px]" style={{ color: "#ff6354", fontFamily: "var(--font-geist-mono)" }}>aiscribe server</code>
               </div>
             </div>
-
-            {/* More */}
             <div>
               <h4 className="text-[11px] font-semibold uppercase tracking-[0.08em] mb-3" style={{ color: "var(--ds-fg-2)" }}>More</h4>
               <div className="flex flex-col gap-2">
@@ -218,8 +211,6 @@ export function AIScribePage() {
               </div>
             </div>
           </div>
-
-          {/* Bottom bar */}
           <div className="border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-3" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
             <div className="flex items-center gap-4">
               <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener" className="hover:opacity-80 transition-opacity" style={{ color: "var(--ds-fg-3)" }}>

@@ -6,7 +6,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import { FooterWrapper } from "@/components/FooterWrapper";
 import { getGitHubStats, getNpmVersion } from "@/lib/github";
 import Script from "next/script";
 import {
@@ -118,7 +118,7 @@ export default async function RootLayout({
             <div className="flex flex-col min-h-screen">
               <Header version={cliVersion} stars={stars} />
               <main className="flex-1">{children}</main>
-              <Footer />
+              <FooterWrapper />
             </div>
           </ThemeProvider>
         </NextIntlClientProvider>
