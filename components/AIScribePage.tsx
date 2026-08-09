@@ -13,19 +13,9 @@ export function AIScribePage() {
       <div className="border-b sticky top-0 z-50" style={{ borderColor: "var(--ds-line)", background: "rgba(13,17,23,0.92)", backdropFilter: "blur(12px)" }}>
         <div className="max-w-[960px] mx-auto px-4 sm:px-6 h-[56px] flex items-center justify-between">
           <a href="/aiscribe" className="flex items-center gap-2.5">
-            <svg width="24" height="24" viewBox="0 0 400 400" fill="none">
-              <rect x="60" y="80" width="160" height="200" rx="12" stroke="url(#g)" strokeWidth="6" fill="#161b22"/>
-              <line x1="140" y1="80" x2="140" y2="280" stroke="url(#g)" strokeWidth="4"/>
-              <line x1="85" y1="125" x2="125" y2="125" stroke="#8b949e" strokeWidth="4" strokeLinecap="round"/>
-              <line x1="85" y1="155" x2="125" y2="155" stroke="#8b949e" strokeWidth="4" strokeLinecap="round"/>
-              <line x1="85" y1="185" x2="115" y2="185" stroke="#8b949e" strokeWidth="4" strokeLinecap="round"/>
-              <line x1="155" y1="125" x2="200" y2="125" stroke="#8b949e" strokeWidth="4" strokeLinecap="round"/>
-              <line x1="155" y1="155" x2="200" y2="155" stroke="#8b949e" strokeWidth="4" strokeLinecap="round"/>
-              <line x1="155" y1="185" x2="190" y2="185" stroke="#8b949e" strokeWidth="4" strokeLinecap="round"/>
-              <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#58a6ff"/><stop offset="1" stopColor="#3fb950"/></linearGradient></defs>
-            </svg>
+            <img src="/aiscribe/logo.png" alt="AIScribe" width="28" height="28" className="rounded-md" />
             <span className="font-bold text-[15px] tracking-[-0.01em]" style={{ fontFamily: "var(--font-geist-sans)", color: "var(--ds-fg)" }}>AIScribe</span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ background: "#23863622", color: "#3fb950", border: "1px solid #23863644" }}>v1.0</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ background: "rgba(255,99,84,0.13)", color: "#ff8a7a", border: "1px solid rgba(255,99,84,0.27)" }}>v1.0</span>
           </a>
           <div className="flex items-center gap-4">
             <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener" className="text-[13px] hover:underline" style={{ color: "var(--ds-fg-2)" }}>GitHub</a>
@@ -44,7 +34,7 @@ export function AIScribePage() {
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.06] tracking-[-0.03em]" style={{ fontFamily: "var(--font-geist-sans)" }}>
             Your AI writes code.<br />
-            <span style={{ background: "linear-gradient(135deg, #58a6ff, #3fb950)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            <span style={{ background: "linear-gradient(135deg, #ff6354, #ff8a7a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               AIScribe remembers why.
             </span>
           </h1>
@@ -56,7 +46,7 @@ export function AIScribePage() {
           <div className="flex items-center gap-3 flex-wrap justify-center mt-2">
             <button onClick={() => navigator.clipboard.writeText(installCommand)}
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold text-white transition-all duration-200 hover:scale-[1.02] active:scale-95"
-              style={{ background: "#238636", boxShadow: "0 0 0 1px rgba(255,255,255,.06) inset, 0 8px 24px rgba(35,134,54,.25)" }}>
+              style={{ background: "#d94a3a", boxShadow: "0 0 0 1px rgba(255,255,255,.06) inset, 0 8px 24px rgba(217,74,58,.25)" }}>
               <svg width="16" height="16" viewBox="0 0 14 14" fill="none"><rect x="3" y="3" width="9" height="9" rx="2" stroke="currentColor" strokeWidth="1.3"/><path d="M2 11V2h9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
               {installCommand}
             </button>
@@ -79,7 +69,7 @@ export function AIScribePage() {
               <div key={title} className="rounded-xl overflow-hidden border" style={{ borderColor: "var(--ds-line)", background: "#0d1117" }}>
                 <img src={src} alt={title} className="w-full" />
                 <div className="px-4 py-3 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
-                  <code className="text-[13px] font-semibold" style={{ color: "#58a6ff", fontFamily: "var(--font-geist-mono)" }}>{title}</code>
+                  <code className="text-[13px] font-semibold" style={{ color: "#ff6354", fontFamily: "var(--font-geist-mono)" }}>{title}</code>
                   <p className="text-[11px] mt-0.5" style={{ color: "var(--ds-fg-3)" }}>{desc}</p>
                 </div>
               </div>
@@ -125,7 +115,7 @@ export function AIScribePage() {
             ["aiscribe setup", "Docker files or reconfigure"],
           ].map(([cmd, desc]) => (
             <div key={cmd} className="rounded-lg p-3 border transition-colors hover:border-[#30363d]" style={{ borderColor: "var(--ds-line)", background: "var(--ds-bg-1)" }}>
-              <code className="text-[12px] font-semibold" style={{ color: "#58a6ff", fontFamily: "var(--font-geist-mono)" }}>{cmd}</code>
+              <code className="text-[12px] font-semibold" style={{ color: "#ff6354", fontFamily: "var(--font-geist-mono)" }}>{cmd}</code>
               <p className="text-[11px] mt-1" style={{ color: "var(--ds-fg-3)" }}>{desc}</p>
             </div>
           ))}
@@ -139,25 +129,25 @@ export function AIScribePage() {
             <div className="text-2xl mb-3">🤖</div>
             <h3 className="text-[20px] font-bold mb-2" style={{ color: "var(--ds-fg)" }}>AI-Powered Summary</h3>
             <p className="text-[14px] mb-4" style={{ color: "var(--ds-fg-2)" }}>Uses your LLM key (DeepSeek, OpenAI, Claude, Ollama) to generate structured summaries with risk scores, key decisions, and suspicious change flags.</p>
-            <code className="text-[13px]" style={{ color: "#7ee787", fontFamily: "var(--font-geist-mono)" }}>aiscribe log -c</code>
+            <code className="text-[13px]" style={{ color: "#ff8a7a", fontFamily: "var(--font-geist-mono)" }}>aiscribe log -c</code>
           </div>
           <div className="rounded-2xl border p-8" style={{ borderColor: "var(--ds-line)", background: "var(--ds-bg-1)" }}>
             <div className="text-2xl mb-3">📝</div>
             <h3 className="text-[20px] font-bold mb-2" style={{ color: "var(--ds-fg)" }}>Raw Chat Log</h3>
             <p className="text-[14px] mb-4" style={{ color: "var(--ds-fg-2)" }}>No API key? No problem. Store the full conversation log as-is. Searchable, exportable, and always available offline.</p>
-            <code className="text-[13px]" style={{ color: "#7ee787", fontFamily: "var(--font-geist-mono)" }}>aiscribe log -c -f</code>
+            <code className="text-[13px]" style={{ color: "#ff8a7a", fontFamily: "var(--font-geist-mono)" }}>aiscribe log -c -f</code>
           </div>
         </div>
       </Section>
 
       {/* Train your own LLM */}
       <Section>
-        <div className="rounded-2xl border p-8 sm:p-12 text-center" style={{ borderColor: "var(--ds-line)", background: "linear-gradient(135deg, rgba(88,166,255,0.04), rgba(63,185,80,0.04))" }}>
+        <div className="rounded-2xl border p-8 sm:p-12 text-center" style={{ borderColor: "var(--ds-line)", background: "linear-gradient(135deg, rgba(255,99,84,0.05), rgba(255,138,122,0.04))" }}>
           <h2 className="text-[28px] font-bold mb-3" style={{ fontFamily: "var(--font-geist-sans)" }}>Train your own LLM</h2>
           <p className="text-[16px] max-w-[500px] mx-auto mb-6" style={{ color: "var(--ds-fg-2)" }}>
             Every session you capture becomes training data. Export your conversations and fine-tune a local model on your coding style, decisions, and patterns.
           </p>
-          <code className="text-[14px] px-4 py-2 rounded-lg inline-block" style={{ background: "#161b22", color: "#7ee787", border: "1px solid #21262d", fontFamily: "var(--font-geist-mono)" }}>
+          <code className="text-[14px] px-4 py-2 rounded-lg inline-block" style={{ background: "#161b22", color: "#ff8a7a", border: "1px solid #21262d", fontFamily: "var(--font-geist-mono)" }}>
             aiscribe export --format ai --output training-data.txt
           </code>
         </div>
@@ -169,7 +159,7 @@ export function AIScribePage() {
         <p className="text-[17px] mt-3 mb-8" style={{ color: "var(--ds-fg-2)" }}>One command. Every session. Forever.</p>
         <button onClick={() => navigator.clipboard.writeText(installCommand)}
           className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold text-white transition-all duration-200 hover:scale-[1.02] active:scale-95"
-          style={{ background: "#238636", boxShadow: "0 0 0 1px rgba(255,255,255,.06) inset, 0 8px 24px rgba(35,134,54,.25)" }}>
+          style={{ background: "#d94a3a", boxShadow: "0 0 0 1px rgba(255,255,255,.06) inset, 0 8px 24px rgba(217,74,58,.25)" }}>
           {installCommand}
         </button>
         <div className="mt-4">
