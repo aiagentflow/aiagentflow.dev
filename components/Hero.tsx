@@ -434,7 +434,7 @@ export default function Hero({ stars = "38", version = "v1.0.2" }: { stars?: str
                 </div>
 
                 {/* logo strip */}
-                <div style={{ marginTop: "clamp(64px, 8vw, 96px)" }}>
+                <div style={{ marginTop: "clamp(64px, 8vw, 96px)", overflow: "hidden" }}>
                     <div className="eyebrow" style={{ justifyContent: "center", display: "flex", marginBottom: 20 }}>
                         Trusted by engineers at
                     </div>
