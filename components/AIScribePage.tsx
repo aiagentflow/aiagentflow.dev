@@ -177,7 +177,7 @@ export function AIScribePage() {
             </span>
           </h1>
           <p className="text-[17px] sm:text-[19px] leading-relaxed max-w-[520px]" style={{ color: "#8b949e" }}>
-            One command journals your AI coding session. No API key needed. Zero config. Captures git diffs, full conversations, and exports everything as training data for your own models.
+            One command journals your AI coding session. No API key needed. Zero config. Captures git diffs, full conversations. Built-in web UI with PDF export and markdown editor. Export as training data.
           </p>
           <div className="flex items-center gap-3 flex-wrap justify-center mt-2">
             <button onClick={trackInstall}
