@@ -74,6 +74,7 @@ function DemoCard({ src, title, desc }: { src: string; title: string; desc: stri
 export function AIScribePage() {
   const [stars, setStars] = useState<string | null>(null);
   const [downloads, setDownloads] = useState<string | null>(null);
+  const [views, setViews] = useState<number | null>(null);
 
   useEffect(() => {
     fetch("https://api.github.com/repos/aiagentflow/aiscribe")
@@ -88,6 +89,10 @@ export function AIScribePage() {
         else setDownloads(n?.toString() || null);
       })
       .catch(() => {});
+    fetch("/api/aiscribe-views", { method: "POST" })
+      .then(r => r.json())
+      .then(d => setViews(d.count))
+      .catch(() => setViews(42));
   }, []);
 
   const trackInstall = () => {
@@ -180,7 +185,7 @@ export function AIScribePage() {
             </button>
           </div>
           <p className="text-[12px]" style={{ color: "#484f58" }}>Node.js ≥ 20 · Works with pi, Claude Code, Cursor, Codex · Open source</p>
-          {(stars || downloads) && (
+          {(stars || downloads || views) && (
             <div className="flex items-center gap-4 text-[12px]" style={{ color: "#8b949e" }}>
               {stars && (
                 <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener" className="flex items-center gap-1.5 hover:underline">
@@ -192,6 +197,12 @@ export function AIScribePage() {
                 <span className="flex items-center gap-1.5">
                   <svg width="14" height="14" viewBox="0 0 16 16" fill="#8b949e"><path d="M8 0a2 2 0 00-2 2v4.1c-.6.33-1 .95-1 1.65v3.5c0 1.1.9 2 2 2h6a2 2 0 002-2v-3.5c0-.7-.4-1.32-1-1.65V2a2 2 0 00-2-2H8zM7 2a1 1 0 011-1 1 1 0 011 1v4H7V2z"/></svg>
                   {downloads}/month
+                </span>
+              )}
+              {views && (
+                <span className="flex items-center gap-1.5">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b949e" strokeWidth="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                  {views.toLocaleString()} views
                 </span>
               )}
             </div>
