@@ -255,7 +255,7 @@ function LogoStrip() {
     const doubled = [...logos, ...logos];
     return (
         <div style={{
-            position: "relative", overflow: "hidden",
+            position: "relative", overflow: "hidden", width: "100%",
             maskImage: "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
             WebkitMaskImage: "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
         }}>
