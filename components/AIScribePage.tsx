@@ -177,7 +177,7 @@ export function AIScribePage() {
             </span>
           </h1>
           <p className="text-[17px] sm:text-[19px] leading-relaxed max-w-[520px]" style={{ color: "#8b949e" }}>
-            One command journals your AI coding session. Captures git diffs, full conversations, and exports everything as training data for your own models.
+            One command journals your AI coding session. No API key needed. Zero config. Captures git diffs, full conversations, and exports everything as training data for your own models.
           </p>
           <div className="flex items-center gap-3 flex-wrap justify-center mt-2">
             <button onClick={trackInstall}
@@ -187,7 +187,7 @@ export function AIScribePage() {
               {installCommand}
             </button>
           </div>
-          <p className="text-[12px]" style={{ color: "#484f58" }}>Node.js ≥ 20 · Works with pi, Claude Code, Cursor, Codex · Open source</p>
+          <p className="text-[12px]" style={{ color: "#484f58" }}>No API key required · Works with pi, Claude Code, Cursor, Codex · Open source</p>
           {(stars || downloads || views) && (
             <div className="flex items-center gap-1" style={{ color: "#8b949e" }}>
               {stars && (
