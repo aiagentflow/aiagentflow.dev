@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
+import { ParticleBg } from "./ParticleBg";
+
 const installCommand = "npm install -g aiscribe";
 
 function Section({ children, className = "", bg = "black" }: { children: React.ReactNode; className?: string; bg?: "black" | "navy" }) {
@@ -111,6 +113,7 @@ export function AIScribePage() {
 
   return (
     <main style={{ background: "#0d1117" }}>
+      <ParticleBg />
       {/* Nav */}
       <div className="border-b sticky top-0 z-50" style={{ borderColor: "rgba(255,255,255,0.06)", background: "rgba(13,17,23,0.94)", backdropFilter: "blur(16px)" }}>
         <div className="max-w-[960px] mx-auto px-4 sm:px-6 h-[56px] flex items-center justify-between">
@@ -214,8 +217,6 @@ export function AIScribePage() {
                   <span className="text-[#484f58]">views</span>
                 </span>
               )}
-            </div>
-          )}
             </div>
           )}
           <div className="mt-2">
