@@ -91,6 +91,15 @@ export function AIScribePage() {
             </button>
           </div>
           <p className="text-[12px]" style={{ color: "#484f58" }}>Node.js ≥ 20 · Works with pi, Claude Code, Cursor, Codex · Open source</p>
+          <div className="mt-2">
+            <a href="https://peerlist.io/raajkhan/project/aiscribe--log-prompts--agents-response" target="_blank" rel="noreferrer">
+              <img
+                src="https://peerlist.io/api/v1/projects/embed/PRJH7B8EJLG777A88F69ENKP96JDKG?showUpvote=true&theme=dark"
+                alt="AiScribe on Peerlist"
+                style={{ height: 48 }}
+              />
+            </a>
+          </div>
         </div>
       </Section>
 
