@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import { Pipeline } from "@/components/Pipeline";
 import { Features } from "@/components/Features";
+import { LogoStrip } from "@/components/LogoStrip";
 import { Providers } from "@/components/Providers";
 import { Architecture } from "@/components/Architecture";
 import { Comparison } from "@/components/Comparison";
@@ -46,6 +47,7 @@ export default async function Home() {
         <main style={{ background: "var(--ds-bg)" }}>
             <Hero stars={stars} version={version} />
             <Pipeline />
+            <LogoStrip />
             <Features />
             <Providers />
             <Architecture />

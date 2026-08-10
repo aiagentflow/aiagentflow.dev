@@ -250,30 +250,6 @@ function StreamingTerminal() {
     );
 }
 
-function LogoStrip() {
-    const logos = ["VERCEL", "STRIPE/labs", "Linear", "Resend", "Supabase", "Railway", "Plaid", "Sentry", "Notion", "Cursor"];
-    const doubled = [...logos, ...logos];
-    return (
-        <div style={{
-            position: "relative", overflow: "hidden", width: "100%",
-            maskImage: "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
-            WebkitMaskImage: "linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)",
-        }}>
-            <div style={{ display: "flex", gap: 56, width: "max-content", animation: "marquee 40s linear infinite" }}>
-                {doubled.map((l, i) => (
-                    <div
-                        key={i}
-                        className="font-mono-var"
-                        style={{ fontSize: 16, fontWeight: 500, letterSpacing: "-0.01em", color: "var(--ds-fg-3)", whiteSpace: "nowrap", opacity: 0.7 }}
-                    >
-                        {l}
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-}
-
 export default function Hero({ stars = "38", version = "v1.0.2" }: { stars?: string; version?: string }) {
     return (
         <section
@@ -433,13 +409,7 @@ export default function Hero({ stars = "38", version = "v1.0.2" }: { stars?: str
                     </motion.div>
                 </div>
 
-                {/* logo strip */}
-                <div style={{ marginTop: "clamp(64px, 8vw, 96px)", overflow: "hidden" }}>
-                    <div className="eyebrow" style={{ justifyContent: "center", display: "flex", marginBottom: 20 }}>
-                        Trusted by engineers at
-                    </div>
-                    <LogoStrip />
-                </div>
+
             </div>
         </section>
     );
