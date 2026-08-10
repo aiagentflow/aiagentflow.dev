@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-    html, body {
-        overflow-x: hidden;
-        max-width: 100vw;
-    }
     :root {
         /* Brand tokens — violet accent */
         --brand-primary: 124 92 255;    /* #7c5cff */
