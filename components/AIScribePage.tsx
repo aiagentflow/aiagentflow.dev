@@ -297,6 +297,34 @@ export function AIScribePage() {
         </Container>
       </Section>
 
+      {/* What you can do */}
+      <Section bg="navy">
+        <Container>
+          <h2 className="text-[28px] sm:text-[32px] font-bold tracking-[-0.02em] mb-2 text-center" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Stop treating AI sessions like disposable chat logs.</h2>
+          <p className="text-[15px] text-center mb-12" style={{ color: "#8b949e" }}>Every session is an asset. Here is what you can actually do with them.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { icon: "🔍", title: "Search by meaning, not keywords", desc: "You shipped 47 files across 12 sessions. Which one had that Stripe webhook fix? Type what you remember. Vector search finds it.", tag: "smart" },
+              { icon: "🤖", title: "Train a model that codes like you", desc: "Your sessions are a goldmine. Export in AI format. Fine tune on your patterns, your stack, your decisions. A coding assistant that actually knows your codebase.", tag: "popular" },
+              { icon: "📄", title: "PDFs that impress your team", desc: "Side-by-side editor. 12 formatting tools. Live preview. One click to PDF. Perfect for code reviews, client handoffs, and portfolio pieces.", tag: "new" },
+              { icon: "📊", title: "Spot fragile code before it snaps", desc: "Which files change in 80% of sessions? That is your risk zone. Hotspots and timelines expose what git blame hides.", tag: "analytics" },
+              { icon: "🔄", title: "Your second brain, backed up", desc: "One command. Every session auto-pushed to your private GitHub repo. Project folders. Full history. Never lose context to a Ctrl+C again.", tag: "automated" },
+              { icon: "👥", title: "Onboard devs in 5 minutes", desc: "Share .aiscribe/. They read the story. Every decision, every change, every reason. Months of context absorbed before their first commit.", tag: "team" },
+            ].map(({ icon, title, desc, tag }) => (
+              <div key={title} className="group rounded-xl border p-6 transition-all duration-200 hover:border-white/10 hover:translate-y-[-2px]" style={{ borderColor: "rgba(255,255,255,0.06)", background: "#0d1117" }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-2xl">{icon}</span>
+                  {tag === "new" && <span className="text-[9px] px-2 py-0.5 rounded-full font-semibold uppercase tracking-[0.04em]" style={{ background: "rgba(255,99,84,0.15)", color: "#ff6354" }}>NEW</span>}
+                  {tag === "popular" && <span className="text-[9px] px-2 py-0.5 rounded-full font-semibold uppercase tracking-[0.04em]" style={{ background: "rgba(255,99,84,0.1)", color: "#ff8a7a" }}>POPULAR</span>}
+                </div>
+                <h3 className="text-[15px] font-semibold mb-2 group-hover:text-white transition-colors" style={{ color: "#e6edf3" }}>{title}</h3>
+                <p className="text-[13px] leading-relaxed" style={{ color: "#8b949e" }}>{desc}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
       {/* Two modes */}
       <Section>
         <Container>
