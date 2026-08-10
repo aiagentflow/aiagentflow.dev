@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const installCommand = "npm install -g aiscribe";
 
@@ -72,6 +72,35 @@ function DemoCard({ src, title, desc }: { src: string; title: string; desc: stri
 }
 
 export function AIScribePage() {
+  const [stars, setStars] = useState<string | null>(null);
+  const [downloads, setDownloads] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("https://api.github.com/repos/aiagentflow/aiscribe")
+      .then(r => r.json())
+      .then(d => setStars(d.stargazers_count?.toString() || null))
+      .catch(() => {});
+    fetch("https://api.npmjs.org/downloads/point/last-month/aiscribe")
+      .then(r => r.json())
+      .then(d => {
+        const n = d.downloads;
+        if (n >= 1000) setDownloads((n / 1000).toFixed(1) + "k");
+        else setDownloads(n?.toString() || null);
+      })
+      .catch(() => {});
+  }, []);
+
+  const trackInstall = () => {
+    navigator.clipboard.writeText(installCommand);
+    if (typeof window !== "undefined" && (window as any).gtag) {
+      (window as any).gtag("event", "install_copy", {
+        event_category: "conversion",
+        event_label: "npm_install_aiscribe",
+        value: 1,
+      });
+    }
+  };
+
   return (
     <main style={{ background: "#0d1117" }}>
       {/* Nav */}
@@ -140,7 +169,7 @@ export function AIScribePage() {
             One command journals your AI coding session. Captures git diffs, full conversations, and exports everything as training data for your own models.
           </p>
           <div className="flex items-center gap-3 flex-wrap justify-center mt-2">
-            <button onClick={() => navigator.clipboard.writeText(installCommand)}
+            <button onClick={trackInstall}
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold text-white transition-all duration-200 hover:scale-[1.02] active:scale-95"
               style={{ background: "#d94a3a", boxShadow: "0 0 0 1px rgba(255,255,255,.06) inset, 0 8px 24px rgba(217,74,58,.25)" }}>
               <svg width="16" height="16" viewBox="0 0 14 14" fill="none"><rect x="3" y="3" width="9" height="9" rx="2" stroke="currentColor" strokeWidth="1.3"/><path d="M2 11V2h9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
@@ -148,6 +177,22 @@ export function AIScribePage() {
             </button>
           </div>
           <p className="text-[12px]" style={{ color: "#484f58" }}>Node.js ≥ 20 · Works with pi, Claude Code, Cursor, Codex · Open source</p>
+          {(stars || downloads) && (
+            <div className="flex items-center gap-4 text-[12px]" style={{ color: "#8b949e" }}>
+              {stars && (
+                <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener" className="flex items-center gap-1.5 hover:underline">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="#8b949e"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.751.751 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+                  {stars}
+                </a>
+              )}
+              {downloads && (
+                <span className="flex items-center gap-1.5">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="#8b949e"><path d="M8 0a2 2 0 00-2 2v4.1c-.6.33-1 .95-1 1.65v3.5c0 1.1.9 2 2 2h6a2 2 0 002-2v-3.5c0-.7-.4-1.32-1-1.65V2a2 2 0 00-2-2H8zM7 2a1 1 0 011-1 1 1 0 011 1v4H7V2z"/></svg>
+                  {downloads}/month
+                </span>
+              )}
+            </div>
+          )}
           <div className="mt-2">
             <a href="https://peerlist.io/raajkhan/project/aiscribe--log-prompts--agents-response" target="_blank" rel="noreferrer">
               <img
@@ -265,7 +310,7 @@ export function AIScribePage() {
         <Container>
           <h2 className="text-[28px] sm:text-[32px] font-bold tracking-[-0.02em]" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Stop losing context.</h2>
           <p className="text-[17px] mt-3 mb-8" style={{ color: "#8b949e" }}>One command. Every session. Forever.</p>
-          <button onClick={() => navigator.clipboard.writeText(installCommand)}
+          <button onClick={trackInstall}
             className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold text-white transition-all duration-200 hover:scale-[1.02] active:scale-95"
             style={{ background: "#d94a3a", boxShadow: "0 0 0 1px rgba(255,255,255,.06) inset, 0 8px 24px rgba(217,74,58,.25)" }}>
             {installCommand}
