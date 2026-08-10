@@ -165,19 +165,16 @@ export function AIScribePage() {
 
       {/* Hero */}
       <Section className="!pb-8">
-        <div className="max-w-[680px] mx-auto text-center flex flex-col items-center gap-6 px-4">
+        <div className="max-w-[720px] mx-auto text-center flex flex-col items-center gap-6 px-4">
           <Image src="/aiscribe/logo.png" alt="AiScribe" width={96} height={96} className="rounded-2xl ring-1 ring-white/10 shadow-2xl shadow-black/50" />
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.15em]" style={{ background: "rgba(255,255,255,0.04)", color: "#8b949e", border: "1px solid rgba(255,255,255,0.06)" }}>
-            Part of aiagentflow
-          </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.06] tracking-[-0.03em]" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>
-            Your AI writes code.<br />
+            Your AI shipped 50 files yesterday.<br />
             <span style={{ background: "linear-gradient(135deg, #ff6354, #ff8a7a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-              AIScribe remembers why.
+              Can you explain any of them today?
             </span>
           </h1>
-          <p className="text-[17px] sm:text-[19px] leading-relaxed max-w-[520px]" style={{ color: "#8b949e" }}>
-            One command journals your AI coding session. No API key needed. Zero config. Captures git diffs, full conversations. Built-in web UI with PDF export and markdown editor. Export as training data.
+          <p className="text-[17px] sm:text-[19px] leading-relaxed max-w-[560px]" style={{ color: "#8b949e" }}>
+            AiScribe journals every AI coding session. Git diffs. Full conversations. Searchable. Exportable. Zero config. One command. Your sessions become training data for your own LLM.
           </p>
           <div className="flex items-center gap-3 flex-wrap justify-center mt-2">
             <button onClick={trackInstall}
@@ -187,7 +184,7 @@ export function AIScribePage() {
               {installCommand}
             </button>
           </div>
-          <p className="text-[12px]" style={{ color: "#484f58" }}>No API key required · Works with pi, Claude Code, Cursor, Codex · Open source</p>
+          <p className="text-[12px]" style={{ color: "#484f58" }}>No API key required · Works with pi, Claude Code, Cursor, Codex · Open source · MIT</p>
           {(stars || downloads || views) && (
             <div className="flex items-center gap-1" style={{ color: "#8b949e" }}>
               {stars && (

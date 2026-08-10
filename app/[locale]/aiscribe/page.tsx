@@ -8,9 +8,9 @@ interface AIScribeProps {
 
 export async function generateMetadata({ params }: AIScribeProps): Promise<Metadata> {
     const canonical = canonicalPath(params.locale, "/aiscribe");
-    const title = "AiScribe: Train LLM from the coding session";
+    const title = "AiScribe: Your AI shipped 50 files yesterday. Can you explain any of them today?";
     const description =
-        "Open source CLI tool that journals AI coding sessions. Capture git diffs, full conversations, and export as training data to fine-tune your own LLM. Works with Claude Code, Cursor, pi, Codex, and any AI tool.";
+        "Open source CLI tool that journals every AI coding session. Git diffs, full conversations, searchable forever. Export as training data to fine-tune your own LLM. Zero config, no API key needed.";
 
     return {
         metadataBase: new URL(absoluteUrl("/")),

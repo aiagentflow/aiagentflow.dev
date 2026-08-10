@@ -49,7 +49,7 @@ export default async function Image() {
                     fontSize: 30, fontWeight: 500, color: '#8b949e',
                     textAlign: 'center', maxWidth: '80%', marginBottom: 40,
                 }}>
-                    Train LLM from the coding session
+                    Your AI shipped 50 files yesterday. Can you explain any of them today?
                 </div>
 
                 {/* Bottom bar */}
