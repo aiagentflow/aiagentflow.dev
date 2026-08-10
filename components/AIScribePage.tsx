@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 
 const installCommand = "npm install -g aiscribe";
 
@@ -12,6 +13,62 @@ function Section({ children, className = "", bg = "black" }: { children: React.R
 
 function Container({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`max-w-[960px] mx-auto px-4 sm:px-6 ${className}`}>{children}</div>;
+}
+
+function DemoCard({ src, title, desc }: { src: string; title: string; desc: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <div
+        onClick={() => setOpen(true)}
+        className="rounded-xl overflow-hidden border cursor-pointer group transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/30"
+        style={{ borderColor: "rgba(255,255,255,0.08)", background: "#0d1117" }}
+      >
+        <div className="relative">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={src} alt={title} className="w-full" />
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: "rgba(0,0,0,0.4)" }}>
+            <div className="flex items-center gap-2 px-4 py-2 rounded-lg" style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(4px)" }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+              <span className="text-[13px] font-medium text-white">Expand</span>
+            </div>
+          </div>
+        </div>
+        <div className="px-4 py-3 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+          <code className="text-[14px] font-semibold" style={{ color: "#ff6354", fontFamily: "var(--font-geist-mono)" }}>{title}</code>
+          <p className="text-[12px] mt-0.5" style={{ color: "#8b949e" }}>{desc}</p>
+        </div>
+      </div>
+
+      {open && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
+          style={{ background: "rgba(0,0,0,0.85)", backdropFilter: "blur(8px)" }}
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="relative max-w-[90vw] max-h-[90vh] rounded-xl overflow-hidden shadow-2xl"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={src} alt={title} className="max-w-full max-h-[85vh] object-contain" />
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center text-white transition-colors"
+              style={{ background: "rgba(0,0,0,0.6)" }}
+              aria-label="Close"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div className="absolute bottom-0 left-0 right-0 px-4 py-3 text-center" style={{ background: "rgba(0,0,0,0.7)" }}>
+              <code className="text-[14px] font-semibold" style={{ color: "#ff6354", fontFamily: "var(--font-geist-mono)" }}>{title}</code>
+              <span className="text-[12px] ml-2" style={{ color: "#8b949e" }}>{desc}</span>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
 }
 
 export function AIScribePage() {
@@ -106,21 +163,15 @@ export function AIScribePage() {
       {/* Terminal Demos */}
       <Section className="!pt-0" bg="navy">
         <Container>
-          <h2 className="text-[22px] sm:text-[26px] font-bold tracking-[-0.02em] mb-6 text-center" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>See it in action</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-2 text-center" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>See it in action</h2>
+          <p className="text-[14px] text-center mb-8" style={{ color: "#8b949e" }}>Click any demo to expand</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { src: "/aiscribe/demos/demo-log.gif", title: "aiscribe log", desc: "Journal a session" },
               { src: "/aiscribe/demos/demo-search.gif", title: "aiscribe search", desc: "Find by meaning" },
               { src: "/aiscribe/demos/demo-analytics.gif", title: "aiscribe hotspots", desc: "Codebase analytics" },
             ].map(({ src, title, desc }) => (
-              <div key={title} className="rounded-xl overflow-hidden border" style={{ borderColor: "rgba(255,255,255,0.06)", background: "#0d1117" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt={title} className="w-full" />
-                <div className="px-4 py-3 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
-                  <code className="text-[13px] font-semibold" style={{ color: "#ff6354", fontFamily: "var(--font-geist-mono)" }}>{title}</code>
-                  <p className="text-[11px] mt-0.5" style={{ color: "#484f58" }}>{desc}</p>
-                </div>
-              </div>
+              <DemoCard key={title} src={src} title={title} desc={desc} />
             ))}
           </div>
         </Container>
