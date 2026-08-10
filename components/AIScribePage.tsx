@@ -92,13 +92,16 @@ export function AIScribePage() {
 
   const trackInstall = () => {
     navigator.clipboard.writeText(installCommand);
-    if (typeof window !== "undefined" && (window as any).gtag) {
-      (window as any).gtag("event", "install_copy", {
-        event_category: "conversion",
-        event_label: "npm_install_aiscribe",
-        value: 1,
-      });
-    }
+    try {
+      const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+      if (gtag) {
+        gtag("event", "install_copy", {
+          event_category: "conversion",
+          event_label: "npm_install_aiscribe",
+          value: 1,
+        });
+      }
+    } catch {}
   };
 
   return (
@@ -195,6 +198,7 @@ export function AIScribePage() {
           )}
           <div className="mt-2">
             <a href="https://peerlist.io/raajkhan/project/aiscribe--log-prompts--agents-response" target="_blank" rel="noreferrer">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="https://peerlist.io/api/v1/projects/embed/PRJH7B8EJLG777A88F69ENKP96JDKG?showUpvote=true&theme=dark"
                 alt="AiScribe on Peerlist"
