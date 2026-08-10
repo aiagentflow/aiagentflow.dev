@@ -222,6 +222,26 @@ export function Header({ version = "v1.0.2", stars = "38" }: { version?: string;
                                 >
                                     {item.label}
                                 </a>
+                            ) : item.id === "aiscribe" ? (
+                                <Link
+                                    key={item.id}
+                                    href={item.href}
+                                    className="text-[13px] px-[10px] py-[6px] rounded-md transition-colors duration-150 flex items-center gap-1.5"
+                                    style={{
+                                        color: isActive(item.href) ? "var(--ds-fg)" : "#ff8a7a",
+                                        background: isActive(item.href) ? "var(--ds-bg-2)" : "rgba(255,99,84,0.08)",
+                                        border: "1px solid rgba(255,99,84,0.2)",
+                                    }}
+                                >
+                                    <span style={{
+                                        width: 6, height: 6, borderRadius: "50%",
+                                        background: "#ff6354",
+                                        boxShadow: "0 0 6px #ff6354",
+                                        animation: "pulse-dot 1.6s ease-in-out infinite",
+                                        display: "inline-block",
+                                    }} />
+                                    {item.label}
+                                </Link>
                             ) : (
                                 <Link
                                     key={item.id}
@@ -300,6 +320,27 @@ export function Header({ version = "v1.0.2", stars = "38" }: { version?: string;
                                     >
                                         {item.label}
                                     </a>
+                                ) : item.id === "aiscribe" ? (
+                                    <Link
+                                        key={item.id}
+                                        href={item.href}
+                                        className="text-base font-medium px-3 py-2 rounded-md transition-colors flex items-center gap-2"
+                                        style={{
+                                            color: "#ff8a7a",
+                                            background: "rgba(255,99,84,0.08)",
+                                            border: "1px solid rgba(255,99,84,0.2)",
+                                        }}
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        <span style={{
+                                            width: 6, height: 6, borderRadius: "50%",
+                                            background: "#ff6354",
+                                            boxShadow: "0 0 6px #ff6354",
+                                            animation: "pulse-dot 1.6s ease-in-out infinite",
+                                            display: "inline-block",
+                                        }} />
+                                        {item.label}
+                                    </Link>
                                 ) : (
                                     <Link
                                         key={item.id}
