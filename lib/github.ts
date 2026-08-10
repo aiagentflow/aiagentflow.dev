@@ -141,7 +141,8 @@ export async function getGitHubStats(): Promise<GitHubStats> {
             hasToken: Boolean(getGitHubToken()),
             error: error instanceof Error ? error.message : String(error),
         });
-        return { ...DEFAULT_GITHUB_STATS };
+        // Return null-like state that the client can detect and fetch live
+        return { ...DEFAULT_GITHUB_STATS, stars: "0" };
     }
 }
 

@@ -34,6 +34,20 @@ export function Header({ version = "v1.0.2", stars = "38" }: { version?: string;
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [productHuntDismissed, setProductHuntDismissed] = useState(false);
+    const [liveStars, setLiveStars] = useState(stars);
+
+    // Live fetch stars on mount (bypass cache)
+    useEffect(() => {
+        fetch("https://api.github.com/repos/aiagentflow/aiagentflow")
+            .then(r => r.json())
+            .then(d => {
+                if (d.stargazers_count) {
+                    const n = d.stargazers_count;
+                    setLiveStars(n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n));
+                }
+            })
+            .catch(() => {});
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -243,7 +257,7 @@ export function Header({ version = "v1.0.2", stars = "38" }: { version?: string;
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
                             <path d="M6 1 L7.4 4.2 L11 4.6 L8.3 7 L9.1 10.6 L6 8.8 L2.9 10.6 L3.7 7 L1 4.6 L4.6 4.2 Z" />
                         </svg>
-                        {stars}
+                        {liveStars}
                     </a>
                     <ThemeToggle />
                     <a
