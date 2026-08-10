@@ -186,25 +186,36 @@ export function AIScribePage() {
           </div>
           <p className="text-[12px]" style={{ color: "#484f58" }}>Node.js ≥ 20 · Works with pi, Claude Code, Cursor, Codex · Open source</p>
           {(stars || downloads || views) && (
-            <div className="flex items-center gap-5 text-[13px]" style={{ color: "#8b949e" }}>
+            <div className="flex items-center gap-1" style={{ color: "#8b949e" }}>
               {stars && (
-                <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="#f0f6fc"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.751.751 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
-                  <span style={{ color: "#f0f6fc" }}>{stars}</span> stars
+                <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[13px] font-medium transition-colors hover:bg-white/5"
+                  title="GitHub stars">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="#d29922"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.751.751 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+                  <span className="text-white font-semibold">{stars}</span>
+                  <span className="text-[#484f58]">stars</span>
                 </a>
               )}
               {downloads && (
-                <span className="flex items-center gap-2">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="#CB3837"><path d="M0 0v16h16V0H0zm13 11h-2V6H9v5H6V6H4v5H2V3h11v8z"/></svg>
-                  <span style={{ color: "#f0f6fc" }}>{downloads}</span> installs/month
+                <span
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[13px] font-medium"
+                  title="Monthly npm installs">
+                  <svg width="16" height="16" viewBox="0 0 576 512" fill="#CB3837"><path d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"/></svg>
+                  <span className="text-white font-semibold">{downloads}</span>
+                  <span className="text-[#484f58]">installs/mo</span>
                 </span>
               )}
               {views && (
-                <span className="flex items-center gap-2">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b949e" strokeWidth="2.5"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                  <span style={{ color: "#f0f6fc" }}>{views.toLocaleString()}</span> views
+                <span
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[13px] font-medium"
+                  title="Page views">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b949e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <span className="text-white font-semibold">{views.toLocaleString()}</span>
+                  <span className="text-[#484f58]">views</span>
                 </span>
               )}
+            </div>
+          )}
             </div>
           )}
           <div className="mt-2">
