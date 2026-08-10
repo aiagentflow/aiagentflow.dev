@@ -186,23 +186,23 @@ export function AIScribePage() {
           </div>
           <p className="text-[12px]" style={{ color: "#484f58" }}>Node.js ≥ 20 · Works with pi, Claude Code, Cursor, Codex · Open source</p>
           {(stars || downloads || views) && (
-            <div className="flex items-center gap-4 text-[12px]" style={{ color: "#8b949e" }}>
+            <div className="flex items-center gap-5 text-[13px]" style={{ color: "#8b949e" }}>
               {stars && (
-                <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener" className="flex items-center gap-1.5 hover:underline">
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="#8b949e"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.751.751 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
-                  {stars}
+                <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="#f0f6fc"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.751.751 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>
+                  <span style={{ color: "#f0f6fc" }}>{stars}</span> stars
                 </a>
               )}
               {downloads && (
-                <span className="flex items-center gap-1.5">
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="#8b949e"><path d="M8 0a2 2 0 00-2 2v4.1c-.6.33-1 .95-1 1.65v3.5c0 1.1.9 2 2 2h6a2 2 0 002-2v-3.5c0-.7-.4-1.32-1-1.65V2a2 2 0 00-2-2H8zM7 2a1 1 0 011-1 1 1 0 011 1v4H7V2z"/></svg>
-                  {downloads}/month
+                <span className="flex items-center gap-2">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="#CB3837"><path d="M0 0v16h16V0H0zm13 11h-2V6H9v5H6V6H4v5H2V3h11v8z"/></svg>
+                  <span style={{ color: "#f0f6fc" }}>{downloads}</span> installs/month
                 </span>
               )}
               {views && (
-                <span className="flex items-center gap-1.5">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b949e" strokeWidth="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                  {views.toLocaleString()} views
+                <span className="flex items-center gap-2">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b949e" strokeWidth="2.5"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                  <span style={{ color: "#f0f6fc" }}>{views.toLocaleString()}</span> views
                 </span>
               )}
             </div>
