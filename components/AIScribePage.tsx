@@ -196,12 +196,12 @@ export function AIScribePage() {
               )}
               {downloads && (
                 <span
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[13px] font-medium"
-                  style={{ animation: "pulse-dl 2s ease-in-out infinite" }}
-                  title="Monthly npm installs">
-                  <svg width="16" height="16" viewBox="0 0 576 512" fill="#CB3837"><path d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"/></svg>
-                  <span className="text-white font-semibold">{downloads}</span>
-                  <span className="text-[#484f58]">installs/wk · live</span>
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-[14px] font-semibold"
+                  style={{ background: "rgba(203,56,55,0.1)", border: "1px solid rgba(203,56,55,0.25)", animation: "pulse-dl 2s ease-in-out infinite" }}
+                  title="Live from npm API">
+                  <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#CB3837", boxShadow: "0 0 8px #CB3837" }} />
+                  <span className="text-white">{downloads}</span>
+                  <span className="text-[#8b949e]">installs/week</span>
                 </span>
               )}
             </div>
