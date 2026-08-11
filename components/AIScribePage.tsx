@@ -272,21 +272,41 @@ export function AIScribePage() {
       <Section bg="navy">
         <Container>
           <h2 className="text-[28px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3 text-center" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Everything you need</h2>
-          <p className="text-[15px] text-center mb-10" style={{ color: "#8b949e" }}>13 commands. Zero configuration required.</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <p className="text-[15px] text-center mb-8" style={{ color: "#8b949e" }}>Core commands. Zero configuration required.</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
             {[
               ["aiscribe log", "Journal git diff + AI context"],
               ["aiscribe search", "Semantic and keyword search"],
+              ["aiscribe export", "JSON, CSV, AI format export"],
+            ].map(([cmd, desc]) => (
+              <div key={cmd} className="rounded-lg p-3 border transition-colors hover:border-[#30363d]" style={{ borderColor: "rgba(255,255,255,0.06)", background: "#0d1117" }}>
+                <code className="text-[12px] font-semibold" style={{ color: "#ff6354", fontFamily: "var(--font-geist-mono)" }}>{cmd}</code>
+                <p className="text-[11px] mt-1" style={{ color: "#484f58" }}>{desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <button
+              onClick={() => { const el = document.getElementById('more-cmds'); const btn = document.getElementById('btn-more'); if (el && btn) { const shown = el.style.display !== 'none'; el.style.display = shown ? 'none' : ''; btn.textContent = shown ? 'View all 13 commands ↓' : 'Show less ↑'; } }}
+              id="btn-more"
+              className="text-[13px] font-medium transition-colors hover:underline"
+              style={{ color: "#8b949e", background: "none", border: "none", cursor: "pointer", fontFamily: "inherit" }}
+            >
+              View all 13 commands ↓
+            </button>
+          </div>
+          <div id="more-cmds" className="grid grid-cols-2 sm:grid-cols-3 gap-3" style={{ display: 'none' }}>
+            {[
               ["aiscribe hotspots", "Files that change most often"],
               ["aiscribe history", "Timeline for any file"],
               ["aiscribe context", "Export history for AI agents"],
               ["aiscribe watch", "Auto-detect session completion"],
               ["aiscribe status", "Active AI coding sessions"],
-              ["aiscribe export", "JSON, CSV, AI format export"],
               ["aiscribe sync", "Push to Docker DB/server"],
               ["aiscribe server", "Web UI on localhost:3848"],
               ["aiscribe doctor", "Validate your setup"],
               ["aiscribe setup", "Docker files or reconfigure"],
+              ["aiscribe remote", "Git backup repo"],
             ].map(([cmd, desc]) => (
               <div key={cmd} className="rounded-lg p-3 border transition-colors hover:border-[#30363d]" style={{ borderColor: "rgba(255,255,255,0.06)", background: "#0d1117" }}>
                 <code className="text-[12px] font-semibold" style={{ color: "#ff6354", fontFamily: "var(--font-geist-mono)" }}>{cmd}</code>
