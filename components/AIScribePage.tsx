@@ -85,7 +85,7 @@ export function AIScribePage() {
         if (count >= 10) setStars(count.toString());
       })
       .catch(() => {});
-    fetch("https://api.npmjs.org/downloads/point/last-month/aiscribe")
+    fetch("https://api.npmjs.org/downloads/point/last-week/aiscribe")
       .then(r => r.json())
       .then(d => {
         const n = d.downloads;
@@ -201,7 +201,7 @@ export function AIScribePage() {
                   title="Monthly npm installs">
                   <svg width="16" height="16" viewBox="0 0 576 512" fill="#CB3837"><path d="M288 288h-32v-64h32v64zm288-128v192H288v32H160v-32H0V160h576zm-416 32H32v128h64v-96h32v96h32V192zm160 0H192v160h64v-32h64V192zm224 0H352v128h64v-96h32v96h32v-96h32v96h32V192z"/></svg>
                   <span className="text-white font-semibold">{downloads}</span>
-                  <span className="text-[#484f58]">installs/mo</span>
+                  <span className="text-[#484f58]">installs/wk</span>
                 </span>
               )}
             </div>
