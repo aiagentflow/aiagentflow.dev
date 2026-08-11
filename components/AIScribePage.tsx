@@ -81,7 +81,10 @@ export function AIScribePage() {
   useEffect(() => {
     fetch("https://api.github.com/repos/aiagentflow/aiscribe")
       .then(r => r.json())
-      .then(d => setStars(d.stargazers_count?.toString() || null))
+      .then(d => {
+        const count = d.stargazers_count || 0;
+        if (count >= 10) setStars(count.toString());
+      })
       .catch(() => {});
     fetch("https://api.npmjs.org/downloads/point/last-month/aiscribe")
       .then(r => r.json())
