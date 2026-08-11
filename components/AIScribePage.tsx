@@ -23,12 +23,12 @@ function DemoCard({ src, title, desc }: { src: string; title: string; desc: stri
     <>
       <div
         onClick={() => setOpen(true)}
-        className="rounded-xl overflow-hidden border cursor-pointer group transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/30"
-        style={{ borderColor: "rgba(255,255,255,0.08)", background: "#0d1117" }}
+        className="rounded-xl overflow-hidden border-2 cursor-pointer group transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/30"
+        style={{ borderColor: "rgba(255,99,84,0.2)", background: "#0d1117" }}
       >
         <div className="relative">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={src} alt={title} className="w-full" />
+          <img src={src} alt={title} className="w-full" loading="eager" />
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: "rgba(0,0,0,0.4)" }}>
             <div className="flex items-center gap-2 px-4 py-2 rounded-lg" style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(4px)" }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
