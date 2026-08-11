@@ -274,7 +274,7 @@ export function AIScribePage() {
           </div>
           <div className="text-center">
             <button
-              onClick={() => { const el = document.getElementById('more-cmds'); const btn = document.getElementById('btn-more'); if (el && btn) { const shown = el.style.display !== 'none'; el.style.display = shown ? 'none' : ''; btn.textContent = shown ? 'View all 13 commands ↓' : 'Show less ↑'; } }}
+              onClick={() => { const el = document.getElementById('more-cmds'); const btn = document.getElementById('btn-more'); if (el && btn) { el.style.display = ''; btn.style.display = 'none'; } }}
               id="btn-more"
               className="text-[13px] font-medium transition-colors hover:underline"
               style={{ color: "#8b949e", background: "none", border: "none", cursor: "pointer", fontFamily: "inherit" }}
