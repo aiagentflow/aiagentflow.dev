@@ -76,7 +76,6 @@ function DemoCard({ src, title, desc }: { src: string; title: string; desc: stri
 export function AIScribePage() {
   const [stars, setStars] = useState<string | null>(null);
   const [downloads, setDownloads] = useState<string | null>(null);
-  const [views, setViews] = useState<number | null>(null);
 
   useEffect(() => {
     fetch("https://api.github.com/repos/aiagentflow/aiscribe")
@@ -94,10 +93,6 @@ export function AIScribePage() {
         else setDownloads(n?.toString() || null);
       })
       .catch(() => {});
-    fetch("/api/aiscribe-views", { method: "POST" })
-      .then(r => r.json())
-      .then(d => setViews(d.count))
-      .catch(() => setViews(42));
   }, []);
 
   const trackInstall = () => {
@@ -188,7 +183,7 @@ export function AIScribePage() {
             </button>
           </div>
           <p className="text-[12px]" style={{ color: "#484f58" }}>No API key required · Works with pi, Claude Code, Cursor, Codex · Open source · MIT</p>
-          {(stars || downloads || views) && (
+          {(stars || downloads) && (
             <div className="flex items-center gap-1" style={{ color: "#8b949e" }}>
               {stars && (
                 <a href="https://github.com/aiagentflow/aiscribe" target="_blank" rel="noopener"
@@ -208,15 +203,8 @@ export function AIScribePage() {
                   <span className="text-[#484f58]">installs/mo</span>
                 </span>
               )}
-              {views && (
-                <span
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[13px] font-medium"
-                  title="Page views">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8b949e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                  <span className="text-white font-semibold">{views.toLocaleString()}</span>
-                  <span className="text-[#484f58]">views</span>
-                </span>
-              )}
+            </div>
+          )}
             </div>
           )}
           <div className="mt-2">
