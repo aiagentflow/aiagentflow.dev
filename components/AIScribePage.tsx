@@ -95,20 +95,6 @@ export function AIScribePage() {
       .catch(() => {});
   }, []);
 
-  const trackInstall = () => {
-    navigator.clipboard.writeText(installCommand);
-    try {
-      const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
-      if (gtag) {
-        gtag("event", "install_copy", {
-          event_category: "conversion",
-          event_label: "npm_install_aiscribe",
-          value: 1,
-        });
-      }
-    } catch {}
-  };
-
   return (
     <main style={{ background: "#0d1117" }}>
       <ParticleBg />
@@ -175,7 +161,7 @@ export function AIScribePage() {
             AiScribe journals every AI coding session. Git diffs. Full conversations. Searchable. Exportable. Zero config. One command. Your sessions become training data for your own LLM.
           </p>
           <div className="flex items-center gap-3 flex-wrap justify-center mt-2">
-            <button onClick={trackInstall}
+            <button onClick={()=>{navigator.clipboard.writeText(installCommand);try{var g=(window as any).gtag;if(g)g("event","install_copy",{event_category:"conversion",event_label:"npm_install_aiscribe",value:1})}catch(e){}}}
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold text-white transition-all duration-200 hover:scale-[1.02] active:scale-95"
               style={{ background: "#d94a3a", boxShadow: "0 0 0 1px rgba(255,255,255,.06) inset, 0 8px 24px rgba(217,74,58,.25)" }}>
               <svg width="16" height="16" viewBox="0 0 14 14" fill="none"><rect x="3" y="3" width="9" height="9" rx="2" stroke="currentColor" strokeWidth="1.3"/><path d="M2 11V2h9" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
@@ -373,7 +359,7 @@ export function AIScribePage() {
         <Container>
           <h2 className="text-[28px] sm:text-[32px] font-bold tracking-[-0.02em]" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Stop losing context.</h2>
           <p className="text-[17px] mt-3 mb-8" style={{ color: "#8b949e" }}>One command. Every session. Forever.</p>
-          <button onClick={trackInstall}
+          <button onClick={()=>{navigator.clipboard.writeText(installCommand);try{var g=(window as any).gtag;if(g)g("event","install_copy",{event_category:"conversion",event_label:"npm_install_aiscribe",value:1})}catch(e){}}}
             className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-semibold text-white transition-all duration-200 hover:scale-[1.02] active:scale-95"
             style={{ background: "#d94a3a", boxShadow: "0 0 0 1px rgba(255,255,255,.06) inset, 0 8px 24px rgba(217,74,58,.25)" }}>
             {installCommand}
