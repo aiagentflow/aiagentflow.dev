@@ -182,7 +182,7 @@ export function AIScribePage() {
               {installCommand}
             </button>
           </div>
-          <p className="text-[12px]" style={{ color: "#484f58" }}>No API key required · Works with pi, Claude Code, Cursor, Codex · Open source · MIT</p>
+          <p className="text-[12px]" style={{ color: "#484f58" }}>No API key required · Works with pi, Claude Code, Codex, Aider · 13 commands · Open source · MIT</p>
           {(stars || downloads) && (
             <div className="flex items-center gap-1" style={{ color: "#8b949e" }}>
               {stars && (
@@ -241,7 +241,7 @@ export function AIScribePage() {
         <Container>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
             {[
-              { icon: "💬", title: "Full Conversation", desc: "Captures every prompt and response from your AI coding sessions. Export them as training data." },
+              { icon: "💬", title: "Know the Why", desc: "Captures every prompt and response, then links each decision back to the exact chat turn that caused it." },
               { icon: "🔍", title: "Search by Meaning", desc: "Vector embeddings let you find sessions by describing what happened, not keywords." },
               { icon: "🔄", title: "Train Your Own Model", desc: "Export sessions in AI format. Fine-tune a local LLM on your coding style and decisions." },
             ].map(({ icon, title, desc }) => (
@@ -339,7 +339,7 @@ export function AIScribePage() {
             <div className="rounded-2xl border p-8" style={{ borderColor: "rgba(255,255,255,0.06)", background: "#161b22" }}>
               <div className="text-2xl mb-3">🤖</div>
               <h3 className="text-[20px] font-bold mb-2" style={{ color: "#f0f6fc" }}>AI-Powered Summary</h3>
-              <p className="text-[14px] mb-4" style={{ color: "#8b949e" }}>Uses your LLM key (DeepSeek, OpenAI, Claude, Ollama) to generate structured summaries with risk scores, key decisions, and suspicious change flags.</p>
+              <p className="text-[14px] mb-4" style={{ color: "#8b949e" }}>Uses OpenRouter, DeepSeek, OpenAI, Claude, or Ollama to generate summaries with risk scores, key decisions, and suspicious change flags. Each chunk cites its source turns and files.</p>
               <code className="text-[13px]" style={{ color: "#ff8a7a", fontFamily: "var(--font-geist-mono)" }}>aiscribe log -c</code>
             </div>
             <div className="rounded-2xl border p-8" style={{ borderColor: "rgba(255,255,255,0.06)", background: "#161b22" }}>
