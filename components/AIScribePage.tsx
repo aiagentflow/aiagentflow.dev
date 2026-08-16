@@ -73,9 +73,37 @@ function DemoCard({ src, title, desc }: { src: string; title: string; desc: stri
   );
 }
 
+const HERO_HEADLINES: [string, string][] = [
+  ["Your AI shipped 50 files yesterday.", "Can you explain any of them today?"],
+  ["AI wrote the code.", "AiScribe remembers why."],
+  ["You pair program with AI all day.", "Your memory doesn't."],
+  ["After 100 AI sessions,", "your repo is a black box."],
+  ["Git log shows what changed.", "AiScribe shows why."],
+  ["You trust AI to write your code.", "Trust AiScribe to remember it."],
+  ["One command per session.", "A lifetime of searchable context."],
+  ["AI pair programming is fast.", "Human memory is not."],
+  ['Your commit message says "fix stuff".', "AiScribe knows what actually happened."],
+];
+
+const HERO_SUBTITLES: string[] = [
+  "AiScribe journals every AI coding session. Git diffs. Full conversations. Searchable. Exportable. Zero config. One command. Your sessions become training data for your own LLM.",
+  "AiScribe captures your git diff and full AI conversation, then links every decision back to the exact chat turn that caused it. Open source. Local first. One command.",
+  "Your AI writes code. AiScribe records why. Structured summaries, semantic search, and auto backup to your private GitHub repo. Zero config, no API key needed.",
+  "Every session becomes a searchable markdown journal. Capture. Structure. Export. Train your own model on your patterns and decisions.",
+  "Works with pi, Claude Code, Codex, and Aider. One command journals it all. No cloud. No telemetry. Your data stays on your machine.",
+  "Full conversation capture. Named decisions with turn ranges. Clickable evidence in the web UI. The why, one click away.",
+];
+
 export function AIScribePage() {
   const [stars, setStars] = useState<string | null>(null);
   const [downloads, setDownloads] = useState<string | null>(null);
+  const [heroIdx, setHeroIdx] = useState(0);
+  const [subIdx, setSubIdx] = useState(0);
+
+  useEffect(() => {
+    setHeroIdx(Math.floor(Math.random() * HERO_HEADLINES.length));
+    setSubIdx(Math.floor(Math.random() * HERO_SUBTITLES.length));
+  }, []);
 
   useEffect(() => {
     fetch("https://api.github.com/repos/aiagentflow/aiscribe")
@@ -166,13 +194,13 @@ export function AIScribePage() {
         <div className="max-w-[720px] mx-auto text-center flex flex-col items-center gap-6 px-4">
           <Image src="/aiscribe/logo.png" alt="AiScribe" width={96} height={96} className="rounded-2xl ring-1 ring-white/10 shadow-2xl shadow-black/50" />
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.06] tracking-[-0.03em]" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>
-            Your AI shipped 50 files yesterday.<br />
+            {HERO_HEADLINES[heroIdx][0]}<br />
             <span style={{ background: "linear-gradient(135deg, #ff6354, #ff8a7a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-              Can you explain any of them today?
+              {HERO_HEADLINES[heroIdx][1]}
             </span>
           </h1>
           <p className="text-[17px] sm:text-[19px] leading-relaxed max-w-[560px]" style={{ color: "#8b949e" }}>
-            AiScribe journals every AI coding session. Git diffs. Full conversations. Searchable. Exportable. Zero config. One command. Your sessions become training data for your own LLM.
+            {HERO_SUBTITLES[subIdx]}
           </p>
           <div className="flex items-center gap-3 flex-wrap justify-center mt-2">
             <button onClick={trackInstall}
