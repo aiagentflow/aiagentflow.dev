@@ -74,14 +74,14 @@ function DemoCard({ src, title, desc }: { src: string; title: string; desc: stri
 }
 
 const HERO_HEADLINES: [string, string][] = [
-  ["Your AI shipped 50 files yesterday.", "Can you explain any of them today?"],
+  ["Your AI shipped 50 files yesterday.", "AiScribe remembers the why."],
   ["AI wrote the code.", "AiScribe remembers why."],
-  ["You pair program with AI all day.", "Your memory doesn't."],
-  ["After 100 AI sessions,", "your repo is a black box."],
+  ["You pair program with AI all day.", "AiScribe remembers for you."],
+  ["After 100 AI sessions,", "AiScribe keeps it searchable."],
   ["Git log shows what changed.", "AiScribe shows why."],
   ["You trust AI to write your code.", "Trust AiScribe to remember it."],
-  ["One command per session.", "A lifetime of searchable context."],
-  ["AI pair programming is fast.", "Human memory is not."],
+  ["One command per session.", "AiScribe journals it all."],
+  ["AI pair programming is fast.", "AiScribe is your memory."],
   ['Your commit message says "fix stuff".', "AiScribe knows what actually happened."],
 ];
 
@@ -89,9 +89,9 @@ const HERO_SUBTITLES: string[] = [
   "AiScribe journals every AI coding session. Git diffs. Full conversations. Searchable. Exportable. Zero config. One command. Your sessions become training data for your own LLM.",
   "AiScribe captures your git diff and full AI conversation, then links every decision back to the exact chat turn that caused it. Open source. Local first. One command.",
   "Your AI writes code. AiScribe records why. Structured summaries, semantic search, and auto backup to your private GitHub repo. Zero config, no API key needed.",
-  "Every session becomes a searchable markdown journal. Capture. Structure. Export. Train your own model on your patterns and decisions.",
-  "Works with pi, Claude Code, Codex, and Aider. One command journals it all. No cloud. No telemetry. Your data stays on your machine.",
-  "Full conversation capture. Named decisions with turn ranges. Clickable evidence in the web UI. The why, one click away.",
+  "AiScribe turns every session into a searchable markdown journal. Capture. Structure. Export. Train your own model on your patterns and decisions.",
+  "AiScribe works with pi, Claude Code, Codex, and Aider. One command journals it all. No cloud. No telemetry. Your data stays on your machine.",
+  "AiScribe captures the full conversation, names each decision with turn ranges, and links evidence in the web UI. The why, one click away.",
 ];
 
 export function AIScribePage() {
