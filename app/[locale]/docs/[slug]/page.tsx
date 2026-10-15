@@ -1,4 +1,4 @@
-import { getAllPosts, getPostBySlug } from "@/lib/content";
+import { getPostBySlug } from "@/lib/content";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -51,10 +51,6 @@ export async function generateMetadata({ params }: DocSlugPageProps): Promise<Me
             description: post.metadata.description,
         },
     };
-}
-
-export function generateStaticParams() {
-    return getAllPosts("docs").map((post) => ({ slug: post.metadata.slug }));
 }
 
 export default function DocSlugPage({ params }: DocSlugPageProps) {
