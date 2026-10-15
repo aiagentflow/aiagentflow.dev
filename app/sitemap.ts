@@ -6,6 +6,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const staticLastModified = '2026-02-28';
     const routes = [
         '',
+        '/aiscribe',
+        '/canaryhook',
         '/docs',
         '/blog',
         '/privacy',
