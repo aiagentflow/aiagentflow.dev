@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ParticleBg } from "./ParticleBg";
 
 const installCommand = "npm install -g canaryhook";
+const YOUTUBE_ID = "JhmpOmZFiFk";
 const AMBER = "#f2c744";
 const AMBER_SOFT = "#ffd966";
 
@@ -273,6 +274,17 @@ export function CanaryhookPage() {
         <Container>
           <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-2 text-center" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>See it in action</h2>
           <p className="text-[14px] text-center mb-8" style={{ color: "#8b949e" }}>Real terminal output, click to expand</p>
+          <div className="rounded-xl overflow-hidden border-2 mb-6 aspect-video" style={{ borderColor: "rgba(242,199,68,0.2)", background: "#0d1117" }}>
+            <iframe
+              className="w-full h-full"
+              src={`https://www.youtube-nocookie.com/embed/${YOUTUBE_ID}?rel=0`}
+              title="canaryhook in 80 seconds"
+              loading="lazy"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <DemoCard src="/canaryhook/demos/demo-init.gif" title="canaryhook init" desc="Plant the decoys, wire the hook" />
             <DemoCard src="/canaryhook/demos/demo-trip.gif" title="the trip" desc="A credential hunt, denied and recorded" />
