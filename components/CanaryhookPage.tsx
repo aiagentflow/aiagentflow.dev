@@ -116,11 +116,47 @@ const DECOYS: [string, string][] = [
 ];
 
 const COMMANDS: [string, string][] = [
-  ["canaryhook init", "Plant the decoys and register the PreToolUse hook"],
-  ["canaryhook status", "Are the decoys planted, is the hook wired"],
+  ["canaryhook init", "Plant the decoys and register the hooks for your agents"],
+  ["canaryhook status", "Are the decoys planted, is every agent wired"],
+  ["canaryhook doctor", "Fire a test payload through each hook and check the deny comes back"],
   ["canaryhook alerts", "List every recorded trip"],
   ["canaryhook verify", "Exit non-zero if anything tripped, for CI"],
-  ["canaryhook clean", "Remove the decoys and unregister the hook"],
+  ["canaryhook clean", "Remove the decoys and unregister every hook"],
+];
+
+const AGENTS: [string, string, string][] = [
+  ["Claude Code", "claude", ".claude/settings.json"],
+  ["Cursor", "cursor", ".cursor/hooks.json"],
+  ["Codex CLI", "codex", ".codex/hooks.json"],
+  ["Antigravity CLI", "antigravity", ".agents/hooks.json"],
+  ["Gemini CLI", "gemini", ".gemini/settings.json"],
+];
+
+const PATHS: { label: string; title: string; body: React.ReactNode; code: string }[] = [
+  {
+    label: "Read path",
+    title: "The call names a decoy",
+    body: <>A <Code>Read</Code> with a <Code>file_path</Code>, a shell <Code>cat</Code>, or a glob that expands to one, like <Code>cat .env*</Code>. Blocked before the tool runs, so the contents are never returned.</>,
+    code: `Read { "file_path": ".env.backup" }\n  → deny`,
+  },
+  {
+    label: "Exfil path",
+    title: "The call carries a canary",
+    body: <>A shell argument, a fetch URL or body, a file write, a commit message. Caught as written, lowercased, base64 or hex encoded, so wrapping the value does not hide it.</>,
+    code: `Bash { "command": "curl -d $(base64 …)" }\n  → deny`,
+  },
+  {
+    label: "Output path",
+    title: "The result holds a canary",
+    body: <>A sweep like <Code>grep -r AKIA .</Code> reads a decoy without naming it. After the call runs, its output is checked; a canary there is recorded and the agent is told the value is fake.</>,
+    code: `grep -r AKIA .\n  → recorded, agent warned`,
+  },
+  {
+    label: "Tamper path",
+    title: "The call would blind it",
+    body: <>Deleting <Code>.canaryhook/</Code>, running <Code>canaryhook clean</Code>, or removing the hook from an agent&apos;s config. An agent that tripped a decoy cannot erase the record and carry on.</>,
+    code: `rm .canaryhook/alerts.jsonl\n  → deny`,
+  },
 ];
 
 const THREATS: [string, string][] = [
@@ -148,12 +184,12 @@ const FAQ: [string, string][] = [
     "Yes, and that is the honest limit. canaryhook is a smoke detector, not a lock. It catches indiscriminate credential hunting, which is what injected instructions and hostile tools actually do.",
   ],
   [
-    "Does it work with tools other than Claude Code?",
-    "The hook speaks the PreToolUse payload format, so anything that can shell out to a pre-tool check and read a deny decision can drive it. init currently wires .claude/settings.json for you.",
+    "Which coding agents does it work with?",
+    "Claude Code, Cursor, Codex CLI, Antigravity CLI and Gemini CLI. init wires Claude Code plus any agent whose config folder the project already has, or exactly the ones you name with --agents. Codex runs project hooks only after you approve them with /hooks.",
   ],
   [
     "Is it safe to run in CI?",
-    "Yes. canaryhook verify exits non-zero when any trip was recorded, and a malformed hook payload always exits 0, so a broken install fails open rather than wedging a session.",
+    "Yes. Run canaryhook init before the step that runs the agent and canaryhook verify after it: verify exits non-zero when any trip was recorded, and fails where canaryhook was never initialized rather than reporting a clean record it cannot have.",
   ],
 ];
 
@@ -246,7 +282,7 @@ export function CanaryhookPage() {
           </p>
           <div className="flex items-center gap-3 flex-wrap justify-center mt-2">{installButton}</div>
           <p className="text-[12px]" style={{ color: "#484f58" }}>
-            No API key · Nothing to train · 5 commands · Fails open · Open source · MIT
+            Claude Code · Cursor · Codex · Antigravity · Gemini CLI · No API key · Open source · MIT
           </p>
           {(stars || downloads) && (
             <div className="flex items-center gap-1" style={{ color: "#8b949e" }}>
@@ -266,6 +302,16 @@ export function CanaryhookPage() {
               )}
             </div>
           )}
+          <div className="mt-2">
+            <a href="https://peerlist.io/raajkhan/project/canaryhook--protect-your-credentials" target="_blank" rel="noreferrer">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://peerlist.io/api/v1/projects/embed/PRJHEOG7GQ9DJMP6B1BGRKLGGMN9DM?showUpvote=true&theme=dark"
+                alt="canaryhook on Peerlist"
+                style={{ height: 48 }}
+              />
+            </a>
+          </div>
         </div>
       </Section>
 
@@ -292,38 +338,51 @@ export function CanaryhookPage() {
         </Container>
       </Section>
 
-      {/* Two detection paths */}
+      {/* Four detection paths */}
       <Section>
         <Container>
-          <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3 text-center" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Two ways to trip it</h2>
+          <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3 text-center" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Four ways to trip it</h2>
           <p className="text-[15px] text-center mb-10 max-w-[620px] mx-auto" style={{ color: "#8b949e" }}>
-            Every tool call passes through the hook before it runs. Two checks, both plain string comparisons over the call&apos;s own input.
+            Every tool call passes through the hook before it runs, and again after. Plain string comparisons over the call&apos;s own input and output.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="rounded-2xl border p-6" style={{ borderColor: "rgba(242,199,68,0.18)", background: "linear-gradient(135deg, rgba(242,199,68,0.05), transparent)" }}>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.08em] mb-3" style={{ color: AMBER }}>Read path</div>
-              <h3 className="text-[18px] font-semibold mb-2" style={{ color: "#f0f6fc" }}>The call names a decoy</h3>
-              <p className="text-[14px] leading-relaxed mb-4" style={{ color: "#8b949e" }}>
-                A <Code>Read</Code> with a <Code>file_path</Code>, a shell <Code>cat</Code>, an editor open, anything that mentions the path. Blocked before the tool runs, so the contents are never returned.
-              </p>
-              <Block>{`Read { "file_path": ".env.backup" }
-  → deny`}</Block>
-            </div>
-            <div className="rounded-2xl border p-6" style={{ borderColor: "rgba(242,199,68,0.18)", background: "linear-gradient(135deg, rgba(242,199,68,0.05), transparent)" }}>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.08em] mb-3" style={{ color: AMBER }}>Exfil path</div>
-              <h3 className="text-[18px] font-semibold mb-2" style={{ color: "#f0f6fc" }}>The call carries a canary</h3>
-              <p className="text-[14px] leading-relaxed mb-4" style={{ color: "#8b949e" }}>
-                A shell argument, a fetch URL or body, a file write, a commit message. You never have to enumerate how a file can be read, only notice the value leaving.
-              </p>
-              <Block>{`Bash { "command": "curl -d key=AKIA…" }
-  → deny`}</Block>
-            </div>
+            {PATHS.map(({ label, title, body, code }) => (
+              <div key={label} className="rounded-2xl border p-6" style={{ borderColor: "rgba(242,199,68,0.18)", background: "linear-gradient(135deg, rgba(242,199,68,0.05), transparent)" }}>
+                <div className="text-[11px] font-semibold uppercase tracking-[0.08em] mb-3" style={{ color: AMBER }}>{label}</div>
+                <h3 className="text-[18px] font-semibold mb-2" style={{ color: "#f0f6fc" }}>{title}</h3>
+                <p className="text-[14px] leading-relaxed mb-4" style={{ color: "#8b949e" }}>{body}</p>
+                <Block>{code}</Block>
+              </div>
+            ))}
           </div>
         </Container>
       </Section>
 
-      {/* Decoys */}
+      {/* Agents */}
       <Section bg="navy">
+        <Container>
+          <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Works with your agent</h2>
+          <p className="text-[15px] mb-8 max-w-[640px]" style={{ color: "#8b949e" }}>
+            <Code>init</Code> wires Claude Code plus any agent the project already uses, merging with the hooks you have. Name them yourself with <Code>--agents</Code>.
+          </p>
+          <div className="rounded-xl border overflow-hidden" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+            {AGENTS.map(([name, flag, file], i) => (
+              <div key={flag} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-6 px-5 py-4" style={{ borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,0.06)", background: i % 2 ? "rgba(255,255,255,0.012)" : "transparent" }}>
+                <span className="text-[14.5px] font-semibold sm:w-[170px] shrink-0" style={{ color: "#f0f6fc" }}>{name}</span>
+                <code className="text-[13px] sm:w-[130px] shrink-0" style={{ color: AMBER, fontFamily: "var(--font-geist-mono)" }}>{flag}</code>
+                <code className="text-[13px]" style={{ color: "#8b949e", fontFamily: "var(--font-geist-mono)" }}>{file}</code>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6"><Block>{`canaryhook init --agents claude,cursor,codex`}</Block></div>
+          <p className="text-[13px] mt-4" style={{ color: "#484f58" }}>
+            Codex runs project hooks only once you approve them with <Code>/hooks</Code>. Antigravity does not hand hooks a tool&apos;s output, so the output path is not available there.
+          </p>
+        </Container>
+      </Section>
+
+      {/* Decoys */}
+      <Section>
         <Container>
           <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>What gets planted</h2>
           <p className="text-[15px] mb-8 max-w-[640px]" style={{ color: "#8b949e" }}>
@@ -344,7 +403,7 @@ export function CanaryhookPage() {
       </Section>
 
       {/* How to use */}
-      <Section>
+      <Section bg="navy">
         <Container>
           <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-10 text-center" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>How to use it</h2>
           <div className="flex flex-col gap-8">
@@ -352,14 +411,14 @@ export function CanaryhookPage() {
               {
                 step: "1",
                 title: "Install and plant",
-                body: <>One command per project. <Code>init</Code> plants the decoys, merges a <Code>PreToolUse</Code> hook into <Code>.claude/settings.json</Code> alongside any hooks you already have, and gitignores the bait.</>,
+                body: <>One command per project. <Code>init</Code> plants the decoys, merges canaryhook&apos;s hooks into each agent&apos;s config alongside any hooks you already have, and gitignores the bait.</>,
                 code: `npm install -g canaryhook\ncd /your/project\ncanaryhook init`,
               },
               {
                 step: "2",
-                title: "Confirm it is armed",
-                body: <>Checks that every decoy is still on disk and the hook is still wired. Useful after a teammate rewrites <Code>settings.json</Code>.</>,
-                code: `canaryhook status`,
+                title: "Prove it is armed",
+                body: <><Code>doctor</Code> runs each registered hook for real with a planted payload and checks the deny comes back, so an install that quietly fails open shows up now, not after an incident.</>,
+                code: `canaryhook doctor`,
               },
               {
                 step: "3",
@@ -370,8 +429,8 @@ export function CanaryhookPage() {
               {
                 step: "4",
                 title: "Gate it in CI",
-                body: <><Code>verify</Code> exits non-zero when any trip was recorded, so an agent-driven pipeline fails loudly instead of quietly shipping.</>,
-                code: `- run: npx canaryhook verify`,
+                body: <>Plant the decoys before the step that runs the agent, check the record after it. <Code>verify</Code> exits non-zero when any trip was recorded, so an agent-driven pipeline fails loudly instead of quietly shipping.</>,
+                code: `- run: npm install -g canaryhook && canaryhook init\n# ... the step that runs the agent ...\n- run: canaryhook verify`,
               },
             ].map(({ step, title, body, code }) => (
               <div key={step} className="flex flex-col sm:flex-row gap-5">
@@ -390,9 +449,9 @@ export function CanaryhookPage() {
       </Section>
 
       {/* Commands */}
-      <Section bg="navy">
+      <Section>
         <Container>
-          <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Five commands</h2>
+          <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Six commands</h2>
           <p className="text-[15px] mb-8" style={{ color: "#8b949e" }}>Every one takes <Code>--json</Code>.</p>
           <div className="rounded-xl border overflow-hidden" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
             {COMMANDS.map(([cmd, desc], i) => (
@@ -403,13 +462,13 @@ export function CanaryhookPage() {
             ))}
           </div>
           <p className="text-[13px] mt-4" style={{ color: "#484f58" }}>
-            Flags: <Code>--commit</Code> and <Code>--force</Code> on init, <Code>--keep-alerts</Code> on clean.
+            Flags: <Code>--agents</Code>, <Code>--commit</Code> and <Code>--force</Code> on init, <Code>--keep-alerts</Code> on clean.
           </p>
         </Container>
       </Section>
 
       {/* Why */}
-      <Section>
+      <Section bg="navy">
         <Container>
           <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>What it is actually for</h2>
           <p className="text-[15px] mb-8 max-w-[640px]" style={{ color: "#8b949e" }}>
@@ -427,13 +486,13 @@ export function CanaryhookPage() {
       </Section>
 
       {/* Limits */}
-      <Section bg="navy">
+      <Section>
         <Container>
           <div className="rounded-2xl border p-7 sm:p-10" style={{ borderColor: "rgba(210,153,34,0.25)", background: "linear-gradient(135deg, rgba(210,153,34,0.07), transparent)" }}>
             <h2 className="text-[24px] sm:text-[28px] font-bold mb-4" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>What it does not do</h2>
             <div className="flex flex-col gap-3 text-[14.5px] leading-relaxed" style={{ color: "#8b949e" }}>
               <p>canaryhook detects, it does not prevent. An attacker that ignores the decoys is not caught, and a targeted one that reads only the real <Code>.env</Code> walks straight past.</p>
-              <p>A broad sweep such as <Code>grep -r AKIA .</Code> reads the decoys without naming them, so the read path misses it. It still trips later on the exfil path, when the canary string shows up in another call.</p>
+              <p>A broad sweep such as <Code>grep -r AKIA .</Code> reads the decoys without naming them, so it cannot be blocked. It is recorded after it runs, on the output path, and the agent is told the value is fake.</p>
               <p>It is a smoke detector, not a lock. The value is that it costs nothing to run, needs no model, and stays quiet enough that you leave it installed.</p>
             </div>
           </div>
@@ -441,7 +500,7 @@ export function CanaryhookPage() {
       </Section>
 
       {/* FAQ */}
-      <Section>
+      <Section bg="navy">
         <Container>
           <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-8 text-center" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Questions</h2>
           <div className="flex flex-col gap-5">
@@ -456,7 +515,7 @@ export function CanaryhookPage() {
       </Section>
 
       {/* CTA */}
-      <Section className="text-center" bg="navy">
+      <Section className="text-center">
         <Container>
           <h2 className="text-[28px] sm:text-[32px] font-bold tracking-[-0.02em]" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Know the moment it happens.</h2>
           <p className="text-[17px] mt-3 mb-8" style={{ color: "#8b949e" }}>One command. Four decoys. No model.</p>
