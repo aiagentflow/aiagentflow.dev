@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '',
         '/aiscribe',
         '/canaryhook',
+        '/llmmemory',
         '/docs',
         '/blog',
         '/privacy',
