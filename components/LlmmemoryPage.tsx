@@ -84,12 +84,12 @@ const MOMENTS: { label: string; title: string; body: React.ReactNode }[] = [
   {
     label: "Every message",
     title: "The memories that match",
-    body: <>Your message is matched against every memory. Up to three that fit are added in full, each only once per session. An unrelated message adds nothing.</>,
+    body: <>In Claude Code, Codex CLI and Gemini CLI, your message is matched against every memory. Up to three that fit are added in full, each only once per session. An unrelated message adds nothing.</>,
   },
   {
     label: "Any time",
     title: "Tools the agent can call",
-    body: <>An MCP server with <Code>remember</Code>, <Code>recall</Code>, <Code>read_memory</Code>, <Code>forget</Code> and <Code>list_memories</Code>. Works with any MCP client, not just Claude Code.</>,
+    body: <>An MCP server with <Code>remember</Code>, <Code>recall</Code>, <Code>read_memory</Code>, <Code>forget</Code> and <Code>list_memories</Code>. Registered for every supported agent, and usable from any MCP client.</>,
   },
 ];
 
@@ -100,8 +100,9 @@ const COMMANDS: [string, string][] = [
   ["llmmemory search <words>", "Find memories by keyword, best match first"],
   ["llmmemory show <name>", "Print one memory in full"],
   ["llmmemory forget <name>", "Delete a memory that turned out wrong"],
-  ["llmmemory status", "Where memories live and what is wired"],
-  ["llmmemory clean", "Unwire the hooks and MCP server; memories are kept"],
+  ["llmmemory doctor", "Run every wired hook and the MCP server to prove they answer"],
+  ["llmmemory status", "Where memories live and what each agent gets"],
+  ["llmmemory clean", "Unwire every agent; memories are kept"],
 ];
 
 const WORTH: [string, string][] = [
@@ -130,7 +131,7 @@ const FAQ: [string, string][] = [
   ],
   [
     "Which agents does it work with?",
-    "Automatic recall uses Claude Code's SessionStart and UserPromptSubmit hooks. The MCP server works with any MCP client, including Cursor, Codex CLI and Gemini CLI, where the agent calls recall itself.",
+    "Claude Code, Codex CLI, Gemini CLI, Cursor and Antigravity CLI. All five get the memory index when a session starts and the MCP tools. Claude Code, Codex and Gemini CLI also get matching memories added to each message; Cursor and Antigravity do not show their hooks the message, so there the agent looks memories up through MCP.",
   ],
   [
     "Can a memory hijack my agent?",
@@ -227,7 +228,7 @@ export function LlmmemoryPage() {
           </p>
           <div className="flex items-center gap-3 flex-wrap justify-center mt-2">{installButton}</div>
           <p className="text-[12px]" style={{ color: "#484f58" }}>
-            Claude Code hooks · MCP server · Markdown files · No API key · Open source · MIT
+            Claude Code · Codex · Gemini CLI · Cursor · Antigravity · No API key · MIT
           </p>
           {(stars || downloads) && (
             <div className="flex items-center gap-1" style={{ color: "#8b949e" }}>
@@ -262,8 +263,31 @@ export function LlmmemoryPage() {
         </Container>
       </Section>
 
-      {/* Three moments */}
+      {/* Demos */}
       <Section>
+        <Container>
+          <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-2 text-center" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>See it in action</h2>
+          <p className="text-[14px] text-center mb-8" style={{ color: "#8b949e" }}>Real terminal recordings</p>
+          <div className="flex flex-col gap-8 max-w-[820px] mx-auto">
+            {[
+              ["/llmmemory/demos/demo-init.gif", "llmmemory init", "Wire your agents, save a few facts"],
+              ["/llmmemory/demos/demo-recall.gif", "the recall", "One Claude Code session saves a fact, the next one uses it"],
+            ].map(([src, title, desc]) => (
+              <figure key={src} className="rounded-xl overflow-hidden border-2" style={{ borderColor: "rgba(167,139,250,0.22)", background: "#0d1117" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={src} alt={`${title}: ${desc}`} className="w-full" loading="lazy" />
+                <figcaption className="px-4 py-3 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                  <code className="text-[14px] font-semibold" style={{ color: VIOLET, fontFamily: "var(--font-geist-mono)" }}>{title}</code>
+                  <p className="text-[12px] mt-0.5" style={{ color: "#8b949e" }}>{desc}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* Three moments */}
+      <Section bg="navy">
         <Container>
           <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3 text-center" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Remembered at the right moment</h2>
           <p className="text-[15px] text-center mb-10 max-w-[620px] mx-auto" style={{ color: "#8b949e" }}>
@@ -282,7 +306,7 @@ export function LlmmemoryPage() {
       </Section>
 
       {/* Files you own */}
-      <Section bg="navy">
+      <Section>
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div>
@@ -309,7 +333,7 @@ and squash-merges the PR.`}</Block>
       </Section>
 
       {/* How to use */}
-      <Section>
+      <Section bg="navy">
         <Container>
           <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-10 text-center" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>How to use it</h2>
           <div className="flex flex-col gap-8">
@@ -317,8 +341,8 @@ and squash-merges the PR.`}</Block>
               {
                 step: "1",
                 title: "Install and wire it up",
-                body: <>One command per project. <Code>init</Code> creates the memory folder, merges two hooks into <Code>.claude/settings.json</Code> alongside the ones you have, and adds the MCP server to <Code>.mcp.json</Code>.</>,
-                code: `npm install -g llmmemory\ncd /your/project\nllmmemory init`,
+                body: <>One command per project. <Code>init</Code> creates the memory folder and wires Claude Code plus every agent the project already uses, merging with the hooks you have. <Code>doctor</Code> then runs each hook for real, so a broken install never looks like an empty memory.</>,
+                code: `npm install -g llmmemory\ncd /your/project\nllmmemory init\nllmmemory doctor`,
               },
               {
                 step: "2",
@@ -355,7 +379,7 @@ and squash-merges the PR.`}</Block>
       </Section>
 
       {/* Worth remembering */}
-      <Section bg="navy">
+      <Section>
         <Container>
           <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>What is worth remembering</h2>
           <p className="text-[15px] mb-8 max-w-[640px]" style={{ color: "#8b949e" }}>
@@ -373,9 +397,9 @@ and squash-merges the PR.`}</Block>
       </Section>
 
       {/* Commands */}
-      <Section>
+      <Section bg="navy">
         <Container>
-          <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Eight commands</h2>
+          <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Nine commands</h2>
           <p className="text-[15px] mb-8" style={{ color: "#8b949e" }}>Every one takes <Code>--json</Code>.</p>
           <div className="rounded-xl border overflow-hidden" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
             {COMMANDS.map(([cmd, desc], i) => (
@@ -389,13 +413,13 @@ and squash-merges the PR.`}</Block>
       </Section>
 
       {/* Limits */}
-      <Section bg="navy">
+      <Section>
         <Container>
           <div className="rounded-2xl border p-7 sm:p-10" style={{ borderColor: "rgba(167,139,250,0.25)", background: "linear-gradient(135deg, rgba(167,139,250,0.07), transparent)" }}>
             <h2 className="text-[24px] sm:text-[28px] font-bold mb-4" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>What it does not do</h2>
             <div className="flex flex-col gap-3 text-[14.5px] leading-relaxed" style={{ color: "#8b949e" }}>
               <p>Recall matches words, not meaning. A message about &quot;shipping&quot; will not find a memory that only says &quot;deploy&quot;. Tags close most of that gap, and the agent can always search.</p>
-              <p>Automatic recall is Claude Code only for now. Other agents reach the same memories through the MCP server, but only when they decide to call it.</p>
+              <p>Cursor and Antigravity CLI do not show their hooks your message, so they get the index at session start and recall the rest through the MCP server, when the agent decides to call it.</p>
               <p>It remembers what gets saved. A memory is only as good as the fact behind it, so the agent is told to check memories against the code before acting on them.</p>
             </div>
           </div>
@@ -403,7 +427,7 @@ and squash-merges the PR.`}</Block>
       </Section>
 
       {/* FAQ */}
-      <Section>
+      <Section bg="navy">
         <Container>
           <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-8 text-center" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Questions</h2>
           <div className="flex flex-col gap-5">
@@ -418,7 +442,7 @@ and squash-merges the PR.`}</Block>
       </Section>
 
       {/* CTA */}
-      <Section className="text-center" bg="navy">
+      <Section className="text-center">
         <Container>
           <h2 className="text-[28px] sm:text-[32px] font-bold tracking-[-0.02em]" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Stop explaining it twice.</h2>
           <p className="text-[17px] mt-3 mb-8" style={{ color: "#8b949e" }}>One command. Plain files. No model.</p>

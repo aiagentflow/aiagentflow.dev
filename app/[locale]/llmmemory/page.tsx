@@ -8,7 +8,7 @@ interface LlmmemoryProps {
 
 const title = "llmmemory: long-term memory for AI coding agents";
 const description =
-    "Open source CLI that gives AI coding agents a memory across sessions. Facts are saved as plain Markdown files and recalled through Claude Code hooks and an MCP server: an index when a session starts, and the memories that match each message. No model, no server, no account. MIT.";
+    "Open source CLI that gives AI coding agents a memory across sessions. Facts are saved as plain Markdown files and recalled through hooks and an MCP server: an index when a session starts, and the memories that match each message. Works with Claude Code, Codex CLI, Gemini CLI, Cursor and Antigravity CLI. No model, no server, no account. MIT.";
 
 export async function generateMetadata({ params }: LlmmemoryProps): Promise<Metadata> {
     const canonical = canonicalPath(params.locale, "/llmmemory");
@@ -83,7 +83,7 @@ const jsonLd = {
                 ["Where does llmmemory store memories?", "As Markdown files in .llmmemory/memories/ for the project and ~/.llmmemory/memories/ for facts that apply to every project."],
                 ["How does the agent get its memories?", "A SessionStart hook hands it an index of every memory, a UserPromptSubmit hook adds the memories that match each message, and an MCP server offers remember, recall and forget tools."],
                 ["Will llmmemory fill my context window?", "No. The index is one capped line per memory, and each message pulls in at most three memories, each only once per session."],
-                ["Which coding agents does llmmemory work with?", "Automatic recall works with Claude Code. The MCP server works with any MCP client, including Cursor, Codex CLI and Gemini CLI."],
+                ["Which coding agents does llmmemory work with?", "Claude Code, Codex CLI, Gemini CLI, Cursor and Antigravity CLI. Claude Code, Codex and Gemini CLI also get matching memories added to each message; Cursor and Antigravity recall through the MCP server."],
             ].map(([q, a]) => ({
                 "@type": "Question",
                 name: q,
