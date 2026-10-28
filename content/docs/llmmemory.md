@@ -9,7 +9,8 @@ keywords: ["llm memory", "ai agent memory", "claude code memory", "mcp memory se
 are saved as plain Markdown files and handed back at the right moment: an index
 when a session starts, and the full memories that match each message you send.
 No model, no server, no account, and nothing leaves your machine unless you
-commit it.
+commit it. It works with Claude Code, Codex CLI, Gemini CLI, Cursor and
+Antigravity CLI, and all of them share the same memory.
 
 <div class="doc-callout doc-callout-tip">
     <strong>Install:</strong> <code>npm install -g llmmemory</code>, then run <code>llmmemory init</code> inside your project.
@@ -31,16 +32,38 @@ cd /your/project
 llmmemory init
 ```
 
-`init` does three things:
+`init` creates `.llmmemory/memories/` for this project's memories and
+`~/.llmmemory/memories/` for memories shared by every project, then wires Claude
+Code plus every agent the project already uses, judged by its config folder.
+Name them yourself with `--agents claude,codex,gemini,cursor,antigravity`, and
+pass `--no-mcp` to skip the MCP server.
 
-- Creates `.llmmemory/memories/` for this project's memories, and
-  `~/.llmmemory/memories/` for memories shared by every project.
-- Registers a `SessionStart` and a `UserPromptSubmit` hook in
-  `.claude/settings.json`, merged with any hooks already there.
-- Adds the llmmemory MCP server to `.mcp.json`. Claude Code asks you to approve
-  it once. Pass `--no-mcp` to skip it.
+```bash
+llmmemory doctor
+```
 
-`llmmemory` must be on your `PATH`, because the hooks call it by name.
+`doctor` runs every wired hook and the MCP server for real. Hooks fail quietly by
+design, so without it a broken install would look exactly like an empty memory.
+`llmmemory` must be installed globally, because the agents call it by name.
+
+## Agents
+
+| Agent | Memory index | Recall per message | MCP server |
+| --- | --- | --- | --- |
+| Claude Code | `SessionStart` | `UserPromptSubmit` | `.mcp.json` |
+| Codex CLI | `SessionStart` | `UserPromptSubmit` | `.codex/config.toml` |
+| Gemini CLI | `SessionStart` | `BeforeAgent` | `.gemini/settings.json` |
+| Cursor | `sessionStart` | through MCP | `.cursor/mcp.json` |
+| Antigravity CLI | `SessionStart` | through MCP | `.agents/mcp_config.json` |
+
+- Codex runs project hooks only once you trust them: run `/hooks` in Codex and
+  approve llmmemory's.
+- Gemini CLI connects project MCP servers only in trusted folders: run
+  `gemini trust` in the project.
+- Claude Code asks you to approve the project's MCP server once.
+- Cursor and Antigravity CLI do not show their per-message hooks the message,
+  so they get the index at session start and are told to look memories up with
+  the MCP `recall` tool.
 
 ## How recall works
 
@@ -85,8 +108,9 @@ llmmemory add "Deploys now run in GitHub Actions." --name deploys-go-through-scr
 | `llmmemory search <words>` | Find memories by keyword, best match first. `--limit n` |
 | `llmmemory show <name>` | Print one memory in full |
 | `llmmemory forget <name>` | Delete a memory |
-| `llmmemory status` | Where memories live and what is wired |
-| `llmmemory clean` | Unwire the hooks and MCP server. Memories are kept |
+| `llmmemory doctor` | Run every wired hook and the MCP server to prove they answer |
+| `llmmemory status` | Where memories live and what each agent gets |
+| `llmmemory clean` | Unwire every agent. Memories are kept |
 
 Every command takes `--json`.
 
@@ -112,12 +136,6 @@ Commit `.llmmemory/` to share project memories with your team, or add it to
 `.gitignore` to keep them to yourself. Set `LLMMEMORY_HOME` to move the global
 store.
 
-## Other agents
-
-The MCP server works with any MCP client, including Cursor, Codex CLI and Gemini
-CLI: register `llmmemory mcp` as a stdio server, run from the project directory.
-Automatic recall through hooks is Claude Code only for now.
-
 ## Security
 
 Recalled memories are wrapped and labelled as notes from earlier sessions, not
@@ -128,8 +146,8 @@ review memory files in pull requests the way you would a `CLAUDE.md` change.
 ## Limits
 
 - Recall matches words, not meaning. Tags close most of that gap.
-- Automatic recall needs Claude Code. Elsewhere the agent has to call the
-  `recall` tool itself.
+- Cursor and Antigravity CLI recall through MCP only, when the agent decides to
+  call the `recall` tool.
 - A memory is only as good as the fact behind it. The agent is told to check
   memories against the code before acting on them.
 
