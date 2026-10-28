@@ -38,6 +38,11 @@ export function GET() {
                 description: "Open source CLI tool to journal AI coding sessions. Export as training data to fine-tune your own LLM.",
             },
             {
+                title: "llmmemory - Long-Term Memory for AI Coding Agents",
+                url: absoluteUrl("/llmmemory"),
+                description: "Open source CLI that saves facts as Markdown and recalls them into Claude Code sessions through hooks and an MCP server.",
+            },
+            {
                 title: "GitHub repository",
                 url: githubUrl,
                 description: "Source code, issues, releases, and contribution workflow.",
