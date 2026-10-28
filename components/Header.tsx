@@ -8,6 +8,12 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+/** Nav items drawn as a tinted pill with a pulsing dot, each in its product's color. */
+const HIGHLIGHTS: Record<string, { fg: string; bg: string; border: string; dot: string }> = {
+    aiscribe: { fg: "#ff8a7a", bg: "rgba(255,99,84,0.08)", border: "rgba(255,99,84,0.2)", dot: "#ff6354" },
+    llmmemory: { fg: "#a78bfa", bg: "rgba(167,139,250,0.1)", border: "rgba(167,139,250,0.28)", dot: "#8b5cf6" },
+};
+
 function BrandGlyph({ size = 26 }: { size?: number }) {
     return (
         <svg width={size} height={size} viewBox="0 0 26 26" fill="none" aria-hidden="true">
@@ -64,12 +70,13 @@ export function Header({ version = "v1.0.2", stars = "38" }: { version?: string;
     }, []);
 
     // Hide main header on product pages that have their own nav
-    if (pathname.startsWith("/aiscribe") || pathname.startsWith("/canaryhook")) return null;
+    if (["/aiscribe", "/canaryhook", "/llmmemory"].some((path) => pathname.startsWith(path))) return null;
 
     const navItems = [
         { id: "docs", label: t("docs"), href: "https://www.npmjs.com/package/@aiagentflow/cli", external: true },
         { id: "aiscribe", label: "AIScribe", href: "/aiscribe" },
         { id: "canaryhook", label: "canaryhook", href: "/canaryhook" },
+        { id: "llmmemory", label: "llmmemory", href: "/llmmemory" },
         { id: "comparisons", label: t("comparisons"), href: "/use-cases/aiagentflow-vs-langchain" },
         { id: "blog", label: t("blog"), href: "/blog" },
         { id: "github", label: t("github"), href: "https://github.com/aiagentflow/aiagentflow", external: true },
@@ -223,21 +230,21 @@ export function Header({ version = "v1.0.2", stars = "38" }: { version?: string;
                                 >
                                     {item.label}
                                 </a>
-                            ) : item.id === "aiscribe" ? (
+                            ) : HIGHLIGHTS[item.id] ? (
                                 <Link
                                     key={item.id}
                                     href={item.href}
                                     className="text-[13px] px-[10px] py-[6px] rounded-md transition-colors duration-150 flex items-center gap-1.5"
                                     style={{
-                                        color: isActive(item.href) ? "var(--ds-fg)" : "#ff8a7a",
-                                        background: isActive(item.href) ? "var(--ds-bg-2)" : "rgba(255,99,84,0.08)",
-                                        border: "1px solid rgba(255,99,84,0.2)",
+                                        color: isActive(item.href) ? "var(--ds-fg)" : HIGHLIGHTS[item.id].fg,
+                                        background: isActive(item.href) ? "var(--ds-bg-2)" : HIGHLIGHTS[item.id].bg,
+                                        border: `1px solid ${HIGHLIGHTS[item.id].border}`,
                                     }}
                                 >
                                     <span style={{
                                         width: 6, height: 6, borderRadius: "50%",
-                                        background: "#ff6354",
-                                        boxShadow: "0 0 6px #ff6354",
+                                        background: HIGHLIGHTS[item.id].dot,
+                                        boxShadow: `0 0 6px ${HIGHLIGHTS[item.id].dot}`,
                                         animation: "pulse-dot 1.6s ease-in-out infinite",
                                         display: "inline-block",
                                     }} />
@@ -321,22 +328,22 @@ export function Header({ version = "v1.0.2", stars = "38" }: { version?: string;
                                     >
                                         {item.label}
                                     </a>
-                                ) : item.id === "aiscribe" ? (
+                                ) : HIGHLIGHTS[item.id] ? (
                                     <Link
                                         key={item.id}
                                         href={item.href}
                                         className="text-base font-medium px-3 py-2 rounded-md transition-colors flex items-center gap-2"
                                         style={{
-                                            color: "#ff8a7a",
-                                            background: "rgba(255,99,84,0.08)",
-                                            border: "1px solid rgba(255,99,84,0.2)",
+                                            color: HIGHLIGHTS[item.id].fg,
+                                            background: HIGHLIGHTS[item.id].bg,
+                                            border: `1px solid ${HIGHLIGHTS[item.id].border}`,
                                         }}
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
                                         <span style={{
                                             width: 6, height: 6, borderRadius: "50%",
-                                            background: "#ff6354",
-                                            boxShadow: "0 0 6px #ff6354",
+                                            background: HIGHLIGHTS[item.id].dot,
+                                            boxShadow: `0 0 6px ${HIGHLIGHTS[item.id].dot}`,
                                             animation: "pulse-dot 1.6s ease-in-out infinite",
                                             display: "inline-block",
                                         }} />
