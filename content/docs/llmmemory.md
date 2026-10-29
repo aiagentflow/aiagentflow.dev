@@ -46,6 +46,22 @@ llmmemory doctor
 design, so without it a broken install would look exactly like an empty memory.
 `llmmemory` must be installed globally, because the agents call it by name.
 
+## Importing what you already have
+
+Facts kept in `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` or Claude Code's own
+auto-memory only reach one agent. `import` copies them into llmmemory so every
+agent shares them:
+
+```bash
+llmmemory import --dry-run   # see what it would save
+llmmemory import             # the project's instruction files and Claude Code memory
+llmmemory import docs/notes.md ~/.claude/CLAUDE.md --global
+```
+
+Instruction files become one memory per `#` or `##` section. Claude Code
+memory files keep their names and summaries. Running it again skips memories
+already saved, and the source files are never changed.
+
 ## Agents
 
 | Agent | Memory index | Recall per message | MCP server |
@@ -96,7 +112,12 @@ to update that memory instead of adding a near-duplicate:
 
 ```bash
 llmmemory add "Deploys now run in GitHub Actions." --name deploys-go-through-scripts-ship-sh
+llmmemory edit deploys-go-through-scripts-ship-sh   # or open it in $VISUAL / $EDITOR
 ```
+
+`edit` moves a memory's updated date only when its text changed. A memory not
+updated in about six months shows that month in the session index and in
+`list`, and the agent is told to confirm it before relying on it.
 
 ## Commands
 
@@ -107,7 +128,9 @@ llmmemory add "Deploys now run in GitHub Actions." --name deploys-go-through-scr
 | `llmmemory list` | Every memory, project then global. `--project` or `--global` to filter |
 | `llmmemory search <words>` | Find memories by keyword, best match first. `--limit n` |
 | `llmmemory show <name>` | Print one memory in full |
+| `llmmemory edit <name>` | Open a memory in `$VISUAL` or `$EDITOR` |
 | `llmmemory forget <name>` | Delete a memory |
+| `llmmemory import [paths]` | Copy `CLAUDE.md`, `AGENTS.md`, `GEMINI.md` and Claude Code memory in. `--dry-run`, `--global` |
 | `llmmemory doctor` | Run every wired hook and the MCP server to prove they answer |
 | `llmmemory status` | Where memories live and what each agent gets |
 | `llmmemory clean` | Unwire every agent. Memories are kept |
