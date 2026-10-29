@@ -99,7 +99,9 @@ const COMMANDS: [string, string][] = [
   ["llmmemory list", "Every memory, project then global"],
   ["llmmemory search <words>", "Find memories by keyword, best match first"],
   ["llmmemory show <name>", "Print one memory in full"],
+  ["llmmemory edit <name>", "Open a memory in your editor"],
   ["llmmemory forget <name>", "Delete a memory that turned out wrong"],
+  ["llmmemory import", "Copy CLAUDE.md, AGENTS.md, GEMINI.md and Claude Code's memory in"],
   ["llmmemory doctor", "Run every wired hook and the MCP server to prove they answer"],
   ["llmmemory status", "Where memories live and what each agent gets"],
   ["llmmemory clean", "Unwire every agent; memories are kept"],
@@ -115,7 +117,7 @@ const WORTH: [string, string][] = [
 const FAQ: [string, string][] = [
   [
     "Doesn't Claude Code already have memory?",
-    "Claude Code reads CLAUDE.md files, which you write and maintain. llmmemory is the part the agent writes: small facts saved as they come up, recalled only when a message needs them, instead of one file loaded in full every time.",
+    "Claude Code reads CLAUDE.md files, which you write and maintain. llmmemory is the part the agent writes: small facts saved as they come up, recalled only when a message needs them, instead of one file loaded in full every time. Already keep facts in CLAUDE.md or Claude Code's own memory? llmmemory import copies them in, so every agent sees them.",
   ],
   [
     "Does it need an AI model or an API key?",
@@ -346,21 +348,27 @@ and squash-merges the PR.`}</Block>
               },
               {
                 step: "2",
+                title: "Bring what you already have",
+                body: <>Facts in <Code>CLAUDE.md</Code>, <Code>AGENTS.md</Code>, <Code>GEMINI.md</Code> or Claude Code&apos;s own memory only reach one agent. <Code>import</Code> copies them in, one memory per section, and never changes the originals. Running it again skips what is already saved.</>,
+                code: `llmmemory import --dry-run\nllmmemory import`,
+              },
+              {
+                step: "3",
                 title: "Let the agent save what it learns",
                 body: <>Every session is told what is worth keeping: preferences, decisions and their reasons, non-obvious facts. And what is not: anything the code or git history already records.</>,
                 code: `llmmemory add "Deploys go through scripts/ship.sh." --tags deploy`,
               },
               {
-                step: "3",
+                step: "4",
                 title: "Teach it about you once",
                 body: <>Global memories apply in every project, so a preference stated once is never asked again.</>,
                 code: `llmmemory add "Prefers short answers without preamble." --global`,
               },
               {
-                step: "4",
+                step: "5",
                 title: "Keep it honest",
-                body: <>Search what it knows, update a memory that changed, forget one that turned out wrong. Updating by name keeps one memory per fact instead of a pile of near-duplicates.</>,
-                code: `llmmemory search deploy\nllmmemory add "Deploys now run in GitHub Actions." --name deploys-go-through-ship-sh\nllmmemory forget sqlite-wal-mode`,
+                body: <>Search what it knows, edit or update a memory that changed, forget one that turned out wrong. Updating by name keeps one memory per fact instead of a pile of near-duplicates. A memory untouched for about six months shows its last update, and the agent is told to confirm it before relying on it.</>,
+                code: `llmmemory search deploy\nllmmemory edit deploys-go-through-ship-sh\nllmmemory add "Deploys now run in GitHub Actions." --name deploys-go-through-ship-sh\nllmmemory forget sqlite-wal-mode`,
               },
             ].map(({ step, title, body, code }) => (
               <div key={step} className="flex flex-col sm:flex-row gap-5">
@@ -399,7 +407,7 @@ and squash-merges the PR.`}</Block>
       {/* Commands */}
       <Section bg="navy">
         <Container>
-          <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Nine commands</h2>
+          <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.02em] mb-3" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>Eleven commands</h2>
           <p className="text-[15px] mb-8" style={{ color: "#8b949e" }}>Every one takes <Code>--json</Code>.</p>
           <div className="rounded-xl border overflow-hidden" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
             {COMMANDS.map(([cmd, desc], i) => (
