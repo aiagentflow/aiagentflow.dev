@@ -121,7 +121,7 @@ const FAQ: [string, string][] = [
   ],
   [
     "Does it need an AI model or an API key?",
-    "No. Recall is keyword search with BM25-style ranking: rare words count for more, and a match in a memory's name or tags outweighs one in its body. Common developer synonyms count as one word, so "shipping" finds a deploy memory. It runs in milliseconds, and nothing leaves your machine.",
+    "No. Recall is keyword search with BM25-style ranking: rare words count for more, and a match in a memory's name or tags outweighs one in its body. Common developer synonyms count as one word, so \"shipping\" finds a deploy memory. It runs in milliseconds, and nothing leaves your machine.",
   ],
   [
     "Where are my memories stored?",
