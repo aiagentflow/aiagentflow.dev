@@ -121,7 +121,7 @@ const FAQ: [string, string][] = [
   ],
   [
     "Does it need an AI model or an API key?",
-    "No. Recall is keyword search with BM25-style ranking: rare words count for more, and a match in a memory's name or tags outweighs one in its body. It runs in milliseconds, and nothing leaves your machine.",
+    "No. Recall is keyword search with BM25-style ranking: rare words count for more, and a match in a memory's name or tags outweighs one in its body. Common developer synonyms count as one word, so \"shipping\" finds a deploy memory. It runs in milliseconds, and nothing leaves your machine.",
   ],
   [
     "Where are my memories stored?",
@@ -367,7 +367,7 @@ and squash-merges the PR.`}</Block>
               {
                 step: "5",
                 title: "Keep it honest",
-                body: <>Search what it knows, edit or update a memory that changed, forget one that turned out wrong. Updating by name keeps one memory per fact instead of a pile of near-duplicates. A memory untouched for about six months shows its last update, and the agent is told to confirm it before relying on it.</>,
+                body: <>Search what it knows, edit or update a memory that changed, forget one that turned out wrong. Updating by name keeps one memory per fact, and a new memory that mostly repeats an old one comes back with a pointer to it, so near-duplicates do not pile up. A memory untouched for about six months shows its last update, and the agent is told to confirm it before relying on it.</>,
                 code: `llmmemory search deploy\nllmmemory edit deploys-go-through-ship-sh\nllmmemory add "Deploys now run in GitHub Actions." --name deploys-go-through-ship-sh\nllmmemory forget sqlite-wal-mode`,
               },
             ].map(({ step, title, body, code }) => (
@@ -426,7 +426,7 @@ and squash-merges the PR.`}</Block>
           <div className="rounded-2xl border p-7 sm:p-10" style={{ borderColor: "rgba(167,139,250,0.25)", background: "linear-gradient(135deg, rgba(167,139,250,0.07), transparent)" }}>
             <h2 className="text-[24px] sm:text-[28px] font-bold mb-4" style={{ fontFamily: "var(--font-geist-sans)", color: "#f0f6fc" }}>What it does not do</h2>
             <div className="flex flex-col gap-3 text-[14.5px] leading-relaxed" style={{ color: "#8b949e" }}>
-              <p>Recall matches words, not meaning. A message about &quot;shipping&quot; will not find a memory that only says &quot;deploy&quot;. Tags close most of that gap, and the agent can always search.</p>
+              <p>Recall matches words, not meaning. Common synonyms such as &quot;ship&quot; and &quot;deploy&quot; are folded together, but a message about &quot;going live&quot; still misses a memory that only says &quot;deploy&quot;. Tags close most of that gap, and the agent can always search.</p>
               <p>Cursor and Antigravity CLI do not show their hooks your message, so they get the index at session start and recall the rest through the MCP server, when the agent decides to call it.</p>
               <p>It remembers what gets saved. A memory is only as good as the fact behind it, so the agent is told to check memories against the code before acting on them.</p>
             </div>

@@ -91,8 +91,10 @@ already saved, and the source files are never changed.
 
 Matching is keyword search with BM25-style ranking. Rare words count for more
 than common ones, and a match in a memory's name or tags outweighs one in its
-body. A single common word deep in a body is not enough to recall a memory, so
-unrelated messages add nothing to the context.
+body. Common developer synonyms count as the same word (deploy and ship, db and
+database, prod and production, and a few more), so "shipping" finds a deploy
+memory. A single common word deep in a body is not enough to recall a memory,
+so unrelated messages add nothing to the context.
 
 ## Saving memories
 
@@ -107,7 +109,9 @@ llmmemory add "Prefers short answers without preamble." --global
 echo "A longer note..." | llmmemory add -
 ```
 
-The name is derived from the first sentence. Pass `--name` with an existing name
+The name is derived from the first sentence. When a new memory mostly repeats
+an existing one, it is still saved, but `add` and the `remember` tool name the
+existing one so it can be updated instead. Pass `--name` with an existing name
 to update that memory instead of adding a near-duplicate:
 
 ```bash
@@ -168,7 +172,8 @@ review memory files in pull requests the way you would a `CLAUDE.md` change.
 
 ## Limits
 
-- Recall matches words, not meaning. Tags close most of that gap.
+- Recall matches words, not meaning, beyond a short list of common synonyms.
+  Tags close most of that gap.
 - Cursor and Antigravity CLI recall through MCP only, when the agent decides to
   call the `recall` tool.
 - A memory is only as good as the fact behind it. The agent is told to check
