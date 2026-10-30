@@ -84,7 +84,7 @@ const MOMENTS: { label: string; title: string; body: React.ReactNode }[] = [
   {
     label: "Every message",
     title: "The memories that match",
-    body: <>In Claude Code, Codex CLI and Gemini CLI, your message is matched against every memory. Up to three that fit are added in full, each only once per session. An unrelated message adds nothing.</>,
+    body: <>In Claude Code, Codex CLI and Gemini CLI, your message is matched against every memory. Up to three that fit are added in full, each only once per session (and again after a compaction, when the context no longer has it). An unrelated message adds nothing.</>,
   },
   {
     label: "Any time",
@@ -129,7 +129,7 @@ const FAQ: [string, string][] = [
   ],
   [
     "Will it fill my context window?",
-    "No. A session starts with one line per memory, capped in size. A message pulls in at most three memories, each only once per session, and a lone common word is not enough to recall anything.",
+    "No. A session starts with one line per memory, newest first and capped in size. A message pulls in at most three memories, each only once per session, and a lone common word is not enough to recall anything.",
   ],
   [
     "Which agents does it work with?",
