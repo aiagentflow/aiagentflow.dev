@@ -86,7 +86,7 @@ already saved, and the source files are never changed.
 | When | What the agent gets |
 | --- | --- |
 | A session starts | An index: each memory's name and one-line summary, plus how to save new ones |
-| You send a message | The full text of up to 3 memories that match it, each recalled once per session |
+| You send a message | The full text of up to 3 memories that match it, each recalled once per session, and again after a compaction |
 | Any time | MCP tools: `remember`, `recall`, `read_memory`, `forget`, `list_memories` |
 
 Matching is keyword search with BM25-style ranking. Rare words count for more
